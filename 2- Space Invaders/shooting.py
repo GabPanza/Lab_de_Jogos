@@ -7,7 +7,7 @@ def recarga(player,listaProjeteis):
     # Crio o projetil
     projetil = Sprite("projetil.png",1)
     projetil.x = player.x + 50
-    projetil.y = player.y - projetil.height - 50
+    projetil.y = player.y - projetil.height
     listaProjeteis.append(projetil)
 
 def tiroPlayer(janela,listaProjeteis,velProjetil):
@@ -38,7 +38,7 @@ def delay(movimentoInimigo,delay):
     if (movimentoInimigo==120 or movimentoInimigo==-120):
         delay = 40
     if (movimentoInimigo==150 or movimentoInimigo==-150):
-        delay = 30
+        delay = 25
     return delay
 def delayInimigo(movimentoInimigo,delayInimigo):
     if (movimentoInimigo==100 or movimentoInimigo==-100):

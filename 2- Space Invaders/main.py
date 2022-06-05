@@ -43,6 +43,7 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
 
     # Crio o vetor de inimigos
     matrizDeInimigos = []
+    spawnNaveMae = 900
     
     # Crio a pontuaçao que os aliens dão
     score = 0
@@ -78,17 +79,28 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
         if vazio:    
             matrizDeInimigos.clear()
             linha+=1
-            enemy.spawn(linha,matrizDeInimigos)
-            if (linha>5 and (movimentoInimigo!=150 or movimentoInimigo!=-150)):
+            if linha==6:
+                naveMae = enemy.spawn(linha,matrizDeInimigos)
+            else:
+                enemy.spawn(linha,matrizDeInimigos)
+            if (score==2880):
                 import ranking
                 ranking.fimDoJogoVitoria(score)
-            if (linha>6):
+            if (score==3360 or score==3460):
                 import ranking
                 ranking.fimDoJogoVitoria(score)
         
         # Faço o movimento dos inimigos
         movimentoInimigo = enemy.moveInimigos(janela, matrizDeInimigos, movimentoInimigo)
         
+        # Faço o movimento da nave mae
+        if linha==6:
+            if spawnNaveMae>0:
+                spawnNaveMae-=1
+            if spawnNaveMae==0:
+                naveMae.x += movimentoInimigo*janela.delta_time()
+                if naveMae.x>janela.width+100:
+                    naveMae.x = -100
         # Chamo a funçao que irá lidar com a criaçao dos tiros
         if (teclado.key_pressed("SPACE") and delay==0):
             shooting.recarga(player,listaProjeteis)
@@ -108,10 +120,10 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
             delayInimigo-=1
         
         # Verifico se alguem tomou hit
-        score = enemy.kill(listaProjeteis,matrizDeInimigos,score)
+        score = enemy.kill(listaProjeteis,matrizDeInimigos,score,linha)
         if (vidas>0):
             for i in matrizDeInimigos:
-                vidas = enemy.hit(vidas, player, i, listaProjeteisInimigos)
+                vidas = enemy.hit(vidas, player, i, listaProjeteisInimigos,score)
         
         # Desenho os objetos
         player.draw()

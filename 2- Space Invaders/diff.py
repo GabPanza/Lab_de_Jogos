@@ -22,15 +22,15 @@ def difficult():
             if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(facil)):
                 import main
                 velInimigo = 1
-                main.game(vidas=5, movimento=200,movimentoInimigo=100*velInimigo,velProjetil=600,velProjetilInimigo=300,delay=0,delayInimigo=100,linha=3)
+                main.game(vidas=5, movimento=200,movimentoInimigo=100*velInimigo,velProjetil=900,velProjetilInimigo=300,delay=0,delayInimigo=100,linha=3)
             elif(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(medio)):
                 import main
                 velInimigo = 1.2
-                main.game(vidas=5, movimento=200,movimentoInimigo=100*velInimigo,velProjetil=600,velProjetilInimigo=300,delay=0,delayInimigo=125,linha=3)
+                main.game(vidas=5, movimento=200,movimentoInimigo=100*velInimigo,velProjetil=900,velProjetilInimigo=300,delay=0,delayInimigo=125,linha=3)
             elif(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(dificil)):
                 import main
                 velInimigo = 1.5
-                main.game(vidas=5, movimento=200,movimentoInimigo=100*velInimigo,velProjetil=600,velProjetilInimigo=300,delay=0,delayInimigo=150,linha=4)
+                main.game(vidas=5, movimento=200,movimentoInimigo=100*velInimigo,velProjetil=900,velProjetilInimigo=300,delay=0,delayInimigo=150,linha=4)
             
             facil.set_position(492, 400)
             medio.set_position(490, 460)

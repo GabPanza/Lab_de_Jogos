@@ -73,7 +73,7 @@ def fimDoJogoDerrota(score):
             import menu
             menu.MainMenu()
             
-        janela.draw_text(("Você foi derrotado pela invasão! Boa sorte na proxima vez, recruta!"), (janela.width/2) - 450, janela.height/2 - 200, size=24, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(("Você foi derrotado pela invasão! Boa sorte na proxima vez, recruta!"), (janela.width/2) - 400, janela.height/2 - 200, size=24, font_name="Arial", bold=True,color=[255, 255, 255])
         janela.draw_text(("Aperte 'ESC' para voltar ao menu"), (janela.width/2) - 250, (janela.height/2) - 100, size=24, font_name="Arial", bold=True,color=[255, 255, 255])
         
         # Instancio o titulo da janela  
