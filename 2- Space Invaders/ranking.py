@@ -119,4 +119,3 @@ def fimDoJogoDerrota(score):
         
         # Atualizo o GameLoop
         janela.update()
-fimDoJogoVitoria(score=0)
