@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from PPlay.window import *
 from PPlay.mouse import *
 from PPlay.gameimage import *
@@ -15,7 +16,10 @@ def rank():
 
     # Abro o arquivo (leitura)
     arquivo = open('Pontuacao.txt', 'r')
-
+    conteudo = arquivo.readline()
+    
+    cont=0
+    altura=100
     while (True):
         # Desenho o fundo
         espaco.draw()
@@ -47,16 +51,17 @@ def fimDoJogoVitoria(score):
     mixer.music.play(-1)
     
     # Abro o arquivo (leitura)
-    #arquivo = open('Pontuacao.txt', 'r')
-    #conteudo = arquivo.readlines()
+    arquivo = open('Pontuacao.txt', 'r')
+    conteudo = arquivo.readlines()
 
     # Insiro o conteúdo
-    #conteudo.append(score)
-
+    conteudo.append(str(score)+"\n")
+    arquivo.close()
+    
     # Abre novamente o arquivo (escrita)
-    #arquivo = open('Pontuacao.txt', 'w')
-    #arquivo.writelines(conteudo)
-    #arquivo.close()
+    arquivo = open('Pontuacao.txt', 'w')
+    arquivo.writelines(conteudo)
+    arquivo.close()
     
     while (True):
         # Desenho o fundo
@@ -90,16 +95,17 @@ def fimDoJogoDerrota(score):
     mixer.music.play(-1)
     
     # Abro o arquivo (leitura)
-    #arquivo = open('Pontuacao.txt', 'r')
-    #conteudo = arquivo.readlines()
+    arquivo = open('Pontuacao.txt', 'r')
+    conteudo = arquivo.readlines()
 
     # Insiro o conteúdo
-    #conteudo.append(score)
-
+    conteudo.append(str(score)+"\n")
+    arquivo.close()
+    
     # Abre novamente o arquivo (escrita)
-    #arquivo = open('Pontuacao.txt', 'w')
-    #arquivo.writelines(conteudo)
-    #arquivo.close()
+    arquivo = open('Pontuacao.txt', 'w')
+    arquivo.writelines(conteudo)
+    arquivo.close()
     
     while (True):
         # Desenho o fundo
