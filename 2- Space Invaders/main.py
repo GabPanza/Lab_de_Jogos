@@ -9,6 +9,7 @@ import Player
 import enemy
 import shooting
 import pygame
+from pygame import mixer
 
 ################################################################################################################################
 ################################################ Inicializações / Start() ######################################################
@@ -29,9 +30,9 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
     player.y = janela.height - player.height - 20
     
     # Instancio o som do jogo
-    #musica = Sound("EpicSaxGuy.ogg")
-    #musica.set_volume(40)
-    #musica.set_repeat(True)
+    mixer.music.load("Megalovania.wav")
+    mixer.music.set_volume(0.3)
+    mixer.music.play(-1)
     
     # Defino o frame per second
     FPS = 60
@@ -60,6 +61,7 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
     
         # Volto pro menu do jogo
         if (teclado.key_pressed("ESC")):
+            mixer.music.stop()
             menu.MainMenu()
             
         # Faço a movimentação do personagem
@@ -84,9 +86,11 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
             else:
                 enemy.spawn(linha,matrizDeInimigos)
             if (score==2880):
+                mixer.music.stop()
                 import ranking
                 ranking.fimDoJogoVitoria(score)
             if (score==3360 or score==3460):
+                mixer.music.stop()
                 import ranking
                 ranking.fimDoJogoVitoria(score)
         
@@ -140,6 +144,7 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
         
         # Perco o jogo
         if (vidas <= 0):
+            mixer.music.stop()
             import ranking
             ranking.fimDoJogoDerrota(score) 
             

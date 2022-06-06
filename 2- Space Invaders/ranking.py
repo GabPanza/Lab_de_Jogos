@@ -2,6 +2,9 @@ from PPlay.window import *
 from PPlay.mouse import *
 from PPlay.gameimage import *
 from PPlay.sprite import *
+from PPlay.sound import*
+import pygame
+from pygame import mixer
 
 def rank():
     janela = Window(1280,720)
@@ -9,6 +12,9 @@ def rank():
     teclado = janela.get_keyboard()
 
     espaco = GameImage("espaço.jpg")
+
+    # Abro o arquivo (leitura)
+    arquivo = open('Pontuacao.txt', 'r')
 
     while (True):
         # Desenho o fundo
@@ -19,7 +25,7 @@ def rank():
             import menu
             menu.MainMenu()
         
-        # Desenho as instruçoes da janela
+        # Desenho os textos na janela
         janela.draw_text(("RANKING"), (janela.width / 2)-150, 50, size=48, font_name="Arial", bold=True,color=[255, 255, 255])
         
         # Defino o titulo do jogo
@@ -35,7 +41,22 @@ def fimDoJogoVitoria(score):
 
     espaco = GameImage("espaço.jpg")
     
+    # Instancio o som da Vitoria
+    mixer.music.load("EpicSaxGuy.wav")
+    mixer.music.set_volume(0.3)
+    mixer.music.play(-1)
     
+    # Abro o arquivo (leitura)
+    #arquivo = open('Pontuacao.txt', 'r')
+    #conteudo = arquivo.readlines()
+
+    # Insiro o conteúdo
+    #conteudo.append(score)
+
+    # Abre novamente o arquivo (escrita)
+    #arquivo = open('Pontuacao.txt', 'w')
+    #arquivo.writelines(conteudo)
+    #arquivo.close()
     
     while (True):
         # Desenho o fundo
@@ -43,6 +64,7 @@ def fimDoJogoVitoria(score):
         
         # Volto pro menu
         if(teclado.key_pressed("ESC")):
+            mixer.music.stop()
             import menu
             menu.MainMenu()
             
@@ -62,7 +84,22 @@ def fimDoJogoDerrota(score):
     
     espaco = GameImage("espaço.jpg")
     
+    # Instancio o som da Vitoria
+    mixer.music.load("NarutoSadThemeFlute.wav")
+    mixer.music.set_volume(0.3)
+    mixer.music.play(-1)
     
+    # Abro o arquivo (leitura)
+    #arquivo = open('Pontuacao.txt', 'r')
+    #conteudo = arquivo.readlines()
+
+    # Insiro o conteúdo
+    #conteudo.append(score)
+
+    # Abre novamente o arquivo (escrita)
+    #arquivo = open('Pontuacao.txt', 'w')
+    #arquivo.writelines(conteudo)
+    #arquivo.close()
     
     while (True):
         # Desenho o fundo
@@ -70,6 +107,7 @@ def fimDoJogoDerrota(score):
 
         # Volto pro menu
         if(teclado.key_pressed("ESC")):
+            mixer.music.stop()
             import menu
             menu.MainMenu()
             
@@ -81,3 +119,4 @@ def fimDoJogoDerrota(score):
         
         # Atualizo o GameLoop
         janela.update()
+fimDoJogoVitoria(score=0)
