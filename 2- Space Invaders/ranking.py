@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from PPlay.window import *
 from PPlay.mouse import *
 from PPlay.gameimage import *
@@ -16,10 +15,11 @@ def rank():
 
     # Abro o arquivo (leitura)
     arquivo = open('Pontuacao.txt', 'r')
-    conteudo = arquivo.readline()
-    
-    cont=0
-    altura=100
+    altura = 100
+    for conteudo in arquivo:
+            janela.draw_text(conteudo, (janela.width/2), altura, size=48, font_name="Arial", bold=True,color=[255, 255, 255])
+            altura+=50
+
     while (True):
         # Desenho o fundo
         espaco.draw()
@@ -38,7 +38,7 @@ def rank():
         # Atualizo o GameLoop
         janela.update()
 
-def fimDoJogoVitoria(score):
+def fimDoJogoVitoria(score,movimentoInimigo):
     janela = Window(1280,720)
     
     teclado = janela.get_keyboard()
@@ -47,7 +47,7 @@ def fimDoJogoVitoria(score):
     
     # Instancio o som da Vitoria
     mixer.music.load("EpicSaxGuy.wav")
-    mixer.music.set_volume(0.3)
+    mixer.music.set_volume(0.5)
     mixer.music.play(-1)
     
     # Abro o arquivo (leitura)
@@ -55,7 +55,13 @@ def fimDoJogoVitoria(score):
     conteudo = arquivo.readlines()
 
     # Insiro o conteúdo
-    conteudo.append(str(score)+"\n")
+    if (movimentoInimigo == 100 or movimentoInimigo == -100):
+        conteudo.append("FACIL: ")
+    if (movimentoInimigo == 120 or movimentoInimigo == -120):
+        conteudo.append("MEDIO: ")
+    if (movimentoInimigo == 150 or movimentoInimigo == -150):
+        conteudo.append("DIFICIL: ")
+    conteudo.append(str(score) + "\n")
     arquivo.close()
     
     # Abre novamente o arquivo (escrita)
@@ -82,16 +88,16 @@ def fimDoJogoVitoria(score):
         # Atualizo o GameLoop
         janela.update()
 
-def fimDoJogoDerrota(score):
+def fimDoJogoDerrota(score,movimentoInimigo):
     janela = Window(1280,720)
     
     teclado = janela.get_keyboard()
     
     espaco = GameImage("espaço.jpg")
     
-    # Instancio o som da Vitoria
+    # Instancio o som da Derrota
     mixer.music.load("NarutoSadThemeFlute.wav")
-    mixer.music.set_volume(0.3)
+    mixer.music.set_volume(0.5)
     mixer.music.play(-1)
     
     # Abro o arquivo (leitura)
@@ -99,7 +105,13 @@ def fimDoJogoDerrota(score):
     conteudo = arquivo.readlines()
 
     # Insiro o conteúdo
-    conteudo.append(str(score)+"\n")
+    if (movimentoInimigo == 100 or movimentoInimigo == -100):
+        conteudo.append("FACIL: ")
+    if (movimentoInimigo == 120 or movimentoInimigo == -120):
+        conteudo.append("MEDIO: ")
+    if (movimentoInimigo == 150 or movimentoInimigo == -150):
+        conteudo.append("DIFICIL: ")
+    conteudo.append(str(score) + "\n")
     arquivo.close()
     
     # Abre novamente o arquivo (escrita)

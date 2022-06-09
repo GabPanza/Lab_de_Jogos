@@ -44,4 +44,3 @@ def difficult():
             janela.set_title("Space Invaders")
 
             janela.update()
-difficult()

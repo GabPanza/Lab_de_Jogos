@@ -31,7 +31,7 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
     
     # Instancio o som do jogo
     mixer.music.load("Megalovania.wav")
-    mixer.music.set_volume(0.3)
+    mixer.music.set_volume(0.25)
     mixer.music.play(-1)
     
     # Defino o frame per second
@@ -44,7 +44,7 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
 
     # Crio o vetor de inimigos
     matrizDeInimigos = []
-    spawnNaveMae = 900
+    spawnNaveMae = 600
     
     # Crio a pontuaçao que os aliens dão
     score = 0
@@ -88,11 +88,11 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
             if (score==2880):
                 mixer.music.stop()
                 import ranking
-                ranking.fimDoJogoVitoria(score)
+                ranking.fimDoJogoVitoria(score,movimentoInimigo)
             if (score==3360 or score==3460):
                 mixer.music.stop()
                 import ranking
-                ranking.fimDoJogoVitoria(score)
+                ranking.fimDoJogoVitoria(score,movimentoInimigo)
         
         # Faço o movimento dos inimigos
         movimentoInimigo = enemy.moveInimigos(janela, matrizDeInimigos, movimentoInimigo)
@@ -101,10 +101,9 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
         if linha==6:
             if spawnNaveMae>0:
                 spawnNaveMae-=1
-            if spawnNaveMae==0:
-                naveMae.x += movimentoInimigo*janela.delta_time()
-                if naveMae.x>janela.width+100:
-                    naveMae.x = -100
+            else:
+                naveMae.x += (movimentoInimigo/2)*janela.delta_time()
+
         # Chamo a funçao que irá lidar com a criaçao dos tiros
         if (teclado.key_pressed("SPACE") and delay==0):
             shooting.recarga(player,listaProjeteis)
@@ -146,7 +145,7 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
         if (vidas <= 0):
             mixer.music.stop()
             import ranking
-            ranking.fimDoJogoDerrota(score) 
+            ranking.fimDoJogoDerrota(score,movimentoInimigo) 
             
         # Desenho o fps
         janela.draw_text(str(clock), janela.width-200, 0, size=20, font_name="Arial", bold=True,color=[255, 255, 255])

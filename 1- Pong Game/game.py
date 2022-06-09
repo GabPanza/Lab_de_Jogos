@@ -89,17 +89,19 @@ while(True):
         padE.y += vPadE * deltaTime
 
     # Colisão da bola com a janela
-    if (bola.y < 0) or (bola.y + bola.height > janela.height):
+    if (bola.y < -5) or (bola.y + bola.height > janela.height+5):
         vBola_y *= -1
         
-    if (bola.x < 0):
-        bola.set_position((padD.x - 100), (padD.y))
+    if (bola.x < +5):
+        bola.x = padD.x - 65
+        bola.y = padD.y
         vBola_x = 0
         vBola_y = 0
         pontEsquerdo+=1
 
-    if (bola.x + bola.width > janela.width):
-        bola.set_position((padE.x + 75), (padE.y))
+    if (bola.x + bola.width > janela.width-5):
+        bola.x = padE.x + 65
+        bola.y = padE.y
         vBola_x = 0
         vBola_y = 0
         pontDireito+=1
@@ -129,5 +131,9 @@ while(True):
     janela.draw_text(str(pontDireito), (janela.width / 2) - 75, 60, size=48, font_name="Arial", bold=True,color=[0, 0, 0])
     janela.draw_text(str(pontEsquerdo), (janela.width / 2) + 60, 60, size=48, font_name="Arial", bold=True,color=[0, 0, 0])
     
+    # Fps
+    janela.draw_text(("FPS: "), 0, 0, size=24, font_name="Arial", bold=True,color=[0, 0, 0])
+    janela.draw_text(str(deltaTime), 65, 0, size=24, font_name="Arial", bold=True,color=[0, 0, 0])
+
     #Finaliza o Gameloop
     janela.update()

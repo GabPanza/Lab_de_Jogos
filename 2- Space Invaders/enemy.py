@@ -76,7 +76,7 @@ def spawn(linha,matrizDeInimigos):
                 else:
                     inimigoBonus = Sprite("inimigoBonus.png",1)
                     inimigoBonus.x = -100
-                    inimigoBonus.y = 0
+                    inimigoBonus.y = 50
                     break
         matrizDeInimigos.append(linhas)
     if linha==6:
