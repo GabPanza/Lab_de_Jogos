@@ -11,14 +11,14 @@ def menu():
     mouseClick = janela.get_mouse()
     
     # Instancio as imagens dos botões
-    playButton=Sprite("Play.png")
-    diffButton=Sprite("Dificuldade.png")
-    leaveButton=Sprite("Sair.png")
+    playButton=Sprite("Play.png",1)
+    diffButton=Sprite("Dificuldade.png",1)
+    leaveButton=Sprite("Sair.png",1)
 
     while (True):
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(playButton)):
-            from main import game
-            game(vidas=5,vidasInimigo=3,movimento=200,movimentoInimigo=100,velProjetil=900,velProjetilInimigo=300,delay=0,delayInimigo=100)
+            from instrucao import instrucao
+            instrucao()
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(diffButton)):
             from diff import diff
             diff()

@@ -31,7 +31,7 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
     
     # Instancio o som do jogo
     mixer.music.load("Megalovania.wav")
-    mixer.music.set_volume(0.25)
+    mixer.music.set_volume(0.2)
     mixer.music.play(-1)
     
     # Defino o frame per second
@@ -88,11 +88,11 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
             if (score==2880):
                 mixer.music.stop()
                 import ranking
-                ranking.fimDoJogoVitoria(score,movimentoInimigo)
+                ranking.fimDoJogoVitoria(score)
             if (score==3360 or score==3460):
                 mixer.music.stop()
                 import ranking
-                ranking.fimDoJogoVitoria(score,movimentoInimigo)
+                ranking.fimDoJogoVitoria(score)
         
         # Faço o movimento dos inimigos
         movimentoInimigo = enemy.moveInimigos(janela, matrizDeInimigos, movimentoInimigo)
@@ -106,12 +106,12 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
 
         # Chamo a funçao que irá lidar com a criaçao dos tiros
         if (teclado.key_pressed("SPACE") and delay==0):
-            shooting.recarga(player,listaProjeteis)
+            shooting.criaProjNave(player,listaProjeteis)
             delay = shooting.delay(movimentoInimigo,delay)
         if (delayInimigo==0):
             for i in matrizDeInimigos:
                 for j in i:
-                    shooting.recargaInimiga(j,listaProjeteisInimigos)
+                    shooting.criaProjInimigo(j,listaProjeteisInimigos)
             delayInimigo = shooting.delayInimigo(movimentoInimigo,delayInimigo)
             
         # Faço o movimento dos tiros
@@ -130,8 +130,7 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
         
         # Desenho os objetos
         player.draw()
-        for i in matrizDeInimigos:
-            enemy.draw(i)
+        enemy.draw(matrizDeInimigos)
         
         # Desenho a dificuldade do jogo
         if (movimentoInimigo==100 or movimentoInimigo==-100):
@@ -145,7 +144,7 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
         if (vidas <= 0):
             mixer.music.stop()
             import ranking
-            ranking.fimDoJogoDerrota(score,movimentoInimigo) 
+            ranking.fimDoJogoDerrota(score) 
             
         # Desenho o fps
         janela.draw_text(str(clock), janela.width-200, 0, size=20, font_name="Arial", bold=True,color=[255, 255, 255])

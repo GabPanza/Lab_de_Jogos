@@ -13,24 +13,31 @@ def rank():
 
     espaco = GameImage("espaço.jpg")
 
-    # Abro o arquivo (leitura)
-    arquivo = open('Pontuacao.txt', 'r')
-    altura = 100
-    for conteudo in arquivo:
-            janela.draw_text(conteudo, (janela.width/2), altura, size=48, font_name="Arial", bold=True,color=[255, 255, 255])
-            altura+=50
-
-    while (True):
-        # Desenho o fundo
-        espaco.draw()
+    # Organizo o arquivo txt em ordem decrescente
+    pontuacao = sorting('Pontuacao.txt')
+    pontuacao.reverse()
+    altura = 150
+    
+    # Desenho o fundo
+    espaco.draw()
+    
+    # Desenho a pontuacao
+    for i,conteudo in enumerate(pontuacao):
+        janela.draw_text(str(i+1), (janela.width/2)-130, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(("."), (janela.width/2)-110, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(conteudo, (janela.width/2)-90, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
+        altura+=45
+        if i>10:
+            break
         
+    while (True):
         # Volto pro menu
         if(teclado.key_pressed("ESC")):
             import menu
             menu.MainMenu()
         
-        # Desenho os textos na janela
-        janela.draw_text(("RANKING"), (janela.width / 2)-150, 50, size=48, font_name="Arial", bold=True,color=[255, 255, 255])
+        # Desenho o texto titulo na janela
+        janela.draw_text(("RANKING"), (janela.width / 2)-130, 50, size=48, font_name="Arial", bold=True,color=[255, 255, 255])
         
         # Defino o titulo do jogo
         janela.set_title("Space Invaders")
@@ -38,7 +45,7 @@ def rank():
         # Atualizo o GameLoop
         janela.update()
 
-def fimDoJogoVitoria(score,movimentoInimigo):
+def fimDoJogoVitoria(score):
     janela = Window(1280,720)
     
     teclado = janela.get_keyboard()
@@ -55,12 +62,6 @@ def fimDoJogoVitoria(score,movimentoInimigo):
     conteudo = arquivo.readlines()
 
     # Insiro o conteúdo
-    if (movimentoInimigo == 100 or movimentoInimigo == -100):
-        conteudo.append("FACIL: ")
-    if (movimentoInimigo == 120 or movimentoInimigo == -120):
-        conteudo.append("MEDIO: ")
-    if (movimentoInimigo == 150 or movimentoInimigo == -150):
-        conteudo.append("DIFICIL: ")
     conteudo.append(str(score) + "\n")
     arquivo.close()
     
@@ -88,7 +89,7 @@ def fimDoJogoVitoria(score,movimentoInimigo):
         # Atualizo o GameLoop
         janela.update()
 
-def fimDoJogoDerrota(score,movimentoInimigo):
+def fimDoJogoDerrota(score):
     janela = Window(1280,720)
     
     teclado = janela.get_keyboard()
@@ -105,12 +106,6 @@ def fimDoJogoDerrota(score,movimentoInimigo):
     conteudo = arquivo.readlines()
 
     # Insiro o conteúdo
-    if (movimentoInimigo == 100 or movimentoInimigo == -100):
-        conteudo.append("FACIL: ")
-    if (movimentoInimigo == 120 or movimentoInimigo == -120):
-        conteudo.append("MEDIO: ")
-    if (movimentoInimigo == 150 or movimentoInimigo == -150):
-        conteudo.append("DIFICIL: ")
     conteudo.append(str(score) + "\n")
     arquivo.close()
     
@@ -137,3 +132,14 @@ def fimDoJogoDerrota(score,movimentoInimigo):
         
         # Atualizo o GameLoop
         janela.update()
+        
+def sorting(fileName):
+    file = open(fileName)
+    pontuacao = []
+    for linha in file:
+        temp = linha.split()
+        for i in temp:
+            pontuacao.append(i)
+    file.close()
+    pontuacao.sort()
+    return pontuacao

@@ -3,7 +3,7 @@ from PPlay.collision import*
 import pygame
 import random
 
-def recarga(player,listaProjeteis):
+def criaProjNave(player,listaProjeteis):
     # Crio o projetil
     projetil = Sprite("projetil.png",1)
     projetil.x = player.x + 50
@@ -17,12 +17,12 @@ def tiroPlayer(janela,listaProjeteis,velProjetil):
         if (i.y<-50):
             listaProjeteis.remove(i)
 
-def recargaInimiga(inimigo,listaProjeteisInimigos):
+def criaProjInimigo(inimigo,listaProjeteisInimigos):
     # Crio o projetil
     projetilInimigo = Sprite("projetil2.png",1)
     projetilInimigo.x = inimigo.x + 50
     projetilInimigo.y = inimigo.y + projetilInimigo.height + 50
-    if (random.random() <= 0.1):
+    if (random.random() < 0.1):
         listaProjeteisInimigos.append(projetilInimigo)
 
 def tiroInimigo(janela,listaProjeteisInimigos,velProjetilInimigo):
@@ -34,11 +34,11 @@ def tiroInimigo(janela,listaProjeteisInimigos,velProjetilInimigo):
 
 def delay(movimentoInimigo,delay):
     if (movimentoInimigo==100 or movimentoInimigo==-100):
-        delay = 50
+        delay = 55
     if (movimentoInimigo==120 or movimentoInimigo==-120):
-        delay = 40
+        delay = 45
     if (movimentoInimigo==150 or movimentoInimigo==-150):
-        delay = 25
+        delay = 35
     return delay
 def delayInimigo(movimentoInimigo,delayInimigo):
     if (movimentoInimigo==100 or movimentoInimigo==-100):

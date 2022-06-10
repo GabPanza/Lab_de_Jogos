@@ -6,29 +6,24 @@ from PPlay.gameobject import*
 from PPlay.collision import*
 from PPlay.keyboard import*
 
-def criaPlayer(janela,player,checkTiro):
-    if checkTiro==0:
-        playerD = Sprite("Emih.png", 1)
-        playerD.x = player.x
-        playerD.y = player.y
-        return playerD
-    elif checkTiro==1:
-        playerE = Sprite("Emih_invertido.png", 1)
-        playerE.x = player.x
-        playerE.y = player.y
-        return playerE
-def movePlayer(janela,teclado,player,movimento,chao,checkTiro):
+def SetPlayer(PlayerState,playerAtual):
+    player = PlayerState
+    player.x = playerAtual.x
+    player.y = playerAtual.y
+    return player
+
+def movePlayer(janela,teclado,player,movimento,chao,checkPos):
     if ((teclado.key_pressed("A") or teclado.key_pressed("LEFT")) and player.x>0):
         player.x -= movimento * janela.delta_time()
-        checkTiro=1
-    if ((teclado.key_pressed("D") or teclado.key_pressed("RIGHT")) and player.x<janela.width-player.width):
+        checkPos=1
+    elif ((teclado.key_pressed("D") or teclado.key_pressed("RIGHT")) and player.x<janela.width-player.width):
         player.x += movimento * janela.delta_time()
-        checkTiro=0
+        checkPos=0
     if ((teclado.key_pressed("W") or teclado.key_pressed("UP")) and player.y-player.height>chao.height):
         player.y-= (movimento/2) * janela.delta_time()
-    if ((teclado.key_pressed("S") or teclado.key_pressed("DOWN")) and player.y<janela.height-player.height):
+    elif ((teclado.key_pressed("S") or teclado.key_pressed("DOWN")) and player.y<janela.height-player.height):
         player.y+= (movimento/2) * janela.delta_time()
-    return checkTiro
+    return checkPos
 
 def criaProjetil(player,listaProjeteisE,listaProjeteisD, checkTiro):
     # Crio o projetil
@@ -45,15 +40,13 @@ def criaProjetil(player,listaProjeteisE,listaProjeteisD, checkTiro):
         listaProjeteisD.append(projetilDir)
 
 def magicAttack(janela, listaProjeteisE, listaProjeteisD, velProjetil, checkTiro):
-        if (checkTiro==0):
-            for i in listaProjeteisD:
-                i.x += velProjetil*janela.delta_time()
-                i.draw()
-                if (i.x>janela.width or i.x<0):
-                    listaProjeteisD.remove(i)
-        if (checkTiro==1):
-            for j in listaProjeteisE:
-                j.x += (velProjetil*janela.delta_time())*-1
-                j.draw()
-                if (j.x>janela.width or j.x<0):
-                    listaProjeteisE.remove(j)
+    for i in listaProjeteisD:
+        i.x += velProjetil*janela.delta_time()
+        i.draw()
+        if (i.x>janela.width or i.x<0):
+            listaProjeteisD.remove(i)
+    for j in listaProjeteisE:
+        j.x += (velProjetil*janela.delta_time())*-1
+        j.draw()
+        if (j.x>janela.width or j.x<0):
+            listaProjeteisE.remove(j)
