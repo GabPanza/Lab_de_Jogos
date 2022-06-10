@@ -44,7 +44,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     
     plataforma = GameImage("Plataforma.jpg")
     
-    # Instancio os personagens
+    # Instancio a Emih
     player_Esq_Run = Sprite("Emih_invertido.png", 8)
     player_Esq_Run.x = 0
     player_Esq_Run.y = janela.height-player_Esq_Run.height
@@ -65,10 +65,91 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     
     player = player_Dir
     
-    goblin = Sprite("Goblin.png", 1)
-    cultista = Sprite("Cultista.png", 1)
-    guardas = Sprite("Guardas.png", 1)
-    caebralum = Sprite("Caebralum.png", 1)
+    # Instancio o Caebralum
+    caebralum_Esq_Run = Sprite("CaebralumEsq.png", 8)
+    caebralum_Esq_Run.x = 0
+    caebralum_Esq_Run.y = janela.height-caebralum_Esq_Run.height
+    caebralum_Esq_Run.set_total_duration(1000)
+    
+    caebralum_Dir_Run = Sprite("CaebralumDir.png", 8)
+    caebralum_Dir_Run.x = 0
+    caebralum_Dir_Run.y = janela.height-caebralum_Dir_Run.height
+    caebralum_Dir_Run.set_total_duration(1000)
+    
+    caebralum_Esq = Sprite("Caebralum_Idle_Esq.png", 1)
+    caebralum_Esq.x = 0
+    caebralum_Esq.y = janela.height-caebralum_Esq.height
+    
+    caebralum_Dir = Sprite("Caebralum_Idle_Dir.png", 1)
+    caebralum_Dir.x = 0
+    caebralum_Dir.y = janela.height-caebralum_Dir.height
+    
+    caebralum = caebralum_Esq
+    
+    # Instancio o minotauro
+    minotauro_Esq_Run = Sprite("CaebralumEsq.png", 5)
+    minotauro_Esq_Run.x = 0
+    minotauro_Esq_Run.y = janela.height-minotauro_Esq_Run.height
+    minotauro_Esq_Run.set_total_duration(1000)
+    
+    minotauro_Dir_Run = Sprite("CaebralumDir.png", 5)
+    minotauro_Dir_Run.x = 0
+    minotauro_Dir_Run.y = janela.height-minotauro_Dir_Run.height
+    minotauro_Dir_Run.set_total_duration(1000)
+    
+    minotauro_Esq = Sprite("Caebralum_Idle_Esq.png", 1)
+    minotauro_Esq.x = 0
+    minotauro_Esq.y = janela.height-minotauro_Esq.height
+    
+    minotauro_Dir = Sprite("Caebralum_Idle_Dir.png", 1)
+    minotauro_Dir.x = 0
+    minotauro_Dir.y = janela.height-minotauro_Dir.height
+    
+    minotauro = minotauro_Dir
+    
+    # Instancio o cultista
+    cultista_Esq_Run = Sprite("CultistaEsq.png", 10)
+    cultista_Esq_Run.x = 0
+    cultista_Esq_Run.y = janela.height-cultista_Esq_Run.height
+    cultista_Esq_Run.set_total_duration(1000)
+    
+    cultista_Dir_Run = Sprite("CultistaDir.png", 10)
+    cultista_Dir_Run.x = 0
+    cultista_Dir_Run.y = janela.height-cultista_Dir_Run.height
+    cultista_Dir_Run.set_total_duration(1000)
+    
+    cultista_Esq = Sprite("Cultista_Idle_Esq.png", 10)
+    cultista_Esq.x = 0
+    cultista_Esq.y = janela.height-cultista_Esq.height
+    cultista_Dir_Run.set_total_duration(1000)
+
+    cultista_Dir = Sprite("Cultista_Idle_Dir.png", 10)
+    cultista_Dir.x = 0
+    cultista_Dir.y = janela.height-cultista_Dir.height
+    cultista_Dir_Run.set_total_duration(1000)
+
+    cultista = cultista_Esq
+    
+    # Instancio o guardas
+    guardas_Esq_Run = Sprite("GuardasEsq.png", 6)
+    guardas_Esq_Run.x = 0
+    guardas_Esq_Run.y = janela.height-guardas_Esq_Run.height
+    guardas_Esq_Run.set_total_duration(1000)
+    
+    guardas_Dir_Run = Sprite("GuardasDir.png", 6)
+    guardas_Dir_Run.x = 0
+    guardas_Dir_Run.y = janela.height-guardas_Dir_Run.height
+    guardas_Dir_Run.set_total_duration(1000)
+    
+    guardas_Esq = Sprite("Guardas_Idle_Esq.png", 6)
+    guardas_Esq.x = 0
+    guardas_Esq.y = janela.height-guardas_Esq.height
+    
+    guardas_Dir = Sprite("Guardas_Idle_Dir.png", 6)
+    guardas_Dir.x = 0
+    guardas_Dir.y = janela.height-guardas_Dir.height
+    
+    guardas = cultista_Esq
     
     # Crio o vetor de projeteis aliados e sua direçao
     listaProjeteisE = []
@@ -147,7 +228,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         # Desenho o personagem principal
         player.draw()
         
-        # Desenho o fps
+        # Desenho as instruçoes
         if player.collided(placa):
             janela.draw_text(("DERROTE TODOS OS INIMIGOS PARA PROSSEGUIR!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
         
