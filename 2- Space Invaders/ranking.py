@@ -25,7 +25,7 @@ def rank():
     for i,conteudo in enumerate(pontuacao):
         janela.draw_text(str(i+1), (janela.width/2)-130, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
         janela.draw_text(("."), (janela.width/2)-110, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
-        janela.draw_text(conteudo, (janela.width/2)-90, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(str(conteudo), (janela.width/2)-90, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
         altura+=45
         if i>10:
             break
@@ -62,7 +62,7 @@ def fimDoJogoVitoria(score):
     conteudo = arquivo.readlines()
 
     # Insiro o conteúdo
-    conteudo.append(str(score) + "\n")
+    conteudo.append(str(score) + " ")
     arquivo.close()
     
     # Abre novamente o arquivo (escrita)
@@ -106,7 +106,7 @@ def fimDoJogoDerrota(score):
     conteudo = arquivo.readlines()
 
     # Insiro o conteúdo
-    conteudo.append(str(score) + "\n")
+    conteudo.append(str(score) + " ")
     arquivo.close()
     
     # Abre novamente o arquivo (escrita)
@@ -139,7 +139,7 @@ def sorting(fileName):
     for linha in file:
         temp = linha.split()
         for i in temp:
-            pontuacao.append(i)
+            pontuacao.append(int(i))
     file.close()
     pontuacao.sort()
     return pontuacao
