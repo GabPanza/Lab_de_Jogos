@@ -41,7 +41,8 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
     # Crio o vetor de projeteis inimigos
     listaProjeteisInimigos = []
     listaProjeteis = []
-
+    listaProjeteisNavemae = []
+    
     # Crio o vetor de inimigos
     matrizDeInimigos = []
     spawnNaveMae = 600
@@ -102,7 +103,11 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
             if spawnNaveMae>0:
                 spawnNaveMae-=1
             else:
-                naveMae.x += (movimentoInimigo/2)*janela.delta_time()
+                if naveMae.y>0:
+                    naveMae.draw()
+                    naveMae.x += 100*janela.delta_time()
+                    shooting.criaProjNaveMae(naveMae,listaProjeteisNavemae)
+                    score = enemy.killNavemae(listaProjeteis,score,naveMae)
 
         # Chamo a funçao que irá lidar com a criaçao dos tiros
         if (teclado.key_pressed("SPACE") and delay==0):
@@ -117,6 +122,7 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
         # Faço o movimento dos tiros
         shooting.tiroPlayer(janela,listaProjeteis,velProjetil)
         shooting.tiroInimigo(janela,listaProjeteisInimigos,velProjetilInimigo)
+        shooting.tiroNaveMae(janela,listaProjeteisNavemae,velProjetilInimigo)
         if delay>0:
             delay-=1
         if delayInimigo>0:
@@ -126,7 +132,7 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
         score = enemy.kill(listaProjeteis,matrizDeInimigos,score,linha)
         if (vidas>0):
             for i in matrizDeInimigos:
-                vidas = enemy.hit(vidas, player, i, listaProjeteisInimigos,score)
+                vidas = enemy.hit(vidas, player, i, listaProjeteisInimigos,listaProjeteisNavemae,score)
         
         # Desenho os objetos
         player.draw()

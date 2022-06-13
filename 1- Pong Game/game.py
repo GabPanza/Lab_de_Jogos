@@ -51,7 +51,7 @@ while(True):
     tempoAtual = time.time()
     deltaTime = tempoAtual - tempoInicial
     tempoInicial = tempoAtual
-    
+        
     # Inicio o jogo com a bola parada no meio
     if ((bola.x == janela.width/2 - bola.width/2) and (teclado.key_pressed("space"))):
         vBola_x = 800
@@ -133,7 +133,7 @@ while(True):
     
     # Fps
     janela.draw_text(("FPS: "), 0, 0, size=24, font_name="Arial", bold=True,color=[0, 0, 0])
-    janela.draw_text(str(deltaTime), 65, 0, size=24, font_name="Arial", bold=True,color=[0, 0, 0])
+    janela.draw_text(str(int(deltaTime*100000)), 65, 0, size=24, font_name="Arial", bold=True,color=[0, 0, 0])
 
     #Finaliza o Gameloop
     janela.update()

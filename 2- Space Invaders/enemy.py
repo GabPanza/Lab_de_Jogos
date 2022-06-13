@@ -75,7 +75,7 @@ def spawn(linha,matrizDeInimigos):
                     linhas.append(inimigoFrente)
                 else:
                     inimigoBonus = Sprite("inimigoBonus.png",1)
-                    inimigoBonus.x = -100
+                    inimigoBonus.x = 50
                     inimigoBonus.y = 50
                     break
         matrizDeInimigos.append(linhas)
@@ -135,12 +135,17 @@ def kill(listaProjeteis,matrizDeInimigos,score,linha):
                                 score+=30
                             elif 1<=k<=3:
                                 score+=20
-                            elif k==4:
-                                score+=10
                             else:
-                                score+=100
-    return score 
-def hit(vidas,player,listaDeInimigos,listaProjeteisInimigos,score):
+                                score+=10
+    return score
+def killNavemae(listaProjeteis,score,naveMae):
+    for i in listaProjeteis:
+        if (i.collided(naveMae)):
+            naveMae.y=-200
+            score+=100
+    return score
+
+def hit(vidas,player,listaDeInimigos,listaProjeteisInimigos,listaProjeteisNavemae,score):
     for i,projetil in enumerate(listaProjeteisInimigos):
         if (projetil.collided(player)):
             listaProjeteisInimigos.pop(i)
@@ -149,4 +154,8 @@ def hit(vidas,player,listaDeInimigos,listaProjeteisInimigos,score):
         if (inimigo.collided(player) or inimigo.y>=player.y):
             from ranking import fimDoJogoDerrota
             fimDoJogoDerrota(score)
+    for i,tiro in enumerate(listaProjeteisNavemae):
+        if (tiro.collided(player)):
+            listaProjeteisNavemae.pop(i)
+            vidas-=1
     return vidas
