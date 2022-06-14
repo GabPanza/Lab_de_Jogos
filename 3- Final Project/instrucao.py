@@ -34,7 +34,7 @@ def instrucao():
         janela.set_title("A Ascensão da Feiticeira")
         
         # Desenho as instrucoes
-        janela.draw_text(("Instruçoes"), (janela.width / 2)-100, 100, size=48, font_name="Arial", bold=True,color=[200, 0, 255])
+        janela.draw_text(("Instruçoes"), (janela.width / 2)-128, 100, size=48, font_name="Arial", bold=True,color=[200, 0, 255])
         janela.draw_text(("Se aproxime de uma placa sempre que se sentir perdido. Elas te guiarão."), 100, 150, size=32, font_name="Arial", bold=True,color=[255, 255, 255])
         janela.draw_text(("Pressione 'W,A,S,D' ou as setas do teclado para andar."), 100, 200, size=32, font_name="Arial", bold=True,color=[255, 255, 255])
         janela.draw_text(("Pressione 'Space' para atirar."), 100, 250, size=32, font_name="Arial", bold=True,color=[255, 255, 255])

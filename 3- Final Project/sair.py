@@ -13,20 +13,24 @@ def sair():
     simButton = Sprite("Sim.png", 1)
     naoButton = Sprite("Nao.png", 1)
 
+    # Instancio o fundo
+    fundo = GameImage("FundoInicial.jpg")
+    fundo.draw()
+
     while (True):
         if(teclado.key_pressed("ESC")):
             import menu
             menu.menu()
         
-        janela.draw_text(("DESEJA MESMO SAIR?"), (janela.width / 2)-265, 150, size=48, font_name="Arial", bold=True,color=[255, 0, 255])
+        janela.draw_text(("DESEJA MESMO SAIR?"), (janela.width / 2)-280, 100, size=48, font_name="Arial", bold=True,color=[255, 0, 255])
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(simButton)):
             janela.close()
         if((mouseClick.is_button_pressed(1) and mouseClick.is_over_object(naoButton)) or (teclado.key_pressed("ESC"))):
             import menu
             menu.menu()
         
-        simButton.set_position((janela.width/2) -250, (janela.height/2)+100)
-        naoButton.set_position((janela.width/2) +100, (janela.height/2)+100)
+        simButton.set_position((janela.width/2) -120, (janela.height/2))
+        naoButton.set_position((janela.width/2) -120, (janela.height/2)+120)
         
         simButton.draw()
         naoButton.draw()

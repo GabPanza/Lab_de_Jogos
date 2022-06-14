@@ -180,11 +180,13 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     ##################################################### Game Loop / Update() #####################################################
     ################################################################################################################################
     while(True):
-        # Desenho o cenario desejado
+        # Desenho o cenario desejado e a placa que indica o que precisa ser feito
         if cenario==1:
             cenarioFloresta.draw()
+            placa.draw()
         elif cenario==2:
             cenarioCastelo.draw()
+            placa.draw()
         elif cenario==3:
             cenarioDungeon.draw()
         
@@ -229,9 +231,6 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             delay-=1
         if delayInimigo>0:
             delayInimigo-=1
-        
-        # Desenho a placa que indica o que precisa ser feito
-        placa.draw()
         
         # Desenho o personagem principal
         player.draw()
