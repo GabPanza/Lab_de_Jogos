@@ -8,7 +8,7 @@ def recarga(movimentoInimigo,delay):
     if (movimentoInimigo==150 or movimentoInimigo==-150):
         delay = 60
     return delay
-def recargaInimigo(movimentoInimigo,delayInimigo):
+def recargaCultistaInimigo(movimentoInimigo,delayInimigo):
     if (movimentoInimigo==100 or movimentoInimigo==-100):
         delayInimigo = 100
     if (movimentoInimigo==120 or movimentoInimigo==-120):

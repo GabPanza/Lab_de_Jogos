@@ -130,7 +130,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
 
     cultista = cultista_Esq
     
-    # Instancio o guardas
+    # Instancio os guardas
     guardas_Esq_Run = Sprite("GuardasEsq.png", 6)
     guardas_Esq_Run.x = 0
     guardas_Esq_Run.y = janela.height-guardas_Esq_Run.height
@@ -145,9 +145,17 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     guardas_Esq.x = 0
     guardas_Esq.y = janela.height-guardas_Esq.height
     
+    guardas_Morte_Esq = Sprite("Guardas_Morte_Esq.png", 6)
+    guardas_Morte_Esq.x = 0
+    guardas_Morte_Esq.y = janela.height-guardas_Morte_Esq.height
+    
     guardas_Dir = Sprite("Guardas_Idle_Dir.png", 6)
     guardas_Dir.x = 0
     guardas_Dir.y = janela.height-guardas_Dir.height
+    
+    guardas_Morte_Dir = Sprite("Guardas_Morte_Dir.png", 6)
+    guardas_Morte_Dir.x = 0
+    guardas_Morte_Dir.y = janela.height-guardas_Morte_Dir.height
     
     guardas = cultista_Esq
     
