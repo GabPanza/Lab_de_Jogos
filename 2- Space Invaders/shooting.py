@@ -53,7 +53,7 @@ def delay(movimentoInimigo,delay):
     if (movimentoInimigo==120 or movimentoInimigo==-120):
         delay = 45
     if (movimentoInimigo==150 or movimentoInimigo==-150):
-        delay = 10
+        delay = 35
     return delay
 def delayInimigo(movimentoInimigo,delayInimigo):
     if (movimentoInimigo==100 or movimentoInimigo==-100):
