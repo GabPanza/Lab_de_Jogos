@@ -31,7 +31,9 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     
     # Instancio os cenários
     cenarioFloresta = GameImage("Floresta.jpg")
+    cenarioFloresta2 = GameImage("Floresta2.jpg")
     cenarioCastelo = GameImage("Castelo.jpg")
+    cenarioCastelo2 = GameImage("Castelo2.jpg")
     cenarioDungeon = GameImage("Dungeon.jpg")
     cenario = 1
     
@@ -185,9 +187,12 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             cenarioFloresta.draw()
             placa.draw()
         elif cenario==2:
-            cenarioCastelo.draw()
+            cenarioFloresta2.draw()
             placa.draw()
         elif cenario==3:
+            cenarioCastelo.draw()
+            placa.draw()
+        elif cenario==4:
             cenarioDungeon.draw()
         
         # Defino o Framerate
@@ -236,9 +241,12 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         player.draw()
         
         # Desenho as instruçoes
-        if player.collided(placa):
+        if player.collided(placa) and cenario==1:
             janela.draw_text(("DERROTE TODOS OS INIMIGOS PARA PROSSEGUIR!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
         
+        if player.collided(placa) and cenario==2:
+            janela.draw_text(("SIGA OS CULTISTAS ATÉ O CASTELO!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
+
         # Desenho o fps
         janela.draw_text(str(clock), janela.width-200, 0, size=20, font_name="Arial", bold=True,color=[255, 255, 255])
         

@@ -35,9 +35,11 @@ def instrucao():
         
         # Desenho as instrucoes
         janela.draw_text(("Instruçoes"), (janela.width / 2)-128, 100, size=48, font_name="Arial", bold=True,color=[200, 0, 255])
-        janela.draw_text(("Se aproxime de uma placa sempre que se sentir perdido. Elas te guiarão."), 100, 150, size=32, font_name="Arial", bold=True,color=[255, 255, 255])
-        janela.draw_text(("Pressione 'W,A,S,D' ou as setas do teclado para andar."), 100, 200, size=32, font_name="Arial", bold=True,color=[255, 255, 255])
-        janela.draw_text(("Pressione 'Space' para atirar."), 100, 250, size=32, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(("Alguns eventos no jogo dependem que certas condiçoes aconteçam."), 200, 150, size=28, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(("Logo, para uma melhor experiencia, se aproxime de uma placa sempre que possivel."), 80, 200, size=28, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(("Controles"), (janela.width / 2)-128, 250, size=48, font_name="Arial", bold=True,color=[200, 0, 255])
+        janela.draw_text(("Pressione 'W,A,S,D' ou as setas do teclado para andar."), 200, 300, size=32, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(("Pressione 'Space' para atirar."), 400, 350, size=32, font_name="Arial", bold=True,color=[255, 255, 255])
 
         # Desenho o botao
         playButton.draw()
