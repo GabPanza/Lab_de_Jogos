@@ -123,12 +123,22 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     cultista_Esq = Sprite("Cultista_Idle_Esq.png", 10)
     cultista_Esq.x = 0
     cultista_Esq.y = janela.height-cultista_Esq.height
-    cultista_Dir_Run.set_total_duration(1000)
+    cultista_Esq.set_total_duration(1000)
 
+    cultista_Morte_Esq = Sprite("Cultista_Morte_Esq.png", 10)
+    cultista_Morte_Esq.x = 0
+    cultista_Morte_Esq.y = janela.height-cultista_Dir.height
+    cultista_Morte_Esq.set_total_duration(1000)
+    
     cultista_Dir = Sprite("Cultista_Idle_Dir.png", 10)
     cultista_Dir.x = 0
     cultista_Dir.y = janela.height-cultista_Dir.height
-    cultista_Dir_Run.set_total_duration(1000)
+    cultista_Dir.set_total_duration(1000)
+    
+    cultista_Morte_Dir = Sprite("Cultista_Morte_Dir.png", 10)
+    cultista_Morte_Dir.x = 0
+    cultista_Morte_Dir.y = janela.height-cultista_Dir.height
+    cultista_Morte_Dir.set_total_duration(1000)
 
     cultista = cultista_Esq
     
@@ -146,20 +156,24 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     guardas_Esq = Sprite("Guardas_Idle_Esq.png", 6)
     guardas_Esq.x = 0
     guardas_Esq.y = janela.height-guardas_Esq.height
-    
+    guardas_Esq.set_total_duration(1000)
+
     guardas_Morte_Esq = Sprite("Guardas_Morte_Esq.png", 6)
     guardas_Morte_Esq.x = 0
     guardas_Morte_Esq.y = janela.height-guardas_Morte_Esq.height
-    
+    guardas_Morte_Esq.set_total_duration(1000)
+
     guardas_Dir = Sprite("Guardas_Idle_Dir.png", 6)
     guardas_Dir.x = 0
     guardas_Dir.y = janela.height-guardas_Dir.height
+    guardas_Dir.set_total_duration(1000)
     
     guardas_Morte_Dir = Sprite("Guardas_Morte_Dir.png", 6)
     guardas_Morte_Dir.x = 0
     guardas_Morte_Dir.y = janela.height-guardas_Morte_Dir.height
+    guardas_Morte_Dir.set_total_duration(1000)
     
-    guardas = cultista_Esq
+    guardas = guardas_Esq
     
     # Crio o vetor de projeteis aliados e sua direçao
     listaProjeteisE = []
@@ -193,6 +207,9 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             cenarioCastelo.draw()
             placa.draw()
         elif cenario==4:
+            cenarioCastelo.draw()
+            placa.draw()
+        elif cenario==5:
             cenarioDungeon.draw()
         
         # Defino o Framerate
