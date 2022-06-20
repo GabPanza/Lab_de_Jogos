@@ -207,7 +207,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             cenarioCastelo.draw()
             placa.draw()
         elif cenario==4:
-            cenarioCastelo.draw()
+            cenarioCastelo2.draw()
             placa.draw()
         elif cenario==5:
             cenarioDungeon.draw()
@@ -263,6 +263,12 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         
         if player.collided(placa) and cenario==2:
             janela.draw_text(("SIGA OS CULTISTAS ATÉ O CASTELO!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
+        
+        if player.collided(placa) and cenario==3:
+            janela.draw_text(("DERROTE TODOS OS INIMIGOS PARA PROSSEGUIR!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
+        
+        if player.collided(placa) and cenario==4:
+            janela.draw_text(("SIGA OS CULTISTAS ATÉ O CALABOUÇO!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
 
         # Desenho o fps
         janela.draw_text(str(clock), janela.width-200, 0, size=20, font_name="Arial", bold=True,color=[255, 255, 255])
