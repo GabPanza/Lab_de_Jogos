@@ -31,9 +31,9 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     
     # Instancio os cenários
     cenarioFloresta = GameImage("Floresta.jpg")
-    cenarioFloresta2 = GameImage("Floresta2.jpg")
+    #cenarioFloresta2 = GameImage("Floresta2.jpg")
     cenarioCastelo = GameImage("Castelo.jpg")
-    cenarioCastelo2 = GameImage("Castelo2.jpg")
+    #cenarioCastelo2 = GameImage("Castelo2.jpg")
     cenarioDungeon = GameImage("Dungeon.jpg")
     cenario = 1
     
@@ -127,7 +127,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
 
     cultista_Morte_Esq = Sprite("Cultista_Morte_Esq.png", 10)
     cultista_Morte_Esq.x = 0
-    cultista_Morte_Esq.y = janela.height-cultista_Dir.height
+    cultista_Morte_Esq.y = janela.height-cultista_Morte_Esq.height
     cultista_Morte_Esq.set_total_duration(1000)
     
     cultista_Dir = Sprite("Cultista_Idle_Dir.png", 10)
@@ -201,13 +201,13 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             cenarioFloresta.draw()
             placa.draw()
         elif cenario==2:
-            cenarioFloresta2.draw()
+            #cenarioFloresta2.draw()
             placa.draw()
         elif cenario==3:
             cenarioCastelo.draw()
             placa.draw()
         elif cenario==4:
-            cenarioCastelo2.draw()
+            #cenarioCastelo2.draw()
             placa.draw()
         elif cenario==5:
             cenarioDungeon.draw()
