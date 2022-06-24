@@ -51,6 +51,8 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
     # Crio a pontuaçao que os aliens dão e o delay de invencibilidade
     score = 0
     delayInvencible = 0
+    TomeiDano=False
+    
     ################################################################################################################################
     ################################################ Gameloop / Update() ###########################################################
     ################################################################################################################################
@@ -138,10 +140,17 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
             player.draw()
         
         # Verifico se alguem tomou hit
+        vidasAntes = vidas
         score = enemy.kill(listaProjeteis,matrizDeInimigos,score,linha)
         if (vidas>0 and delayInvencible==0):
             for i in matrizDeInimigos:
                 vidas = enemy.hit(vidas, player, i, listaProjeteisInimigos,listaProjeteisNavemae,score)
+                if vidas != vidasAntes:
+                    TomeiDano=True
+        if TomeiDano:
+            player.x= janela.width/2-player.width/2
+            delayInvencible=180
+            TomeiDano=False
         
         # Desenho os inimigos
         enemy.draw(matrizDeInimigos)
