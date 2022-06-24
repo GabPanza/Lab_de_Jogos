@@ -8,55 +8,22 @@ from PPlay.sound import*
 def spawn(linha,matrizDeInimigos):    
     for i in range(linha):
         linhas = []
-        for j in range(12):
-            if linha==3:
-                if i==0:
-                    inimigoAtras = Sprite("inimigo3.png",1)
-                    inimigoAtras.x = 75 * j
-                    inimigoAtras.y = 50 * i
-                    linhas.append(inimigoAtras)
-                elif i==1:
-                    inimigoMeio = Sprite("inimigo2.png",1)
-                    inimigoMeio.x = 75 * j
-                    inimigoMeio.y = 50 * i
-                    linhas.append(inimigoMeio)
-                else:
-                    inimigoFrente = Sprite("inimigo1.png",1)
-                    inimigoFrente.x = 75 * j
-                    inimigoFrente.y = 50 * i
-                    linhas.append(inimigoFrente)
-            if linha==4:
-                if i==0:
-                    inimigoAtras = Sprite("inimigo3.png",1)
-                    inimigoAtras.x = 75 * j
-                    inimigoAtras.y = 50 * i
-                    linhas.append(inimigoAtras)
-                elif 1<=i<=2:
-                    inimigoMeio = Sprite("inimigo2.png",1)
-                    inimigoMeio.x = 75 * j
-                    inimigoMeio.y = 50 * i
-                    linhas.append(inimigoMeio)
-                else:
-                    inimigoFrente = Sprite("inimigo1.png",1)
-                    inimigoFrente.x = 75 * j
-                    inimigoFrente.y = 50 * i
-                    linhas.append(inimigoFrente)
-            if linha==5:
-                if i==0:
-                    inimigoAtras = Sprite("inimigo3.png",1)
-                    inimigoAtras.x = 75 * j
-                    inimigoAtras.y = 50 * i
-                    linhas.append(inimigoAtras)
-                elif 1<=i<=3:
-                    inimigoMeio = Sprite("inimigo2.png",1)
-                    inimigoMeio.x = 75 * j
-                    inimigoMeio.y = 50 * i
-                    linhas.append(inimigoMeio)
-                else:
-                    inimigoFrente = Sprite("inimigo1.png",1)
-                    inimigoFrente.x = 75 * j
-                    inimigoFrente.y = 50 * i
-                    linhas.append(inimigoFrente)
+        for j in range(10):
+            if i==0:
+                inimigoAtras = Sprite("inimigo3.png",1)
+                inimigoAtras.x = 75 * j
+                inimigoAtras.y = 50 * i
+                linhas.append(inimigoAtras)
+            elif i==linha-1:
+                inimigoFrente = Sprite("inimigo1.png",1)
+                inimigoFrente.x = 75 * j
+                inimigoFrente.y = 50 * i
+                linhas.append(inimigoFrente)
+            else:
+                inimigoMeio = Sprite("inimigo2.png",1)
+                inimigoMeio.x = 75 * j
+                inimigoMeio.y = 50 * i
+                linhas.append(inimigoMeio)
             if linha==6:
                 if i==0:
                     inimigoAtras = Sprite("inimigo3.png",1)

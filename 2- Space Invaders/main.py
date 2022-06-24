@@ -24,6 +24,7 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
     # Instancio os objetos do jogo
     espaco = GameImage("espaço.jpg")
     player = Sprite("nave.png",1)
+    playerInvencible = Sprite("naveInvencivel.png",1)
     
     # Defino a posiçao do player
     player.x = janela.width/2
@@ -47,9 +48,9 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
     matrizDeInimigos = []
     spawnNaveMae = 600
     
-    # Crio a pontuaçao que os aliens dão
+    # Crio a pontuaçao que os aliens dão e o delay de invencibilidade
     score = 0
-    
+    delayInvencible = 0
     ################################################################################################################################
     ################################################ Gameloop / Update() ###########################################################
     ################################################################################################################################
@@ -81,6 +82,8 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
                 break
         if vazio:    
             matrizDeInimigos.clear()
+            player.x= janela.width/2-player.width/2
+            delayInvencible=180
             linha+=1
             if linha==6:
                 naveMae = enemy.spawn(linha,matrizDeInimigos)
@@ -106,7 +109,6 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
                 if naveMae.y>0:
                     naveMae.draw()
                     naveMae.x += 100*janela.delta_time()
-                    shooting.criaProjNaveMae(naveMae,listaProjeteisNavemae)
                     score = enemy.killNavemae(listaProjeteis,score,naveMae)
 
         # Chamo a funçao que irá lidar com a criaçao dos tiros
@@ -122,20 +124,26 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
         # Faço o movimento dos tiros
         shooting.tiroPlayer(janela,listaProjeteis,velProjetil)
         shooting.tiroInimigo(janela,listaProjeteisInimigos,velProjetilInimigo)
-        shooting.tiroNaveMae(janela,listaProjeteisNavemae,velProjetilInimigo)
         if delay>0:
             delay-=1
         if delayInimigo>0:
             delayInimigo-=1
         
+        if delayInvencible>0:
+            delayInvencible-=1
+            playerInvencible.x = player.x
+            playerInvencible.y = player.y
+            playerInvencible.draw()
+        else:
+            player.draw()
+        
         # Verifico se alguem tomou hit
         score = enemy.kill(listaProjeteis,matrizDeInimigos,score,linha)
-        if (vidas>0):
+        if (vidas>0 and delayInvencible==0):
             for i in matrizDeInimigos:
                 vidas = enemy.hit(vidas, player, i, listaProjeteisInimigos,listaProjeteisNavemae,score)
         
-        # Desenho os objetos
-        player.draw()
+        # Desenho os inimigos
         enemy.draw(matrizDeInimigos)
         
         # Desenho a dificuldade do jogo

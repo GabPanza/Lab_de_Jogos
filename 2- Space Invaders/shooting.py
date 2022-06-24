@@ -22,7 +22,7 @@ def criaProjInimigo(inimigo,listaProjeteisInimigos):
     projetilInimigo = Sprite("projetil2.png",1)
     projetilInimigo.x = inimigo.x + 50
     projetilInimigo.y = inimigo.y + projetilInimigo.height + 50
-    if (random.random() < 0.11):
+    if (random.random() < 0.3 and len(listaProjeteisInimigos)==0):
         listaProjeteisInimigos.append(projetilInimigo)
 
 def tiroInimigo(janela,listaProjeteisInimigos,velProjetilInimigo):
@@ -31,21 +31,6 @@ def tiroInimigo(janela,listaProjeteisInimigos,velProjetilInimigo):
         projetilAlien.draw()
         if (projetilAlien.y>janela.height):
             listaProjeteisInimigos.pop(i)
-
-def criaProjNaveMae(navemae,listaProjeteisNavemae):
-    # Crio o projetil
-    projetilInimigo = Sprite("projetil2.png",1)
-    projetilInimigo.x = navemae.x + 20
-    projetilInimigo.y = navemae.y + projetilInimigo.height + 50
-    if (random.random() < 0.3):
-        listaProjeteisNavemae.append(projetilInimigo)
-    
-def tiroNaveMae(janela,listaProjeteisNavemae,velProjetilInimigo):
-    for i,projetilNavemae in enumerate(listaProjeteisNavemae):
-        projetilNavemae.y += velProjetilInimigo*janela.delta_time()
-        projetilNavemae.draw()
-        if (projetilNavemae.y>janela.height):
-            listaProjeteisNavemae.pop(i)
 
 def delay(movimentoInimigo,delay):
     if (movimentoInimigo==100 or movimentoInimigo==-100):
