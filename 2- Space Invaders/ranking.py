@@ -16,12 +16,12 @@ def rank():
     # Organizo o arquivo txt em ordem decrescente
     pontuacao = sorting('Pontuacao.txt')
     pontuacao.reverse()
-    altura = 150
     
     # Desenho o fundo
     espaco.draw()
     
     # Desenho a pontuacao
+    altura = 150
     for i,conteudo in enumerate(pontuacao):
         janela.draw_text(str(i+1), (janela.width/2)-130, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
         janela.draw_text(("."), (janela.width/2)-110, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
