@@ -35,17 +35,9 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     chaoFloresta = Sprite("FlorestaChao.png",1)
     chaoFloresta.y = janela.height-chaoFloresta.height
     
-    cenarioFloresta2 = GameImage("Floresta2.jpg")
-    chaoFloresta2 = Sprite("FlorestaChao2.png",1)
-    chaoFloresta2.y = janela.height-chaoFloresta2.height
-    
     cenarioCastelo = GameImage("Castelo.jpg")
     chaoCastelo = Sprite("CasteloChao.png",1)
     chaoCastelo.y = janela.height-chaoCastelo.height
-
-    cenarioCastelo2 = GameImage("Castelo2.jpg")
-    chaoCastelo2 = Sprite("CasteloChao2.png",1)
-    chaoCastelo2.y = janela.height-chaoCastelo2.height
     
     cenarioDungeon = GameImage("Dungeon.jpg")
     chaoDungeon = Sprite("DungeonChao.png",1) 
@@ -103,21 +95,21 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     caebralum = caebralum_Esq
     
     # Instancio o minotauro
-    minotauro_Esq_Run = Sprite("CaebralumEsq.png", 5)
+    minotauro_Esq_Run = Sprite("MinotauroEsq.png", 5)
     minotauro_Esq_Run.x = 0
     minotauro_Esq_Run.y = janela.height-minotauro_Esq_Run.height
     minotauro_Esq_Run.set_total_duration(1000)
     
-    minotauro_Dir_Run = Sprite("CaebralumDir.png", 5)
+    minotauro_Dir_Run = Sprite("MinotauroDir.png", 5)
     minotauro_Dir_Run.x = 0
     minotauro_Dir_Run.y = janela.height-minotauro_Dir_Run.height
     minotauro_Dir_Run.set_total_duration(1000)
     
-    minotauro_Esq = Sprite("Caebralum_Idle_Esq.png", 1)
+    minotauro_Esq = Sprite("Minotauro_Idle_Esq.png", 1)
     minotauro_Esq.x = 0
     minotauro_Esq.y = janela.height-minotauro_Esq.height
     
-    minotauro_Dir = Sprite("Caebralum_Idle_Dir.png", 1)
+    minotauro_Dir = Sprite("Minotauro_Idle_Dir.png", 1)
     minotauro_Dir.x = 0
     minotauro_Dir.y = janela.height-minotauro_Dir.height
     
@@ -201,6 +193,8 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     
     # Crio a lista de inimigos
     listaInimigos = []
+    summon = False
+    contSummon=1
     
     # Defino o frame per second
     FPS = 60
@@ -218,14 +212,14 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             cenarioFloresta.draw()
             placa.draw()
             # Crio a movimentacao do minotauro
-            checkPosInim = enemy.moveEnemy(janela,player,movimento,chao,checkPosInim)
+            checkPosInim = enemy.moveEnemy(janela,player,minotauro,movimento,chao,checkPosInim)
             if checkPosInim==0:
                 if (minotauro.x>player.x and minotauro.x<janela.width):
                     minotauro = enemy.SetEnemy(minotauro_Dir_Run,minotauro)
                     minotauro.update()
                 if not player:
                     minotauro = enemy.SetEnemy(minotauro_Dir,minotauro)
-            elif checkPosInim==1:
+            else:
                 if (minotauro.x<player.x and minotauro.x>0):
                     minotauro = enemy.SetEnemy(minotauro_Esq_Run,minotauro)
                     minotauro.update()
@@ -233,56 +227,49 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                     minotauro = enemy.SetEnemy(minotauro_Esq,minotauro)
         
         elif cenario==2:
-            cenarioFloresta2.draw()
-            placa.draw()
-        
-        elif cenario==3:
             cenarioCastelo.draw()
             placa.draw()
             # Crio a movimentacao do guarda
-            checkPosInim = enemy.moveEnemy(janela,player,movimento,chao,checkPosInim)
+            checkPosInim = enemy.moveEnemy(janela,player,guardas,movimento,chao,checkPosInim)
             if checkPosInim==0:
                 if (guardas.x>player.x and guardas.x<janela.width):
                     guardas = enemy.SetEnemy(guardas_Dir_Run,guardas)
                     guardas.update()
                 if not player:
                     guardas = enemy.SetEnemy(guardas_Dir,guardas)
-            elif checkPosInim==1:
+            else:
                 if (guardas.x<player.x and guardas.x>0):
                     guardas = enemy.SetEnemy(guardas_Esq_Run,guardas)
                     guardas.update()
                 if not player:
                     guardas = enemy.SetEnemy(guardas_Esq,guardas)
         
-        elif cenario==4:
-            cenarioCastelo2.draw()
-            placa.draw()
             # Crio a movimentacao do cultista
-            checkPosInim = enemy.moveEnemy(janela,player,movimento,chao,checkPosInim)
+            checkPosInim = enemy.moveEnemy(janela,player,cultista,movimento,chao,checkPosInim)
             if checkPosInim==0:
                 if (cultista.x>player.x and cultista.x<janela.width):
                     cultista = enemy.SetEnemy(cultista_Dir_Run,cultista)
                     cultista.update()
                 if not player:
                     cultista = enemy.SetEnemy(cultista_Dir,cultista)
-            elif checkPosInim==1:
+            else:
                 if (cultista.x<player.x and cultista.x>0):
                     cultista = enemy.SetEnemy(cultista_Esq_Run,cultista)
                     cultista.update()
                 if not player:
                     cultista = enemy.SetEnemy(cultista_Esq,cultista)
         
-        elif cenario==5:
+        elif cenario==3:
             cenarioDungeon.draw()
             # Crio a movimentacao do Caebralum
-            checkPosInim = enemy.moveEnemy(janela,player,movimento,chao,checkPosInim)
+            checkPosInim = enemy.moveEnemy(janela,player,caebralum,movimento,chao,checkPosInim)
             if checkPosInim==0:
                 if (caebralum.x>player.x and caebralum.x<janela.width):
                     caebralum = enemy.SetEnemy(caebralum_Dir_Run,caebralum)
                     caebralum.update()
                 if not player:
                     caebralum = enemy.SetEnemy(caebralum_Dir,caebralum)
-            elif checkPosInim==1:
+            else:
                 if (caebralum.x<player.x and caebralum.x>0):
                     caebralum = enemy.SetEnemy(caebralum_Esq_Run,caebralum)
                     caebralum.update()
@@ -334,15 +321,17 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         # Desenho as instruçoes
         if player.collided(placa) and cenario==1:
             janela.draw_text(("DERROTE TODOS OS INIMIGOS PARA PROSSEGUIR!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
-        
-        if player.collided(placa) and cenario==2:
-            janela.draw_text(("SIGA OS CULTISTAS ATÉ O CASTELO!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
-        
-        if player.collided(placa) and cenario==3:
-            janela.draw_text(("DERROTE TODOS OS INIMIGOS PARA PROSSEGUIR!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
-        
-        if player.collided(placa) and cenario==4:
+            if contSummon==1:
+                summon = True
+                contSummon+=1
+        elif player.collided(placa) and cenario==2:
             janela.draw_text(("SIGA OS CULTISTAS ATÉ O CALABOUÇO!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
+            if contSummon==2:
+                summon = True
+                contSummon+=1
+        
+        if summon:
+            enemy.drawMonstros(minotauro,guardas,cultista,caebralum,cenario)
 
         # Desenho o fps
         janela.draw_text(str(clock), janela.width-200, 0, size=20, font_name="Arial", bold=True,color=[255, 255, 255])

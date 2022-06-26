@@ -2,6 +2,10 @@ from PPlay.window import *
 from PPlay.mouse import *
 from PPlay.gameimage import *
 from PPlay.sprite import *
+import main
+import diff
+import ranking
+import sair
 
 def MainMenu():
     # Instancio a janela
@@ -18,16 +22,12 @@ def MainMenu():
 
     while (True):
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(playButton)):
-            import main
             main.game(vidas=5,movimento=200,movimentoInimigo=100,velProjetil=900,velProjetilInimigo=300,delay=0,delayInimigo=100,linha=3)
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(diffButton)):
-            import diff
             diff.difficult()
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(rankingButton)):
-            import ranking
             ranking.rank()
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(leaveButton)):
-            import sair
             sair.sair()
         
         playButton.set_position(500, 200)

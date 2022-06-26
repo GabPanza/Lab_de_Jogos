@@ -68,7 +68,7 @@ def fimDoJogoVitoria(score):
     # Abre novamente o arquivo (escrita)
     arquivo = open('Pontuacao.txt', 'w')
     arquivo.writelines(conteudo)
-    arquivo.close()
+    arquivo.close() 
     
     while (True):
         # Desenho o fundo
@@ -133,13 +133,13 @@ def fimDoJogoDerrota(score):
         # Atualizo o GameLoop
         janela.update()
         
-def sorting(fileName):
-    file = open(fileName)
+def sorting(file):
+    arquivo = open(file)
     pontuacao = []
-    for linha in file:
+    for linha in arquivo:
         temp = linha.split()
         for i in temp:
             pontuacao.append(int(i))
-    file.close()
+    arquivo.close()
     pontuacao.sort()
     return pontuacao

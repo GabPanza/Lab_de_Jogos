@@ -30,21 +30,22 @@ def spawn(linha,matrizDeInimigos):
                     inimigoAtras.x = 75 * j
                     inimigoAtras.y = 50 * i
                     linhas.append(inimigoAtras)
-                elif 1<=i<=3:
-                    inimigoMeio = Sprite("inimigo2.png",1)
-                    inimigoMeio.x = 75 * j
-                    inimigoMeio.y = 50 * i
-                    linhas.append(inimigoMeio)
-                elif i==4:
+                elif i==linha-2:
                     inimigoFrente = Sprite("inimigo1.png",1)
                     inimigoFrente.x = 75 * j
                     inimigoFrente.y = 50 * i
                     linhas.append(inimigoFrente)
-                else:
+                elif i==linha-1:
                     inimigoBonus = Sprite("inimigoBonus.png",1)
                     inimigoBonus.x = 50
                     inimigoBonus.y = 50
                     break
+                else:
+                    inimigoMeio = Sprite("inimigo2.png",1)
+                    inimigoMeio.x = 75 * j
+                    inimigoMeio.y = 50 * i
+                    linhas.append(inimigoMeio)
+                
         matrizDeInimigos.append(linhas)
     if linha==6:
         return inimigoBonus

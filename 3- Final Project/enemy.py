@@ -12,6 +12,15 @@ def SetEnemy(EnemyState,EnemyAtual):
     Enemy.y = EnemyAtual.y
     return Enemy
 
+def drawMonstros(minotauro,guardas,cultista,caebralum,cenario):
+    if cenario==1:
+        minotauro.draw()
+    if cenario==2:
+        guardas.draw()
+        cultista.draw()
+    if cenario==3:
+        caebralum.draw()
+
 def moveEnemy(janela,player,enemy,movimento,chao,checkPosInimigo):
     if (enemy.x<player.x and enemy.x>0):
         enemy.x -= movimento * janela.delta_time()

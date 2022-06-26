@@ -20,9 +20,9 @@ def movePlayer(janela,teclado,player,movimento,chao,checkPos):
         player.x += movimento * janela.delta_time()
         checkPos=0
     if ((teclado.key_pressed("W") or teclado.key_pressed("UP")) and player.y-player.height>chao.height):
-        player.y-= (movimento/2) * janela.delta_time()
+        player.y-= (movimento*3/4) * janela.delta_time()
     elif ((teclado.key_pressed("S") or teclado.key_pressed("DOWN")) and player.y<janela.height-player.height):
-        player.y+= (movimento/2) * janela.delta_time()
+        player.y+= (movimento*3/4) * janela.delta_time()
     return checkPos
 
 def criaProjetil(player,listaProjeteisE,listaProjeteisD, checkTiro):
