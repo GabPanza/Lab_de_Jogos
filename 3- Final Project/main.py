@@ -34,17 +34,21 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     cenarioFloresta = GameImage("Floresta.jpg")
     chaoFloresta = Sprite("FlorestaChao.png",1)
     chaoFloresta.y = janela.height-chaoFloresta.height
+    #saidaFloresta = Sprite("FlorestaSaida.png",1)
     
     cenarioCastelo = GameImage("Castelo.jpg")
     chaoCastelo = Sprite("CasteloChao.png",1)
     chaoCastelo.y = janela.height-chaoCastelo.height
+    #saidaCastelo = Sprite("CasteloSaida.png",1)
     
     cenarioDungeon = GameImage("Dungeon.jpg")
     chaoDungeon = Sprite("DungeonChao.png",1) 
     chaoDungeon.y = janela.height-chaoDungeon.height
+    #saidaDungeon = Sprite("DungeonSaida.png",1)
     
     cenario = 1
     chao = chaoFloresta
+    #saida = saidaFloresta
     
     # Instancio os objetos
     placa = Sprite("Placa.png",1)
@@ -109,7 +113,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     minotauro_Esq.y = janela.height-minotauro_Esq.height
     minotauro_Esq.set_total_duration(1000)
 
-    minotauro_Dir = Sprite("Minotauro_Idle_Dir.png", 8)
+    minotauro_Dir = Sprite("MinotauroDir.png", 8)
     minotauro_Dir.x = 0
     minotauro_Dir.y = janela.height-minotauro_Dir.height
     minotauro_Dir.set_total_duration(1000)
@@ -195,7 +199,6 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     # Crio a lista de inimigos
     listaInimigos = []
     summon = False
-    contSummon=1
     
     # Defino o frame per second
     FPS = 60
@@ -246,6 +249,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             cenarioCastelo.draw()
             placa.draw()
             chao = chaoCastelo
+            #saida = saidaCastelo
             # Crio a movimentacao do guarda
             checkPosInim = enemy.moveEnemy(janela,player,guardas,movimento,chao,checkPosInim)
             if checkPosInim==0:
@@ -279,6 +283,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         elif cenario==3:
             cenarioDungeon.draw()
             chao = chaoDungeon
+            #saida = saidaDungeon
             # Crio a movimentacao do Caebralum
             checkPosInim = enemy.moveEnemy(janela,player,caebralum,movimento,chao,checkPosInim)
             if checkPosInim==0:
@@ -303,10 +308,10 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         life(vidas)
         
         # Crio a condiçao para mudar de cenário
-        if ((player.x>janela.width-player.width/2) and (len(listaInimigos) == 0)):
-            cenario+=1
-            player.x=0
-            player.y=janela.height/2
+        #if ((player.collided(saida)) and (len(listaInimigos) == 0)):
+        #    cenario+=1
+        #    player.x=0
+        #    player.y=janela.height/2
         
         # Chamo a funçao que irá lidar com a criaçao dos tiros
         if (teclado.key_pressed("SPACE") and delay==0):
@@ -326,14 +331,10 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         # Desenho as instruçoes
         if player.collided(placa) and cenario==1:
             janela.draw_text(("DERROTE TODOS OS INIMIGOS PARA PROSSEGUIR!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
-            if contSummon==1:
-                summon = True
-                contSummon+=1
+            summon = True
         elif player.collided(placa) and cenario==2:
             janela.draw_text(("SIGA OS CULTISTAS ATÉ O CALABOUÇO!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
-            if contSummon==2:
-                summon = True
-                contSummon+=1
+            summon = True
         
         if summon:
             enemy.drawMonstros(minotauro,guardas,cultista,caebralum,cenario)
@@ -354,12 +355,14 @@ def life(vidas):
     healthBarMedium2 = Sprite("HealthBarMedium2.png", 1)
     healthBarMedium3 = Sprite("HealthBarMedium3.png", 1)
     healthBarLow = Sprite("HealthBarLow.png", 1)
+    
     # Defino a posiçao das imagens de Vida
     healthBarFull.set_position(0,0)
     healthBarMedium1.set_position(0,0)
     healthBarMedium2.set_position(0,0)
     healthBarMedium3.set_position(0,0)
     healthBarLow.set_position(0,0)
+    
     # Desenho a barra de vida desejada
     if (vidas==5):
         healthBarFull.draw()

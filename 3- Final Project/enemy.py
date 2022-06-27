@@ -22,10 +22,10 @@ def drawMonstros(minotauro,guardas,cultista,caebralum,cenario):
         caebralum.draw()
 
 def moveEnemy(janela,player,enemy,movimento,chao,checkPosInimigo):
-    if (enemy.x<player.x and enemy.x>0):
+    if (enemy.x<player.x and enemy.x>-5):
         enemy.x += movimento * janela.delta_time()
         checkPosInimigo=0
-    elif (enemy.x>player.x and enemy.x<janela.width):
+    elif (enemy.x>player.x and enemy.x<janela.width+5):
         enemy.x -= movimento * janela.delta_time()
         checkPosInimigo=1
     if (enemy.y>player.y and enemy.y-enemy.height>chao.height):
