@@ -21,7 +21,7 @@ from pygame import mixer
 def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,delayInimigo):
     # Instancio o tamanho da janela
     janela = Window(1280,720)
-
+    
     # Inicializo o teclado
     teclado = janela.get_keyboard()
 
@@ -50,7 +50,6 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     placa = Sprite("Placa.png",1)
     placa.x = janela.width - placa.width - 50
     placa.y = janela.height-placa.height-240    
-    plataforma = GameImage("Plataforma.jpg")
     
     # Instancio a Emih
     player_Esq_Run = Sprite("Emih_invertido.png", 8)
@@ -95,24 +94,26 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     caebralum = caebralum_Esq
     
     # Instancio o minotauro
-    minotauro_Esq_Run = Sprite("MinotauroEsq.png", 5)
+    minotauro_Esq_Run = Sprite("MinotauroEsq.png", 8)
     minotauro_Esq_Run.x = 0
     minotauro_Esq_Run.y = janela.height-minotauro_Esq_Run.height
     minotauro_Esq_Run.set_total_duration(1000)
     
-    minotauro_Dir_Run = Sprite("MinotauroDir.png", 5)
+    minotauro_Dir_Run = Sprite("MinotauroDir.png", 8)
     minotauro_Dir_Run.x = 0
     minotauro_Dir_Run.y = janela.height-minotauro_Dir_Run.height
     minotauro_Dir_Run.set_total_duration(1000)
     
-    minotauro_Esq = Sprite("Minotauro_Idle_Esq.png", 1)
+    minotauro_Esq = Sprite("Minotauro_Idle_Esq.png", 8)
     minotauro_Esq.x = 0
     minotauro_Esq.y = janela.height-minotauro_Esq.height
-    
-    minotauro_Dir = Sprite("Minotauro_Idle_Dir.png", 1)
+    minotauro_Esq.set_total_duration(1000)
+
+    minotauro_Dir = Sprite("Minotauro_Idle_Dir.png", 8)
     minotauro_Dir.x = 0
     minotauro_Dir.y = janela.height-minotauro_Dir.height
-    
+    minotauro_Dir.set_total_duration(1000)
+
     minotauro = minotauro_Dir
     
     # Instancio o cultista
@@ -207,83 +208,6 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         # Defino o Framerate
         clock.tick(FPS)
         
-        # Desenho o cenario desejado e a placa que indica o que precisa ser feito
-        if cenario==1:
-            cenarioFloresta.draw()
-            placa.draw()
-            # Crio a movimentacao do minotauro
-            checkPosInim = enemy.moveEnemy(janela,player,minotauro,movimento,chao,checkPosInim)
-            if checkPosInim==0:
-                if (minotauro.x>player.x and minotauro.x<janela.width):
-                    minotauro = enemy.SetEnemy(minotauro_Dir_Run,minotauro)
-                    minotauro.update()
-                if not player:
-                    minotauro = enemy.SetEnemy(minotauro_Dir,minotauro)
-            else:
-                if (minotauro.x<player.x and minotauro.x>0):
-                    minotauro = enemy.SetEnemy(minotauro_Esq_Run,minotauro)
-                    minotauro.update()
-                if not player:
-                    minotauro = enemy.SetEnemy(minotauro_Esq,minotauro)
-        
-        elif cenario==2:
-            cenarioCastelo.draw()
-            placa.draw()
-            # Crio a movimentacao do guarda
-            checkPosInim = enemy.moveEnemy(janela,player,guardas,movimento,chao,checkPosInim)
-            if checkPosInim==0:
-                if (guardas.x>player.x and guardas.x<janela.width):
-                    guardas = enemy.SetEnemy(guardas_Dir_Run,guardas)
-                    guardas.update()
-                if not player:
-                    guardas = enemy.SetEnemy(guardas_Dir,guardas)
-            else:
-                if (guardas.x<player.x and guardas.x>0):
-                    guardas = enemy.SetEnemy(guardas_Esq_Run,guardas)
-                    guardas.update()
-                if not player:
-                    guardas = enemy.SetEnemy(guardas_Esq,guardas)
-        
-            # Crio a movimentacao do cultista
-            checkPosInim = enemy.moveEnemy(janela,player,cultista,movimento,chao,checkPosInim)
-            if checkPosInim==0:
-                if (cultista.x>player.x and cultista.x<janela.width):
-                    cultista = enemy.SetEnemy(cultista_Dir_Run,cultista)
-                    cultista.update()
-                if not player:
-                    cultista = enemy.SetEnemy(cultista_Dir,cultista)
-            else:
-                if (cultista.x<player.x and cultista.x>0):
-                    cultista = enemy.SetEnemy(cultista_Esq_Run,cultista)
-                    cultista.update()
-                if not player:
-                    cultista = enemy.SetEnemy(cultista_Esq,cultista)
-        
-        elif cenario==3:
-            cenarioDungeon.draw()
-            # Crio a movimentacao do Caebralum
-            checkPosInim = enemy.moveEnemy(janela,player,caebralum,movimento,chao,checkPosInim)
-            if checkPosInim==0:
-                if (caebralum.x>player.x and caebralum.x<janela.width):
-                    caebralum = enemy.SetEnemy(caebralum_Dir_Run,caebralum)
-                    caebralum.update()
-                if not player:
-                    caebralum = enemy.SetEnemy(caebralum_Dir,caebralum)
-            else:
-                if (caebralum.x<player.x and caebralum.x>0):
-                    caebralum = enemy.SetEnemy(caebralum_Esq_Run,caebralum)
-                    caebralum.update()
-                if not player:
-                    caebralum = enemy.SetEnemy(caebralum_Esq,caebralum)
-        
-        # Volto pro menu
-        if (teclado.key_pressed("ESC")):
-            mixer.music.stop()
-            menu.menu()
-        
-        # Chamo a funçao que lidará com o desenho da barra de vida
-        life(vidas)
-        
         # Crio a movimentacao do personagem principal
         checkPos = Player.movePlayer(janela,teclado,player,movimento,chao,checkPos)
         if checkPos==0:
@@ -299,9 +223,90 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             else:
                 player = Player.SetPlayer(player_Esq,player)
         
+        # Desenho o cenario desejado e a placa que indica o que precisa ser feito
+        if cenario==1:
+            cenarioFloresta.draw()
+            placa.draw()
+            # Crio a movimentacao do minotauro
+            checkPosInim = enemy.moveEnemy(janela,player,minotauro,movimento,chao,checkPosInim)
+            if checkPosInim==0:
+                if (minotauro.x<player.x and minotauro.x>0):
+                    minotauro = enemy.SetEnemy(minotauro_Dir_Run,minotauro)
+                    minotauro.update()
+                if minotauro.x==player.x:
+                    minotauro = enemy.SetEnemy(minotauro_Dir,minotauro)
+            else:
+                if (minotauro.x>player.x and minotauro.x<janela.width):
+                    minotauro = enemy.SetEnemy(minotauro_Esq_Run,minotauro)
+                    minotauro.update()
+                if not minotauro.x==player.x:
+                    minotauro = enemy.SetEnemy(minotauro_Esq,minotauro)
+        
+        elif cenario==2:
+            cenarioCastelo.draw()
+            placa.draw()
+            chao = chaoCastelo
+            # Crio a movimentacao do guarda
+            checkPosInim = enemy.moveEnemy(janela,player,guardas,movimento,chao,checkPosInim)
+            if checkPosInim==0:
+                if (guardas.x<player.x and guardas.x>0):
+                    guardas = enemy.SetEnemy(guardas_Dir_Run,guardas)
+                    guardas.update()
+                if guardas.x == player.x:
+                    guardas = enemy.SetEnemy(guardas_Dir,guardas)
+            else:
+                if (guardas.x>player.x and minotauro.x<janela.width):
+                    guardas = enemy.SetEnemy(guardas_Esq_Run,guardas)
+                    guardas.update()
+                if guardas.x == player.x:
+                    guardas = enemy.SetEnemy(guardas_Esq,guardas)
+        
+            # Crio a movimentacao do cultista
+            checkPosInim = enemy.moveEnemy(janela,player,cultista,movimento,chao,checkPosInim)
+            if checkPosInim==0:
+                if (cultista.x<player.x and cultista.x>0):
+                    cultista = enemy.SetEnemy(cultista_Dir_Run,cultista)
+                    cultista.update()
+                if cultista.x == player.x:
+                    cultista = enemy.SetEnemy(cultista_Dir,cultista)
+            else:
+                if (cultista.x>player.x and cultista.x<janela.width):
+                    cultista = enemy.SetEnemy(cultista_Esq_Run,cultista)
+                    cultista.update()
+                if cultista.x == player.x:
+                    cultista = enemy.SetEnemy(cultista_Esq,cultista)
+        
+        elif cenario==3:
+            cenarioDungeon.draw()
+            chao = chaoDungeon
+            # Crio a movimentacao do Caebralum
+            checkPosInim = enemy.moveEnemy(janela,player,caebralum,movimento,chao,checkPosInim)
+            if checkPosInim==0:
+                if (caebralum.x<player.x and caebralum.x>0):
+                    caebralum = enemy.SetEnemy(caebralum_Dir_Run,caebralum)
+                    caebralum.update()
+                if caebralum.x == player.x:
+                    caebralum = enemy.SetEnemy(caebralum_Dir,caebralum)
+            else:
+                if (caebralum.x>player.x and caebralum.x<janela.width):
+                    caebralum = enemy.SetEnemy(caebralum_Esq_Run,caebralum)
+                    caebralum.update()
+                if caebralum.x == player.x:
+                    caebralum = enemy.SetEnemy(caebralum_Esq,caebralum)
+        
+        # Volto pro menu
+        if (teclado.key_pressed("ESC")):
+            mixer.music.stop()
+            menu.menu()
+        
+        # Chamo a funçao que lidará com o desenho da barra de vida
+        life(vidas)
+        
         # Crio a condiçao para mudar de cenário
         if ((player.x>janela.width-player.width/2) and (len(listaInimigos) == 0)):
             cenario+=1
+            player.x=0
+            player.y=janela.height/2
         
         # Chamo a funçao que irá lidar com a criaçao dos tiros
         if (teclado.key_pressed("SPACE") and delay==0):

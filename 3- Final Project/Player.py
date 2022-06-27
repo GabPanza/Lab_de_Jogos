@@ -13,10 +13,10 @@ def SetPlayer(PlayerState,playerAtual):
     return player
 
 def movePlayer(janela,teclado,player,movimento,chao,checkPos):
-    if ((teclado.key_pressed("A") or teclado.key_pressed("LEFT")) and player.x>0):
+    if ((teclado.key_pressed("A") or teclado.key_pressed("LEFT")) and player.x>-5):
         player.x -= movimento * janela.delta_time()
         checkPos=1
-    elif ((teclado.key_pressed("D") or teclado.key_pressed("RIGHT")) and player.x<janela.width-player.width):
+    elif ((teclado.key_pressed("D") or teclado.key_pressed("RIGHT")) and player.x<janela.width-player.width/2):
         player.x += movimento * janela.delta_time()
         checkPos=0
     if ((teclado.key_pressed("W") or teclado.key_pressed("UP")) and player.y-player.height>chao.height):
@@ -46,7 +46,7 @@ def magicAttack(janela, listaProjeteisE, listaProjeteisD, velProjetil, checkTiro
         if (i.x>janela.width or i.x<0):
             listaProjeteisD.remove(i)
     for j in listaProjeteisE:
-        j.x += (velProjetil*janela.delta_time())*-1
+        j.x -= (velProjetil*janela.delta_time())
         j.draw()
         if (j.x>janela.width or j.x<0):
             listaProjeteisE.remove(j)
