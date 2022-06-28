@@ -108,7 +108,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     minotauro_Dir_Run.y = janela.height-minotauro_Dir_Run.height
     minotauro_Dir_Run.set_total_duration(1000)
     
-    minotauro_Esq = Sprite("Minotauro_Idle_Esq.png", 8)
+    minotauro_Esq = Sprite("Minotauro_Idle_Esq.png", 6)
     minotauro_Esq.x = 0
     minotauro_Esq.y = janela.height-minotauro_Esq.height
     minotauro_Esq.set_total_duration(1000)
