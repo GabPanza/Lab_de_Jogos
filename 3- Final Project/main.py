@@ -94,10 +94,30 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     minotauro_Esq.y = janela.height-minotauro_Esq.height
     minotauro_Esq.set_total_duration(1000)
 
-    minotauro_Dir = Sprite("MinotauroDir.png", 8)
+    minotauro_Dir = Sprite("Minotauro_Idle_Dir.png", 6)
     minotauro_Dir.x = janela.width-minotauro_Dir.width
     minotauro_Dir.y = janela.height-minotauro_Dir.height
     minotauro_Dir.set_total_duration(1000)
+
+    minotauro_Death_Dir = Sprite("Minotauro_Death_Dir.png", 6)
+    minotauro_Death_Dir.x = janela.width - minotauro_Death_Dir.width
+    minotauro_Death_Dir.y = janela.height - minotauro_Death_Dir.height
+    minotauro_Death_Dir.set_total_duration(1000)
+
+    minotauro_Death_Esq = Sprite("Minotauro_Death_Esq.png", 6)
+    minotauro_Death_Esq.x = janela.width-minotauro_Death_Esq.width
+    minotauro_Death_Esq.y = janela.height-minotauro_Death_Esq.height
+    minotauro_Death_Esq.set_total_duration(1000)
+
+    minotauro_attack = Sprite("Minotauro_attack.png", 9) 
+    minotauro_attack.x = janela.width - minotauro_attack.width
+    minotauro_attack.y = janela.height - minotauro_attack.height
+    minotauro_attack.set_total_duration(1000)
+
+    minotauro_attack_Esq = Sprite("Minotauro_attack_Esq.png", 9)
+    minotauro_attack_Esq.x = janela.width-minotauro_attack_Esq.width
+    minotauro_attack_Esq.y = janela.height-minotauro_attack_Esq.height
+    minotauro_attack_Esq.set_total_duration(1000)
 
     minotauro = minotauro_Esq
     vidasMinotauro = vidasInimigo
@@ -243,7 +263,12 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                 if (minotauro.x<player.x and minotauro.x>0):
                     minotauro = enemy.SetEnemy(minotauro_Dir_Run,minotauro)
                     minotauro.update()
-                elif minotauro.x==player.x:
+
+                #if (minotauro.x<= player.x and (minotauro.x-player.x)<120):
+                 #   minotauro = enemy.SetEnemy(minotauro_attack,minotauro)
+                  #  minotauro.update()
+
+                if minotauro.x==player.x:
                     minotauro = enemy.SetEnemy(minotauro_Dir,minotauro)
             else:
                 if (minotauro.x>player.x and minotauro.x<janela.width):

@@ -22,17 +22,20 @@ def drawMonstros(minotauro,guardas,cultista,caebralum,cenario):
         caebralum.draw()
 
 def moveEnemy(janela,player,enemy,movimento,chao,checkPosInimigo):
-    if (enemy.x<player.x and enemy.x>-5):
+    if (enemy.x< (player.x - 140) and enemy.x>-5):
         enemy.x += (movimento*3/5) * janela.delta_time()
         checkPosInimigo=0
-    elif (enemy.x>player.x and enemy.x<janela.width+5):
+    elif (enemy.x> (player.x + 30) and enemy.x<janela.width+5):
         enemy.x -= (movimento*3/5) * janela.delta_time()
         checkPosInimigo=1
-    if (enemy.y>player.y and enemy.y-enemy.height>chao.height):
+    if (enemy.y>player.y - player.height/3 and enemy.y-enemy.height>chao.height):
         enemy.y-= (movimento*2/5) * janela.delta_time()
-    elif (enemy.y<player.y and enemy.y<janela.height-enemy.height):
+    elif (enemy.y<player.y - player.height/3 and enemy.y<janela.height-enemy.height):
         enemy.y+= (movimento*2/5) * janela.delta_time()
     return checkPosInimigo
+
+
+    
 
 def criaProjetilInimigo(cultista,listaProjeteisInimigoE,listaProjeteisInimigoD, checkTiroInimigo):
     # Crio o projetil
