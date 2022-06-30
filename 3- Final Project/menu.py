@@ -3,6 +3,9 @@ from PPlay.mouse import *
 from PPlay.sprite import *
 from PPlay.gameimage import*
 from PPlay.sound import *
+import instrucao
+import diff
+import sair
 
 def menu():    
     # Instancio a janela
@@ -24,14 +27,11 @@ def menu():
         fundo.draw()
         
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(playButton)):
-            from instrucao import instrucao
-            instrucao()
+            instrucao.instrucao(movimentoInimigo=100)
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(diffButton)):
-            from diff import diff
-            diff()
+            diff.diff()
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(leaveButton)):
-            from sair import sair
-            sair()
+            sair.sair()
         
         playButton.set_position(525, 290)
         diffButton.set_position(525, 410)

@@ -39,7 +39,7 @@ def criaProjetil(player,listaProjeteisE,listaProjeteisD, checkTiro):
         projetilDir.y = player.y+player.height/4
         listaProjeteisD.append(projetilDir)
 
-def magicAttack(janela, listaProjeteisE, listaProjeteisD, velProjetil, checkTiro):
+def magicAttack(janela, listaProjeteisE, listaProjeteisD, velProjetil):
     for i in listaProjeteisD:
         i.x += velProjetil*janela.delta_time()
         i.draw()
@@ -50,3 +50,13 @@ def magicAttack(janela, listaProjeteisE, listaProjeteisD, velProjetil, checkTiro
         j.draw()
         if (j.x>janela.width or j.x<0):
             listaProjeteisE.remove(j)
+def hit(listaProjeteisInimigosE,listaProjeteisInimigosD,player,vidasPlayer):
+    for i,projetil in enumerate(listaProjeteisInimigosE):
+        if projetil.collided(player):
+            vidasPlayer-=1
+            listaProjeteisInimigosE.pop(i)
+    for i,projetil in enumerate(listaProjeteisInimigosD):
+        if projetil.collided(player):
+            vidasPlayer-=1
+            listaProjeteisInimigosD.pop(i)
+    return vidasPlayer

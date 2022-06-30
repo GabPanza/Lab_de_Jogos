@@ -3,6 +3,7 @@ from PPlay.keyboard import *
 from PPlay.mouse import *
 from PPlay.sprite import *
 from PPlay.gameimage import *
+import instrucao
 
 def diff():
     janela = Window(1280,720)
@@ -24,17 +25,13 @@ def diff():
         
         if(teclado.key_pressed("ESC")):
             import menu
-            menu.menu()
         
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(facil)):
-            from main import game
-            game(vidas=5,vidasInimigo=3,movimento=200,movimentoInimigo=100,velProjetil=900,velProjetilInimigo=450,delay=0,delayInimigo=100)
+            instrucao.instrucao(movimentoInimigo=100)
         elif(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(medio)):
-            from main import game
-            game(vidas=4,vidasInimigo=4,movimento=200,movimentoInimigo=100,velProjetil=900,velProjetilInimigo=450,delay=0,delayInimigo=100)
+            instrucao.instrucao(movimentoInimigo=120)
         elif(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(dificil)):
-            from main import game
-            game(vidas=3,vidasInimigo=5,movimento=200,movimentoInimigo=100,velProjetil=900,velProjetilInimigo=450,delay=0,delayInimigo=100)
+            instrucao.instrucao(movimentoInimigo=150)
         
         facil.set_position(492, 300)
         medio.set_position(490, 400)
@@ -48,4 +45,3 @@ def diff():
         janela.set_title("Space Invaders")
 
         janela.update()
-diff()

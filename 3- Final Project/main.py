@@ -11,6 +11,7 @@ import menu
 import Player
 import enemy
 import shooting
+import EndOfGame
 import pygame
 from pygame import mixer
 
@@ -52,8 +53,8 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     
     # Instancio os objetos
     placa = Sprite("Placa.png",1)
-    placa.x = janela.width - placa.width - 50
-    placa.y = janela.height-placa.height-240    
+    placa.x = janela.width/2 - 50
+    placa.y = janela.height-placa.height-270
     
     # Instancio a Emih
     player_Esq_Run = Sprite("Emih_invertido.png", 8)
@@ -75,130 +76,136 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     player_Dir.y = janela.height-player_Dir.height
     
     player = player_Dir
-    
-    # Instancio o Caebralum
-    caebralum_Esq_Run = Sprite("CaebralumEsq.png", 8)
-    caebralum_Esq_Run.x = 0
-    caebralum_Esq_Run.y = janela.height-caebralum_Esq_Run.height
-    caebralum_Esq_Run.set_total_duration(1000)
-    
-    caebralum_Dir_Run = Sprite("CaebralumDir.png", 8)
-    caebralum_Dir_Run.x = 0
-    caebralum_Dir_Run.y = janela.height-caebralum_Dir_Run.height
-    caebralum_Dir_Run.set_total_duration(1000)
-    
-    caebralum_Esq = Sprite("Caebralum_Idle_Esq.png", 1)
-    caebralum_Esq.x = 0
-    caebralum_Esq.y = janela.height-caebralum_Esq.height
-    
-    caebralum_Dir = Sprite("Caebralum_Idle_Dir.png", 1)
-    caebralum_Dir.x = 0
-    caebralum_Dir.y = janela.height-caebralum_Dir.height
-    
-    caebralum = caebralum_Esq
+    vidasPlayer = vidas
     
     # Instancio o minotauro
     minotauro_Esq_Run = Sprite("MinotauroEsq.png", 8)
-    minotauro_Esq_Run.x = 0
+    minotauro_Esq_Run.x = janela.width-minotauro_Esq_Run.width
     minotauro_Esq_Run.y = janela.height-minotauro_Esq_Run.height
     minotauro_Esq_Run.set_total_duration(1000)
     
     minotauro_Dir_Run = Sprite("MinotauroDir.png", 8)
-    minotauro_Dir_Run.x = 0
+    minotauro_Dir_Run.x = janela.width-minotauro_Dir_Run.width
     minotauro_Dir_Run.y = janela.height-minotauro_Dir_Run.height
     minotauro_Dir_Run.set_total_duration(1000)
     
     minotauro_Esq = Sprite("Minotauro_Idle_Esq.png", 6)
-    minotauro_Esq.x = 0
+    minotauro_Esq.x = janela.width-minotauro_Esq.width
     minotauro_Esq.y = janela.height-minotauro_Esq.height
     minotauro_Esq.set_total_duration(1000)
 
     minotauro_Dir = Sprite("MinotauroDir.png", 8)
-    minotauro_Dir.x = 0
+    minotauro_Dir.x = janela.width-minotauro_Dir.width
     minotauro_Dir.y = janela.height-minotauro_Dir.height
     minotauro_Dir.set_total_duration(1000)
 
-    minotauro = minotauro_Dir
+    minotauro = minotauro_Esq
+    vidasMinotauro = vidasInimigo
     
     # Instancio o cultista
     cultista_Esq_Run = Sprite("CultistaEsq.png", 10)
-    cultista_Esq_Run.x = 0
+    cultista_Esq_Run.x = janela.width-minotauro_Esq_Run.width
     cultista_Esq_Run.y = janela.height-cultista_Esq_Run.height
     cultista_Esq_Run.set_total_duration(1000)
     
     cultista_Dir_Run = Sprite("CultistaDir.png", 10)
-    cultista_Dir_Run.x = 0
+    cultista_Dir_Run.x = janela.width-minotauro_Dir_Run.width
     cultista_Dir_Run.y = janela.height-cultista_Dir_Run.height
     cultista_Dir_Run.set_total_duration(1000)
     
     cultista_Esq = Sprite("Cultista_Idle_Esq.png", 10)
-    cultista_Esq.x = 0
+    cultista_Esq.x = janela.width-minotauro_Esq.width
     cultista_Esq.y = janela.height-cultista_Esq.height
     cultista_Esq.set_total_duration(1000)
 
     cultista_Morte_Esq = Sprite("Cultista_Morte_Esq.png", 10)
-    cultista_Morte_Esq.x = 0
+    cultista_Morte_Esq.x = janela.width-cultista_Morte_Esq.width
     cultista_Morte_Esq.y = janela.height-cultista_Morte_Esq.height
     cultista_Morte_Esq.set_total_duration(1000)
     
     cultista_Dir = Sprite("Cultista_Idle_Dir.png", 10)
-    cultista_Dir.x = 0
+    cultista_Dir.x = janela.width-cultista_Dir.width
     cultista_Dir.y = janela.height-cultista_Dir.height
     cultista_Dir.set_total_duration(1000)
     
     cultista_Morte_Dir = Sprite("Cultista_Morte_Dir.png", 10)
-    cultista_Morte_Dir.x = 0
+    cultista_Morte_Dir.x = janela.width-cultista_Morte_Dir.width
     cultista_Morte_Dir.y = janela.height-cultista_Dir.height
     cultista_Morte_Dir.set_total_duration(1000)
 
     cultista = cultista_Esq
+    vidasCultista = vidasInimigo
     
     # Instancio os guardas
     guardas_Esq_Run = Sprite("GuardasEsq.png", 6)
-    guardas_Esq_Run.x = 0
+    guardas_Esq_Run.x = janela.width-guardas_Esq_Run.width
     guardas_Esq_Run.y = janela.height-guardas_Esq_Run.height
     guardas_Esq_Run.set_total_duration(1000)
     
     guardas_Dir_Run = Sprite("GuardasDir.png", 6)
-    guardas_Dir_Run.x = 0
+    guardas_Dir_Run.x = janela.width-guardas_Dir_Run.width
     guardas_Dir_Run.y = janela.height-guardas_Dir_Run.height
     guardas_Dir_Run.set_total_duration(1000)
     
     guardas_Esq = Sprite("Guardas_Idle_Esq.png", 6)
-    guardas_Esq.x = 0
+    guardas_Esq.x = janela.width-guardas_Esq.width
     guardas_Esq.y = janela.height-guardas_Esq.height
     guardas_Esq.set_total_duration(1000)
 
     guardas_Morte_Esq = Sprite("Guardas_Morte_Esq.png", 6)
-    guardas_Morte_Esq.x = 0
+    guardas_Morte_Esq.x = janela.width-guardas_Morte_Esq.width
     guardas_Morte_Esq.y = janela.height-guardas_Morte_Esq.height
     guardas_Morte_Esq.set_total_duration(1000)
 
     guardas_Dir = Sprite("Guardas_Idle_Dir.png", 6)
-    guardas_Dir.x = 0
+    guardas_Dir.x = janela.width-guardas_Dir.width
     guardas_Dir.y = janela.height-guardas_Dir.height
     guardas_Dir.set_total_duration(1000)
     
     guardas_Morte_Dir = Sprite("Guardas_Morte_Dir.png", 6)
-    guardas_Morte_Dir.x = 0
+    guardas_Morte_Dir.x = janela.width-guardas_Morte_Dir.width
     guardas_Morte_Dir.y = janela.height-guardas_Morte_Dir.height
     guardas_Morte_Dir.set_total_duration(1000)
     
     guardas = guardas_Esq
+    vidasGuardas = vidasInimigo
+    
+    # Instancio o Caebralum
+    caebralum_Esq_Run = Sprite("CaebralumEsq.png", 8)
+    caebralum_Esq_Run.x = janela.width-caebralum_Esq_Run.width
+    caebralum_Esq_Run.y = janela.height-caebralum_Esq_Run.height
+    caebralum_Esq_Run.set_total_duration(1000)
+    
+    caebralum_Dir_Run = Sprite("CaebralumDir.png", 8)
+    caebralum_Dir_Run.x = janela.width-caebralum_Dir_Run.width
+    caebralum_Dir_Run.y = janela.height-caebralum_Dir_Run.height
+    caebralum_Dir_Run.set_total_duration(1000)
+    
+    caebralum_Esq = Sprite("Caebralum_Idle_Esq.png", 1)
+    caebralum_Esq.x = janela.width-caebralum_Esq.width
+    caebralum_Esq.y = janela.height-caebralum_Esq.height
+    
+    caebralum_Dir = Sprite("Caebralum_Idle_Dir.png", 1)
+    caebralum_Dir.x = janela.width-caebralum_Dir.width
+    caebralum_Dir.y = janela.height-caebralum_Dir.height
+    
+    caebralum = caebralum_Esq
+    vidasCaebralum = vidasInimigo
     
     # Crio o vetor de projeteis aliados e sua direçao
     listaProjeteisE = []
     listaProjeteisD = []
     checkPos=0
-    
+
     # Crio o vetor de projeteis inimigos
     listaProjeteisInimigosE = []
     listaProjeteisInimigosD = []
     checkPosInim=0
-    
+
     # Crio a lista de inimigos
     listaInimigos = []
     summon = False
+    spawn=0
     
     # Defino o frame per second
     FPS = 60
@@ -208,7 +215,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     ##################################################### Game Loop / Update() #####################################################
     ################################################################################################################################
     while(True):
-        # Defino o Framerate
+        # Limito o Framerate
         clock.tick(FPS)
         
         # Crio a movimentacao do personagem principal
@@ -236,15 +243,14 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                 if (minotauro.x<player.x and minotauro.x>0):
                     minotauro = enemy.SetEnemy(minotauro_Dir_Run,minotauro)
                     minotauro.update()
-                if minotauro.x==player.x:
+                elif minotauro.x==player.x:
                     minotauro = enemy.SetEnemy(minotauro_Dir,minotauro)
             else:
                 if (minotauro.x>player.x and minotauro.x<janela.width):
                     minotauro = enemy.SetEnemy(minotauro_Esq_Run,minotauro)
                     minotauro.update()
-                if not minotauro.x==player.x:
+                elif minotauro.x==player.x:
                     minotauro = enemy.SetEnemy(minotauro_Esq,minotauro)
-        
         elif cenario==2:
             cenarioCastelo.draw()
             placa.draw()
@@ -256,13 +262,13 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                 if (guardas.x<player.x and guardas.x>0):
                     guardas = enemy.SetEnemy(guardas_Dir_Run,guardas)
                     guardas.update()
-                if guardas.x == player.x:
+                elif guardas.x == player.x:
                     guardas = enemy.SetEnemy(guardas_Dir,guardas)
             else:
                 if (guardas.x>player.x and minotauro.x<janela.width):
                     guardas = enemy.SetEnemy(guardas_Esq_Run,guardas)
                     guardas.update()
-                if guardas.x == player.x:
+                elif guardas.x == player.x:
                     guardas = enemy.SetEnemy(guardas_Esq,guardas)
         
             # Crio a movimentacao do cultista
@@ -271,13 +277,13 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                 if (cultista.x<player.x and cultista.x>0):
                     cultista = enemy.SetEnemy(cultista_Dir_Run,cultista)
                     cultista.update()
-                if cultista.x == player.x:
+                elif cultista.x == player.x:
                     cultista = enemy.SetEnemy(cultista_Dir,cultista)
             else:
                 if (cultista.x>player.x and cultista.x<janela.width):
                     cultista = enemy.SetEnemy(cultista_Esq_Run,cultista)
                     cultista.update()
-                if cultista.x == player.x:
+                elif cultista.x == player.x:
                     cultista = enemy.SetEnemy(cultista_Esq,cultista)
         
         elif cenario==3:
@@ -290,13 +296,13 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                 if (caebralum.x<player.x and caebralum.x>0):
                     caebralum = enemy.SetEnemy(caebralum_Dir_Run,caebralum)
                     caebralum.update()
-                if caebralum.x == player.x:
+                elif caebralum.x == player.x:
                     caebralum = enemy.SetEnemy(caebralum_Dir,caebralum)
             else:
                 if (caebralum.x>player.x and caebralum.x<janela.width):
                     caebralum = enemy.SetEnemy(caebralum_Esq_Run,caebralum)
                     caebralum.update()
-                if caebralum.x == player.x:
+                elif caebralum.x == player.x:
                     caebralum = enemy.SetEnemy(caebralum_Esq,caebralum)
         
         # Volto pro menu
@@ -317,31 +323,63 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         if (teclado.key_pressed("SPACE") and delay==0):
             Player.criaProjetil(player,listaProjeteisE,listaProjeteisD,checkPos)
             delay = shooting.recarga(movimentoInimigo,delay)
+        if (delayInimigo==0):
+            delayInimigo = shooting.recargaCultistaInimigo(movimentoInimigo,delayInimigo)
             
         # Faço o movimento dos tiros
-        Player.magicAttack(janela,listaProjeteisE,listaProjeteisD,velProjetil,checkPos)
+        Player.magicAttack(janela,listaProjeteisE,listaProjeteisD,velProjetil)
+        enemy.magicAttackInimigo(janela,listaProjeteisE,listaProjeteisD,velProjetil)
         if delay>0:
             delay-=1
         if delayInimigo>0:
             delayInimigo-=1
         
         # Desenho o personagem principal
-        player.draw()
+        if vidasPlayer>0:
+            player.draw()
+        else:
+            EndOfGame.derrota()
+        
+        # Checo se tomei dano
+        vidasPlayer = Player.hit(listaProjeteisInimigosE,listaProjeteisInimigosD,player,vidasPlayer)
         
         # Desenho as instruçoes
         if player.collided(placa) and cenario==1:
-            janela.draw_text(("DERROTE TODOS OS INIMIGOS PARA PROSSEGUIR!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
+            janela.draw_text(("DERROTE o MINOTAURO PARA PROSSEGUIR!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
             summon = True
+            if spawn==0:
+                minotauro.set_position(janela.width-minotauro.width,(janela.height/2)-(minotauro.height/2))
+                spawn+=1
         elif player.collided(placa) and cenario==2:
-            janela.draw_text(("SIGA OS CULTISTAS ATÉ O CALABOUÇO!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
+            janela.draw_text(("SIGA O RASTRO DE SANGUE ATÉ O CALABOUÇO!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
             summon = True
+            if spawn==1:
+                cultista.set_position(janela.width-cultista.width,janela.height-cultista.height)
+                guardas.set_position(janela.width-guardas.width,0)
+                spawn+=1
         
-        if summon:
-            enemy.drawMonstros(minotauro,guardas,cultista,caebralum,cenario)
-
-        # Desenho o fps
-        janela.draw_text(str(clock), janela.width-200, 0, size=20, font_name="Arial", bold=True,color=[255, 255, 255])
+        # Desenho os monstros
+        if cenario==1:
+            if summon and vidasMinotauro>0:
+                enemy.drawMonstros(minotauro,guardas,cultista,caebralum,cenario)
+                vidasMinotauro = enemy.hitFloresta(listaProjeteisE,listaProjeteisD,minotauro,vidasMinotauro)
         
+        if cenario==2:
+            if summon and vidasCultista>0:
+                enemy.drawMonstros(minotauro,guardas,cultista,caebralum,cenario)
+                vidasCultista = enemy.hitFloresta(listaProjeteisE,listaProjeteisD,guardas,vidasGuardas,cultista,vidasCultista,vidasMinotauro)
+            if summon and vidasGuardas>0:
+                enemy.drawMonstros(minotauro,guardas,cultista,caebralum,cenario)
+                vidasGuardas = enemy.hitFloresta(listaProjeteisE,listaProjeteisD,guardas,vidasGuardas,cultista,vidasCultista,vidasMinotauro)
+        if cenario==3:
+            if summon and vidasCaebralum>0:
+                enemy.drawMonstros(minotauro,guardas,cultista,caebralum,cenario)
+                vidasCaebralum = enemy.hitFloresta(listaProjeteisE,listaProjeteisD,caebralum,vidasCaebralum)
+        
+        # Termino o jogo se mato o boss final
+        if vidasCaebralum<=0:
+            EndOfGame.vitoria()
+            
         # Define um titulo pra janela
         janela.set_title("A Ascensão da Feiticeira")
         

@@ -23,15 +23,15 @@ def drawMonstros(minotauro,guardas,cultista,caebralum,cenario):
 
 def moveEnemy(janela,player,enemy,movimento,chao,checkPosInimigo):
     if (enemy.x<player.x and enemy.x>-5):
-        enemy.x += movimento * janela.delta_time()
+        enemy.x += (movimento*3/5) * janela.delta_time()
         checkPosInimigo=0
     elif (enemy.x>player.x and enemy.x<janela.width+5):
-        enemy.x -= movimento * janela.delta_time()
+        enemy.x -= (movimento*3/5) * janela.delta_time()
         checkPosInimigo=1
     if (enemy.y>player.y and enemy.y-enemy.height>chao.height):
-        enemy.y-= (movimento*3/4) * janela.delta_time()
+        enemy.y-= (movimento*2/5) * janela.delta_time()
     elif (enemy.y<player.y and enemy.y<janela.height-enemy.height):
-        enemy.y+= (movimento*3/4) * janela.delta_time()
+        enemy.y+= (movimento*2/5) * janela.delta_time()
     return checkPosInimigo
 
 def criaProjetilInimigo(cultista,listaProjeteisInimigoE,listaProjeteisInimigoD, checkTiroInimigo):
@@ -59,3 +59,41 @@ def magicAttackInimigo(janela, listaProjeteisInimigoE, listaProjeteisInimigoD, v
         j.draw()
         if (j.x>janela.width or j.x<0):
             listaProjeteisInimigoE.remove(j)
+def hitFloresta(listaProjeteisE,listaProjeteisD,minotauro,vidasMinotauro):
+    for i,projetil in enumerate(listaProjeteisE):
+        if projetil.collided(minotauro):
+            vidasMinotauro-=1
+            listaProjeteisE.pop(i)
+    for i,projetil in enumerate(listaProjeteisD):
+        if projetil.collided(minotauro):
+            vidasMinotauro-=1
+            listaProjeteisD.pop(i)
+    return vidasMinotauro
+
+def hitCastelo(listaProjeteisE,listaProjeteisD,guardas,vidasGuardas,cultista,vidasCultista):
+    for i,projetil in enumerate(listaProjeteisE):
+        if projetil.collided(cultista):
+            vidasCultista-=1
+            listaProjeteisE.pop(i)
+        if projetil.collided(guardas):
+            vidasGuardas-=1
+            listaProjeteisE.pop(i)
+    for i,projetil in enumerate(listaProjeteisD):
+        if projetil.collided(cultista):
+            vidasCultista-=1
+            listaProjeteisD.pop(i)
+        if projetil.collided(guardas):
+            vidasGuardas-=1
+            listaProjeteisD.pop(i)
+    return vidasCultista,vidasGuardas
+
+def hitDungeon(listaProjeteisE,listaProjeteisD,caebralum,vidasCaebralum):
+    for i,projetil in enumerate(listaProjeteisE):
+        if projetil.collided(caebralum):
+            vidasCaebralum-=1
+            listaProjeteisE.pop(i)
+    for i,projetil in enumerate(listaProjeteisD):
+        if projetil.collided(caebralum):
+            vidasCaebralum-=1
+            listaProjeteisD.pop(i)
+    return vidasCaebralum
