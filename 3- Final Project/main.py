@@ -44,15 +44,13 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     chaoCastelo.y = janela.height-chaoCastelo.height
     #saidaCastelo = Sprite("CasteloSaida.png",1)
     sangue = Sprite("sangue.png", 1)
-    sangue.set_position(janela.width-sangue.width-10,janela.height-sangue.height+10)
+    sangue.set_position(janela.width-sangue.width-10,janela.height-sangue.height-100)
     
     cenarioDungeon = GameImage("Dungeon.jpg")
     chaoDungeon = Sprite("DungeonChao.png",1) 
     chaoDungeon.y = janela.height-chaoDungeon.height
     
     cenario = 1
-    chao = chaoFloresta
-    saida = saidaFloresta
     
     # Instancio os objetos
     placa = Sprite("Placa.png",1)
@@ -241,26 +239,13 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         # Limito o Framerate
         clock.tick(FPS)
         
-        # Crio a movimentacao do personagem principal
-        checkPos = Player.movePlayer(janela,teclado,player,movimento,chao,checkPos)
-        if checkPos==0:
-            if (teclado.key_pressed("D") or teclado.key_pressed("RIGHT")):
-                player = Player.SetPlayer(player_Dir_Run,player)
-                player.update()
-            else:
-                player = Player.SetPlayer(player_Dir,player)
-        elif checkPos==1:
-            if (teclado.key_pressed("A") or teclado.key_pressed("LEFT")):
-                player = Player.SetPlayer(player_Esq_Run,player)
-                player.update()
-            else:
-                player = Player.SetPlayer(player_Esq,player)
-        
         # Desenho o cenario desejado e a placa que indica o que precisa ser feito
         if cenario==1:
             cenarioFloresta.draw()
             placa.draw()
-            
+            chao = chaoFloresta
+            saida = saidaFloresta
+
             # Crio a movimentacao do minotauro
             checkPosInim = enemy.moveEnemy(janela,player,minotauro,movimento,chao,checkPosInim)
             if checkPosInim==0:
@@ -345,6 +330,21 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                     caebralum.update()
                 if caebralum.x == player.x and caebralum.y == player.y:
                     caebralum = enemy.SetEnemy(caebralum_Esq,caebralum)
+        
+        # Crio a movimentacao do personagem principal
+        checkPos = Player.movePlayer(janela,teclado,player,movimento,chao,checkPos)
+        if checkPos==0:
+            if (teclado.key_pressed("D") or teclado.key_pressed("RIGHT")):
+                player = Player.SetPlayer(player_Dir_Run,player)
+                player.update()
+            else:
+                player = Player.SetPlayer(player_Dir,player)
+        elif checkPos==1:
+            if (teclado.key_pressed("A") or teclado.key_pressed("LEFT")):
+                player = Player.SetPlayer(player_Esq_Run,player)
+                player.update()
+            else:
+                player = Player.SetPlayer(player_Esq,player)
         
         # Volto pro menu
         if (teclado.key_pressed("ESC")):
