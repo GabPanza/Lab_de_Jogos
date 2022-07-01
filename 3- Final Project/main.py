@@ -192,12 +192,12 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     vidasGuardas = vidasInimigo
     
     # Instancio o Caebralum
-    caebralum_Esq_Run = Sprite("CaebralumEsq.png", 8)
+    caebralum_Esq_Run = Sprite("CaebralumEsq.png", 5)
     caebralum_Esq_Run.x = janela.width-caebralum_Esq_Run.width
     caebralum_Esq_Run.y = janela.height-caebralum_Esq_Run.height
     caebralum_Esq_Run.set_total_duration(1000)
     
-    caebralum_Dir_Run = Sprite("CaebralumDir.png", 8)
+    caebralum_Dir_Run = Sprite("CaebralumDir.png", 5)
     caebralum_Dir_Run.x = janela.width-caebralum_Dir_Run.width
     caebralum_Dir_Run.y = janela.height-caebralum_Dir_Run.height
     caebralum_Dir_Run.set_total_duration(1000)
@@ -308,7 +308,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                 if cultista.x == player.x and cultista.y == player.y:
                     cultista = enemy.SetEnemy(cultista_Esq,cultista)
             
-            if ((player.collided(saida)) and (vidasCultista<=0 and vidasGuardas<=0)):
+            if ((player.collided(sangue)) and (vidasCultista<=0 and vidasGuardas<=0)):
                 cenario+=1
                 player.x=0
                 player.y=janela.height/2
@@ -414,7 +414,8 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         # Termino o jogo se mato o boss final
         if vidasCaebralum<=0:
             EndOfGame.vitoria()
-            
+    
+
         # Define um titulo pra janela
         janela.set_title("A Ascensão da Feiticeira")
         
