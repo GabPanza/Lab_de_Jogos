@@ -22,7 +22,7 @@ def MainMenu():
 
     while (True):
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(playButton)):
-            main.game(vidas=5,movimento=200,movimentoInimigo=100,velProjetil=900,velProjetilInimigo=300,delay=0,delayInimigo=100,linha=3)
+            main.game(vidas=5,movimento=200,movimentoInimigo=100,velProjetil=900,velProjetilInimigo=300,delay=0,delayInimigo=100,linha=4)
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(diffButton)):
             diff.difficult()
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(rankingButton)):

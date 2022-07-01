@@ -7,6 +7,7 @@ from PPlay.sound import*
 import menu
 import Player 
 import enemy
+import ranking
 import shooting
 import pygame
 from pygame import mixer
@@ -32,9 +33,9 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
     
     # Instancio o som do jogo
     mixer.music.load("Megalovania.wav")
-    mixer.music.set_volume(0.2)
+    mixer.music.set_volume(0.4)
     mixer.music.play(-1)
-    
+       
     # Defino o frame per second
     FPS = 60
     clock = pygame.time.Clock()
@@ -86,25 +87,19 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
             matrizDeInimigos.clear()
             player.x= janela.width/2-player.width/2
             delayInvencible=180
-            linha+=1
-            if linha==6:
-                naveMae = enemy.spawn(linha,matrizDeInimigos)
-            else:
+            if linha<6:
+                linha+=1
+                movimentoInimigo*=1.1
+            if linha<6:
                 enemy.spawn(linha,matrizDeInimigos)
-            if (score==2880):
-                mixer.music.stop()
-                import ranking
-                ranking.fimDoJogoVitoria(score)
-            if (score==3360 or score==3460):
-                mixer.music.stop()
-                import ranking
-                ranking.fimDoJogoVitoria(score)
+            else:
+                naveMae = enemy.spawn(linha,matrizDeInimigos)
         
         # Faço o movimento dos inimigos
         movimentoInimigo = enemy.moveInimigos(janela, matrizDeInimigos, movimentoInimigo)
         
         # Faço o movimento da nave mae
-        if linha==6:
+        if linha>=6:
             if spawnNaveMae>0:
                 spawnNaveMae-=1
             else:
@@ -116,12 +111,12 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
         # Chamo a funçao que irá lidar com a criaçao dos tiros
         if (teclado.key_pressed("SPACE") and delay==0):
             shooting.criaProjNave(player,listaProjeteis)
-            delay = shooting.delay(movimentoInimigo,delay)
+            delay = shooting.delay(delay,linha)
         if (delayInimigo==0):
             for i in matrizDeInimigos:
                 for j in i:
                     shooting.criaProjInimigo(j,listaProjeteisInimigos)
-            delayInimigo = shooting.delayInimigo(movimentoInimigo,delayInimigo)
+            delayInimigo = shooting.delayInimigo(delayInimigo,linha)
             
         # Faço o movimento dos tiros
         shooting.tiroPlayer(janela,listaProjeteis,velProjetil)
@@ -141,7 +136,7 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
         
         # Verifico se alguem tomou hit
         vidasAntes = vidas
-        score = enemy.kill(listaProjeteis,matrizDeInimigos,score,linha)
+        score, movimentoInimigo = enemy.kill(listaProjeteis,matrizDeInimigos,score,linha,movimentoInimigo)
         if (vidas>0 and delayInvencible==0):
             for i in matrizDeInimigos:
                 vidas = enemy.hit(vidas, player, i, listaProjeteisInimigos,listaProjeteisNavemae,score)
@@ -154,19 +149,10 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
         
         # Desenho os inimigos
         enemy.draw(matrizDeInimigos)
-        
-        # Desenho a dificuldade do jogo
-        if (movimentoInimigo==100 or movimentoInimigo==-100):
-            janela.draw_text(("Difficult: Easy"), 0, 0, size=24, font_name="Arial", bold=True,color=[0, 255, 0])
-        if (movimentoInimigo==120 or movimentoInimigo==-120):
-            janela.draw_text(("Difficult: Medium"), 0, 0, size=24, font_name="Arial", bold=True,color=[255, 255, 0])
-        if (movimentoInimigo==150 or movimentoInimigo==-150):
-            janela.draw_text(("Difficult: Hard"), 0, 0, size=24, font_name="Arial", bold=True,color=[255, 0, 0])
-        
+            
         # Perco o jogo
         if (vidas <= 0):
             mixer.music.stop()
-            import ranking
             ranking.fimDoJogoDerrota(score) 
             
         # Desenho o fps
@@ -177,8 +163,8 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
         janela.draw_text(str(score), janela.width-50, 25, size=20, font_name="Arial", bold=True,color=[255, 255, 255])
         
         # Desenho a vida
-        janela.draw_text(("Vidas: "), 0, 25, size=24, font_name="Arial", bold=True,color=[255, 255, 255])
-        janela.draw_text(str(vidas), 75, 25, size=24, font_name="Arial", bold=True,color=[255, 0, 0])
+        janela.draw_text(("Vidas: "), 0, 0, size=24, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(str(vidas), 75, 0, size=24, font_name="Arial", bold=True,color=[255, 0, 0])
 
         # Instancio o titulo da janela  
         janela.set_title("Space Invaders")

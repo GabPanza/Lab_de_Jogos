@@ -32,19 +32,19 @@ def tiroInimigo(janela,listaProjeteisInimigos,velProjetilInimigo):
         if (projetilAlien.y>janela.height):
             listaProjeteisInimigos.pop(i)
 
-def delay(movimentoInimigo,delay):
-    if (movimentoInimigo==100 or movimentoInimigo==-100):
-        delay = 55
-    if (movimentoInimigo==120 or movimentoInimigo==-120):
+def delay(delay,linha):
+    if linha==4:    
         delay = 45
-    if (movimentoInimigo==150 or movimentoInimigo==-150):
+    if linha==5:
+        delay = 40
+    if linha>=6:
         delay = 35
     return delay
-def delayInimigo(movimentoInimigo,delayInimigo):
-    if (movimentoInimigo==100 or movimentoInimigo==-100):
+def delayInimigo(delayInimigo,linha):
+    if linha==4:
         delayInimigo = 100
-    if (movimentoInimigo==120 or movimentoInimigo==-120):
-        delayInimigo = 125
-    if (movimentoInimigo==150 or movimentoInimigo==-150):
-        delayInimigo = 150
+    if linha==5:
+        delayInimigo = 110
+    if linha>=6:
+         delayInimigo = 120
     return delayInimigo

@@ -4,27 +4,29 @@ from PPlay.gameimage import*
 from PPlay.sprite import*
 from PPlay.collision import*
 from PPlay.sound import*
+import ranking
 
 def spawn(linha,matrizDeInimigos):    
     for i in range(linha):
         linhas = []
         for j in range(10):
-            if i==0:
-                inimigoAtras = Sprite("inimigo3.png",1)
-                inimigoAtras.x = 75 * j
-                inimigoAtras.y = 50 * i
-                linhas.append(inimigoAtras)
-            elif i==linha-1:
-                inimigoFrente = Sprite("inimigo1.png",1)
-                inimigoFrente.x = 75 * j
-                inimigoFrente.y = 50 * i
-                linhas.append(inimigoFrente)
-            else:
-                inimigoMeio = Sprite("inimigo2.png",1)
-                inimigoMeio.x = 75 * j
-                inimigoMeio.y = 50 * i
-                linhas.append(inimigoMeio)
-            if linha==6:
+            if linha<6:
+                if i==0:
+                    inimigoAtras = Sprite("inimigo3.png",1)
+                    inimigoAtras.x = 75 * j
+                    inimigoAtras.y = 50 * i
+                    linhas.append(inimigoAtras)
+                elif i==linha-1:
+                    inimigoFrente = Sprite("inimigo1.png",1)
+                    inimigoFrente.x = 75 * j
+                    inimigoFrente.y = 50 * i
+                    linhas.append(inimigoFrente)
+                else:
+                    inimigoMeio = Sprite("inimigo2.png",1)
+                    inimigoMeio.x = 75 * j
+                    inimigoMeio.y = 50 * i
+                    linhas.append(inimigoMeio)
+            if linha>=6:
                 if i==0:
                     inimigoAtras = Sprite("inimigo3.png",1)
                     inimigoAtras.x = 75 * j
@@ -70,46 +72,25 @@ def moveInimigos(janela, matrizDeInimigos, movimentoInimigo):
                 j.y += 50
     return movimentoInimigo
 
-def kill(listaProjeteis,matrizDeInimigos,score,linha):
+def kill(listaProjeteis,matrizDeInimigos,score,linha,movimentoInimigo):
     for k,linhaDeInimigos in enumerate(matrizDeInimigos):
         for i,inimigo in enumerate(linhaDeInimigos):
             for j,projetil in enumerate(listaProjeteis):
                     if (projetil.collided(inimigo)):
                         listaProjeteis.pop(j)
                         linhaDeInimigos.pop(i)
-                        if linha==3:
-                            if k==0:
-                                score+=30
-                            elif k==1:
-                                score+=20
-                            else:
-                                score+=10
-                        elif linha==4:
-                            if k==0:
-                                score+=30
-                            elif 1<=k<=2:
-                                score+=20
-                            else:
-                                score+=10
-                        elif linha==5:
-                            if k==0:
-                                score+=30
-                            elif 1<=k<=3:
-                                score+=20
-                            else:
-                                score+=10
+                        if k==0:
+                            score+=30
+                        elif k==linha-1:
+                            score+=10
                         else:
-                            if k==0:
-                                score+=30
-                            elif 1<=k<=3:
-                                score+=20
-                            else:
-                                score+=10
-    return score
+                            score+=20
+                        movimentoInimigo*=1.01
+    return score,movimentoInimigo
 def killNavemae(listaProjeteis,score,naveMae):
     for i in listaProjeteis:
         if (i.collided(naveMae)):
-            naveMae.y=-200
+            naveMae.y=-300
             score+=100
     return score
 
@@ -118,10 +99,11 @@ def hit(vidas,player,listaDeInimigos,listaProjeteisInimigos,listaProjeteisNavema
         if (projetil.collided(player)):
             listaProjeteisInimigos.pop(i)
             vidas-=1
+    
     for i,inimigo in enumerate(listaDeInimigos):
-        if (inimigo.collided(player) or inimigo.y>=player.y):
-            from ranking import fimDoJogoDerrota
-            fimDoJogoDerrota(score)
+        if (inimigo.y>=player.y):
+            ranking.fimDoJogoDerrota(score)
+    
     for i,tiro in enumerate(listaProjeteisNavemae):
         if (tiro.collided(player)):
             listaProjeteisNavemae.pop(i)

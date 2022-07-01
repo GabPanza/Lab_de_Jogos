@@ -23,11 +23,11 @@ def rank():
     # Desenho a pontuacao
     altura = 150
     for i,conteudo in enumerate(pontuacao):
-        janela.draw_text(str(i+1), (janela.width/2)-130, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
-        janela.draw_text(("."), (janela.width/2)-110, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
-        janela.draw_text(str(conteudo), (janela.width/2)-90, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(str(i+1), (janela.width/2)-120, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(("."), (janela.width/2)-100, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(str(conteudo), (janela.width/2)-80, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
         altura+=45
-        if i>10:
+        if i>4:
             break
         
     while (True):
@@ -45,50 +45,6 @@ def rank():
         # Atualizo o GameLoop
         janela.update()
 
-def fimDoJogoVitoria(score):
-    janela = Window(1280,720)
-    
-    teclado = janela.get_keyboard()
-
-    espaco = GameImage("espaço.jpg")
-    
-    # Instancio o som da Vitoria
-    mixer.music.load("EpicSaxGuy.wav")
-    mixer.music.set_volume(0.5)
-    mixer.music.play(-1)
-    
-    # Abro o arquivo (leitura)
-    arquivo = open('Pontuacao.txt', 'r')
-    conteudo = arquivo.readlines()
-
-    # Insiro o conteúdo
-    conteudo.append(str(score) + " ")
-    arquivo.close()
-    
-    # Abre novamente o arquivo (escrita)
-    arquivo = open('Pontuacao.txt', 'w')
-    arquivo.writelines(conteudo)
-    arquivo.close() 
-    
-    while (True):
-        # Desenho o fundo
-        espaco.draw()
-        
-        # Volto pro menu
-        if(teclado.key_pressed("ESC")):
-            mixer.music.stop()
-            import menu
-            menu.MainMenu()
-            
-        janela.draw_text(("Você derrotou a invasão! Parabéns, recruta!"), (janela.width/2) - 350, janela.height/2 - 200, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
-        janela.draw_text(("Aperte 'ESC' para sair"), (janela.width/2) - 250, (janela.height/2) -100, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
-        
-        # Instancio o titulo da janela  
-        janela.set_title("Space Invaders")
-        
-        # Atualizo o GameLoop
-        janela.update()
-
 def fimDoJogoDerrota(score):
     janela = Window(1280,720)
     
@@ -96,9 +52,11 @@ def fimDoJogoDerrota(score):
     
     espaco = GameImage("espaço.jpg")
     
+    nome = input("Entre com o seu nome: ")
+    
     # Instancio o som da Derrota
     mixer.music.load("NarutoSadThemeFlute.wav")
-    mixer.music.set_volume(0.5)
+    mixer.music.set_volume(0.4)
     mixer.music.play(-1)
     
     # Abro o arquivo (leitura)
@@ -106,7 +64,8 @@ def fimDoJogoDerrota(score):
     conteudo = arquivo.readlines()
 
     # Insiro o conteúdo
-    conteudo.append(str(score) + " ")
+    
+    conteudo.append(nome + " - " + str(score) + ".")
     arquivo.close()
     
     # Abre novamente o arquivo (escrita)
@@ -137,9 +96,9 @@ def sorting(file):
     arquivo = open(file)
     pontuacao = []
     for linha in arquivo:
-        temp = linha.split()
+        temp = linha.split(".")
         for i in temp:
-            pontuacao.append(int(i))
+            pontuacao.append(i)
     arquivo.close()
     pontuacao.sort()
     return pontuacao

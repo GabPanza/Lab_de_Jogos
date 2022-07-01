@@ -223,8 +223,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     listaProjeteisInimigosD = []
     checkPosInim=0
 
-    # Crio a lista de inimigos
-    listaInimigos = []
+    # Crio as variaveis dos inimigos
     summon = False
     spawn=0
     
