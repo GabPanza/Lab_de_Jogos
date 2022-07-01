@@ -65,7 +65,7 @@ def fimDoJogoDerrota(score):
 
     # Insiro o conteúdo
     
-    conteudo.append(nome + " - " + str(score) + ".")
+    conteudo.append(str(score) + " - " + nome + ".")
     arquivo.close()
     
     # Abre novamente o arquivo (escrita)

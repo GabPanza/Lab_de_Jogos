@@ -50,7 +50,7 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
     spawnNaveMae = 600
     
     # Crio a pontuaçao que os aliens dão e o delay de invencibilidade
-    score = 0
+    score = 0000
     delayInvencible = 0
     TomeiDano=False
     
@@ -89,7 +89,7 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
             delayInvencible=180
             if linha<6:
                 linha+=1
-                movimentoInimigo*=1.1
+                movimentoInimigo*=1.02
             if linha<6:
                 enemy.spawn(linha,matrizDeInimigos)
             else:
