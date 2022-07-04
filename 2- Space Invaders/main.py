@@ -50,7 +50,7 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
     spawnNaveMae = 600
     
     # Crio a pontuaçao que os aliens dão e o delay de invencibilidade
-    score = 0000
+    score = 0
     delayInvencible = 0
     TomeiDano=False
     
@@ -155,12 +155,9 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
             mixer.music.stop()
             ranking.fimDoJogoDerrota(score) 
             
-        # Desenho o fps
-        janela.draw_text(str(clock), janela.width-200, 0, size=20, font_name="Arial", bold=True,color=[255, 255, 255])
-        
         # Desenho a pontuação
-        janela.draw_text(("Score: "), janela.width-130, 25, size=20, font_name="Arial", bold=True,color=[255, 255, 255])
-        janela.draw_text(str(score), janela.width-50, 25, size=20, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(("Score: "), janela.width-130, 0, size=20, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(str(score), janela.width-50, 0, size=20, font_name="Arial", bold=True,color=[255, 255, 255])
         
         # Desenho a vida
         janela.draw_text(("Vidas: "), 0, 0, size=24, font_name="Arial", bold=True,color=[255, 255, 255])
