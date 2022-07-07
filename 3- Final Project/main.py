@@ -211,7 +211,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     caebralum_Dir.y = janela.height-caebralum_Dir.height
     
     caebralum = caebralum_Esq
-    vidasCaebralum = vidasInimigo
+    vidasCaebralum = vidasInimigo * 2
     
     # Crio o vetor de projeteis aliados e sua direçao
     listaProjeteisE = []
@@ -253,8 +253,8 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                     minotauro.update()
 
                 #if (minotauro.x<= player.x and (minotauro.x-player.x)<120):
-                 #   minotauro = enemy.SetEnemy(minotauro_attack,minotauro)
-                  #  minotauro.update()
+                #    minotauro = enemy.SetEnemy(minotauro_attack,minotauro)
+                #    minotauro.update()
 
                 if minotauro.x==player.x and minotauro.y == player.y:
                     minotauro = enemy.SetEnemy(minotauro_Dir,minotauro)
@@ -269,6 +269,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                 cenario+=1
                 player.set_position(0,janela.height/2+100)
                 placa.set_position(janela.width/2-200,janela.height/2-100)
+                summon=False
                 
         elif cenario==2:
             cenarioCastelo.draw()
@@ -351,7 +352,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             menu.menu()
         
         # Chamo a funçao que lidará com o desenho da barra de vida
-        life(vidas)
+        life(vidas,movimentoInimigo)
             
         # Chamo a funçao que irá lidar com a criaçao dos tiros
         if (teclado.key_pressed("SPACE") and delay==0):
@@ -393,27 +394,26 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                 spawn+=1
         
         # Desenho os monstros
-        if cenario==1:
-            if (summon==True) and (vidasMinotauro>0):
+        if cenario==1 and (summon==True):
+            if (vidasMinotauro>0):
                 minotauro.draw()
                 vidasMinotauro = enemy.hitFloresta(listaProjeteisE,listaProjeteisD,minotauro,vidasMinotauro)
         
-        if cenario==2:
-            if (summon==True) and (vidasCultista>0):
+        if cenario==2 and (summon==True):
+            if (vidasCultista>0):
                 cultista.draw()
                 vidasCultista = enemy.hitCasteloCultista(listaProjeteisE,listaProjeteisD,cultista,vidasCultista)
-            if (summon==True) and (vidasGuardas>0):
+            if (vidasGuardas>0):
                 guardas.draw()
                 vidasGuardas = enemy.hitCasteloGuardas(listaProjeteisE,listaProjeteisD,guardas,vidasGuardas)
-        if cenario==3:
-            if (summon==True) and (vidasCaebralum>0):
+        if cenario==3 and (summon==True):
+            if (vidasCaebralum>0):
                 caebralum.draw()
                 vidasCaebralum = enemy.hitDungeon(listaProjeteisE,listaProjeteisD,caebralum,vidasCaebralum)
         
         # Termino o jogo se mato o boss final
         if vidasCaebralum<=0:
             EndOfGame.vitoria()
-    
 
         # Define um titulo pra janela
         janela.set_title("A Ascensão da Feiticeira")
@@ -421,29 +421,39 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         # Finaliza o Gameloop
         janela.update()
 
-def life(vidas):
+def life(vidas,movimentoInimigo):
     # Instancio as barras de vida
     healthBarFull = Sprite("HealthBarFull.png", 1)
-    healthBarMedium1 = Sprite("HealthBarMedium1.png", 1)
-    healthBarMedium2 = Sprite("HealthBarMedium2.png", 1)
-    healthBarMedium3 = Sprite("HealthBarMedium3.png", 1)
-    healthBarLow = Sprite("HealthBarLow.png", 1)
-    
-    # Defino a posiçao das imagens de Vida
     healthBarFull.set_position(0,0)
-    healthBarMedium1.set_position(0,0)
-    healthBarMedium2.set_position(0,0)
-    healthBarMedium3.set_position(0,0)
-    healthBarLow.set_position(0,0)
     
+    healthBarMedium1 = Sprite("HealthBarMedium1.png", 1)
+    healthBarMedium1.set_position(0,0)
+    
+    healthBarMedium2 = Sprite("HealthBarMedium2.png", 1)
+    healthBarMedium2.set_position(0,0)
+
+    healthBarMedium3 = Sprite("HealthBarMedium3.png", 1)
+    healthBarMedium3.set_position(0,0)
+
+    healthBarLow = Sprite("HealthBarLow.png", 1)
+    healthBarLow.set_position(0,0)
+        
     # Desenho a barra de vida desejada
-    if (vidas==5):
-        healthBarFull.draw()
-    if (vidas==4):
-        healthBarMedium1.draw()
-    if (vidas==3):
-        healthBarMedium2.draw()
-    if (vidas==2):
-        healthBarMedium3.draw()
-    if (vidas==1):
-        healthBarLow.draw()
+    if abs(movimentoInimigo)==150:
+        if (vidas==3):
+            healthBarFull.draw()
+        if (vidas==2):
+            healthBarMedium2.draw()
+        if (vidas==1):
+            healthBarLow.draw()
+    else:
+        if (vidas==5):
+            healthBarFull.draw()
+        if (vidas==4):
+            healthBarMedium1.draw()
+        if (vidas==3):
+            healthBarMedium2.draw()
+        if (vidas==2):
+            healthBarMedium3.draw()
+        if (vidas==1):
+            healthBarLow.draw()

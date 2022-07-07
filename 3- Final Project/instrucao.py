@@ -26,11 +26,11 @@ def instrucao(movimentoInimigo):
             
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(playButton)):
             if(movimentoInimigo==100):
-                main.game(vidas=5,vidasInimigo=4,movimento=200,movimentoInimigo=movimentoInimigo,velProjetil=600,velProjetilInimigo=300,delay=0,delayInimigo=100)
+                main.game(vidas=5,vidasInimigo=3,movimento=200,movimentoInimigo=movimentoInimigo,velProjetil=600,velProjetilInimigo=300,delay=0,delayInimigo=100)
             elif(movimentoInimigo==120):
-                main.game(vidas=5,vidasInimigo=4,movimento=200,movimentoInimigo=movimentoInimigo,velProjetil=600,velProjetilInimigo=300,delay=0,delayInimigo=100)
+                main.game(vidas=5,vidasInimigo=3,movimento=200,movimentoInimigo=movimentoInimigo,velProjetil=600,velProjetilInimigo=300,delay=0,delayInimigo=100)
             elif(movimentoInimigo==150):
-                main.game(vidas=5,vidasInimigo=5,movimento=200,movimentoInimigo=movimentoInimigo,velProjetil=600,velProjetilInimigo=300,delay=0,delayInimigo=100)
+                main.game(vidas=3,vidasInimigo=5,movimento=200,movimentoInimigo=movimentoInimigo,velProjetil=600,velProjetilInimigo=300,delay=0,delayInimigo=100)
         # Desenho o fundo
         janela.set_background_color([0,0,0])
 
