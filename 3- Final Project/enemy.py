@@ -19,14 +19,14 @@ def moveEnemy(janela,player,enemy,movimento,chao,checkPosInimigo):
     elif (enemy.x> (player.x + 30) and enemy.x<janela.width+5):
         enemy.x -= (movimento*3/5) * janela.delta_time()
         checkPosInimigo=1
-    if (enemy.y>player.y - player.height/3 and enemy.y-enemy.height>chao.height):
+    if (enemy.y>player.y - player.height/3 and enemy.y-(enemy.height/2)>chao.y-chao.height):
         enemy.y-= (movimento*2/5) * janela.delta_time()
     elif (enemy.y<player.y - player.height/3 and enemy.y<janela.height-enemy.height):
         enemy.y+= (movimento*2/5) * janela.delta_time()
     return checkPosInimigo
 
 def moveEnemyRanged(janela,player,enemy,movimento,chao,checkPosInimigo):
-    if (enemy.y>player.y - player.height/3 and enemy.y-enemy.height>chao.height):
+    if (enemy.y>player.y - player.height/3 and enemy.y-(enemy.height/2)>chao.y-chao.height):
         enemy.y-= (movimento*2/5) * janela.delta_time()
     elif (enemy.y<player.y - player.height/3 and enemy.y<janela.height-enemy.height):
         enemy.y+= (movimento*2/5) * janela.delta_time()

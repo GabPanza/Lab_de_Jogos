@@ -94,8 +94,8 @@ def fimDoJogoDerrota(score):
 def sorting(file):
     arquivo = open(file)
     pontuacao = []
-    for linha in arquivo:
-        temp = linha.split(".")
+    for elemento in arquivo:
+        temp = elemento.split(".")
         for i in temp:
             pontuacao.append(i)
     arquivo.close()

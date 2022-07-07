@@ -42,9 +42,6 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     cenarioCastelo = GameImage("Castelo.jpg")
     chaoCastelo = Sprite("CasteloChao.png",1)
     chaoCastelo.y = janela.height-chaoCastelo.height
-    #saidaCastelo = Sprite("CasteloSaida.png",1)
-    sangue = Sprite("sangue.png", 1)
-    sangue.set_position(janela.width-sangue.width-10,janela.height-sangue.height-100)
     
     cenarioDungeon = GameImage("Dungeon.jpg")
     chaoDungeon = Sprite("DungeonChao.png",1) 
@@ -56,6 +53,9 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     placa = Sprite("Placa.png",1)
     placa.x = janela.width/2 - 50
     placa.y = janela.height-placa.height-270
+    
+    sangue = Sprite("sangue.png", 1)
+    sangue.set_position(janela.width-sangue.width-10,janela.height-sangue.height-100)
     
     # Instancio a Emih
     player_Esq_Run = Sprite("Emih_invertido.png", 8)
@@ -267,7 +267,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             
             if ((player.collided(saida)) and vidasMinotauro<=0):
                 cenario+=1
-                player.set_position(0,janela.height/2+100)
+                player.set_position(0,janela.height-player.height)
                 placa.set_position(janela.width/2-200,janela.height/2-100)
                 summon=False
                 
@@ -276,7 +276,6 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             sangue.draw()
             placa.draw()
             chao = chaoCastelo
-            #saida = saidaCastelo
             
             # Crio a movimentacao do guarda
             checkPosInim = enemy.moveEnemy(janela,player,guardas,movimento,chao,checkPosInim)
@@ -310,8 +309,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             
             if ((player.collided(sangue)) and (vidasCultista<=0 and vidasGuardas<=0)):
                 cenario+=1
-                player.x=0
-                player.y=janela.height/2
+                player.set_position(0,janela.height-player.height)
         elif cenario==3:
             cenarioDungeon.draw()
             chao = chaoDungeon
@@ -359,6 +357,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             Player.criaProjetil(player,listaProjeteisE,listaProjeteisD,checkPos)
             delay = shooting.recarga(movimentoInimigo,delay)
         if (delayInimigo==0):
+            enemy.criaProjetilInimigo(cultista,listaProjeteisInimigosE,listaProjeteisInimigosD, checkPosInim)
             delayInimigo = shooting.recargaCultistaInimigo(movimentoInimigo,delayInimigo)
             
         # Faço o movimento dos tiros
@@ -390,7 +389,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             summon = True
             if spawn==1:
                 cultista.set_position(janela.width-cultista.width,janela.height-cultista.height)
-                guardas.set_position(janela.width-guardas.width,0)
+                guardas.set_position(janela.width-guardas.width,janela.height/2+guardas.height)
                 spawn+=1
         
         # Desenho os monstros
