@@ -48,7 +48,7 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
     # Crio o vetor de inimigos
     matrizDeInimigos = []
     spawnNaveMae = 600
-    movimentoInimigoAnt = movimentoInimigo
+    movimentoInimigoBase = movimentoInimigo
     
     # Crio a pontuaçao que os aliens dão e o delay de invencibilidade
     score = 0
@@ -86,12 +86,13 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
                 break
         if vazio:    
             matrizDeInimigos.clear()
-            movimentoInimigo=movimentoInimigoAnt
+            movimentoInimigo=movimentoInimigoBase
             player.x= janela.width/2-player.width/2
             delayInvencible=180
             if linha<5:
                 linha+=1
-                movimentoInimigo*=1.01
+                movimentoInimigo*=1.03
+                movimentoInimigoBase*=1.03
                 enemy.spawn(linha,matrizDeInimigos)
             else:
                 naveMae = enemy.spawn(linha,matrizDeInimigos)

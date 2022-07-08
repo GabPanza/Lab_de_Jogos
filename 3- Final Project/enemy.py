@@ -46,17 +46,33 @@ def criaProjetilInimigo(cultista,listaProjeteisInimigoE,listaProjeteisInimigoD, 
         projetilDir.y = cultista.y+cultista.height/4
         listaProjeteisInimigoD.append(projetilDir)
 
-def magicAttackInimigo(janela, listaProjeteisInimigoE, listaProjeteisInimigoD, velProjetil):
-    for i in listaProjeteisInimigoD:
-        i.x += velProjetil*janela.delta_time()
-        i.draw()
-        if (i.x>janela.width or i.x<0):
-            listaProjeteisInimigoD.remove(i)
-    for j in listaProjeteisInimigoE:
-        j.x += (velProjetil*janela.delta_time())*-1
-        j.draw()
-        if (j.x>janela.width or j.x<0):
-            listaProjeteisInimigoE.remove(j)
+def magicAttackInimigo(janela, player, vidasPlayer, listaProjeteisInimigoE, listaProjeteisInimigoD, velProjetil, delayInv):
+    for i,projetil in enumerate(listaProjeteisInimigoD):
+        projetil.x += velProjetil*janela.delta_time()
+        projetil.draw()
+        if (projetil.x>janela.width or projetil.x<0):
+            listaProjeteisInimigoD.pop(i)
+        if projetil.collided(player):
+            vidasPlayer-=1
+            listaProjeteisInimigoD.pop(i)
+            delayInv= 120
+    for j,projetil in enumerate(listaProjeteisInimigoE):
+        projetil.x += (velProjetil*janela.delta_time())*-1
+        projetil.draw()
+        if (projetil.x>janela.width or projetil.x<0):
+            listaProjeteisInimigoE.pop(j)
+        if projetil.collided(player):
+            vidasPlayer-=1
+            listaProjeteisInimigoE.pop(j)
+            delayInv= 120
+    return vidasPlayer, delayInv
+
+def enemy_attack(enemy,player,vidasPlayer,delayInv):
+    if enemy.collided(player):
+        vidasPlayer-=1
+        delayInv= 120
+    return vidasPlayer, delayInv
+
 def hitFloresta(listaProjeteisE,listaProjeteisD,minotauro,vidasMinotauro):
     for i,projetil in enumerate(listaProjeteisE):
         if projetil.collided(minotauro):

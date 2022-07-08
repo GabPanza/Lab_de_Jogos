@@ -50,13 +50,3 @@ def magicAttack(janela, listaProjeteisE, listaProjeteisD, velProjetil):
         j.draw()
         if (j.x>janela.width or j.x<0):
             listaProjeteisE.remove(j)
-def hit(listaProjeteisInimigosE,listaProjeteisInimigosD,player,vidasPlayer):
-    for i,projetil in enumerate(listaProjeteisInimigosE):
-        if projetil.collided(player):
-            vidasPlayer-=1
-            listaProjeteisInimigosE.pop(i)
-    for i,projetil in enumerate(listaProjeteisInimigosD):
-        if projetil.collided(player):
-            vidasPlayer-=1
-            listaProjeteisInimigosD.pop(i)
-    return vidasPlayer

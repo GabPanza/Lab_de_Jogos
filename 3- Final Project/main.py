@@ -8,6 +8,7 @@ from PPlay.keyboard import*
 from PPlay.mouse import*
 from PPlay.sound import*
 import menu
+import instrucaoBoss
 import Player
 import enemy
 import shooting
@@ -19,7 +20,7 @@ from pygame import mixer
 ################################################ Inicializações / Start() ######################################################
 ################################################################################################################################
 
-def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,delayInimigo):
+def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,delayInimigo,cenario):
     # Instancio o tamanho da janela
     janela = Window(1280,720)
     
@@ -46,9 +47,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     cenarioDungeon = GameImage("Dungeon.jpg")
     chaoDungeon = Sprite("DungeonChao.png",1) 
     chaoDungeon.y = janela.height-chaoDungeon.height
-    
-    cenario = 1
-    
+        
     # Instancio os objetos
     placa = Sprite("Placa.png",1)
     placa.x = janela.width/2 - 50
@@ -226,6 +225,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     # Crio as variaveis dos inimigos
     summon = False
     spawn=0
+    inv=0
     
     # Defino o frame per second
     FPS = 60
@@ -309,10 +309,11 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             
             if ((player.collided(sangue)) and (vidasCultista<=0 and vidasGuardas<=0)):
                 cenario+=1
-                player.set_position(0,janela.height-player.height)
+                instrucaoBoss.instrucaoBoss(abs(movimentoInimigo),vidasPlayer)
         elif cenario==3:
             cenarioDungeon.draw()
             chao = chaoDungeon
+            summon=True
             
             # Crio a movimentacao do Caebralum
             checkPosInim = enemy.moveEnemy(janela,player,caebralum,movimento,chao,checkPosInim)
@@ -350,7 +351,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             menu.menu()
         
         # Chamo a funçao que lidará com o desenho da barra de vida
-        life(vidas,movimentoInimigo)
+        life(vidasPlayer,movimentoInimigo)
             
         # Chamo a funçao que irá lidar com a criaçao dos tiros
         if (teclado.key_pressed("SPACE") and delay==0):
@@ -362,20 +363,15 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             
         # Faço o movimento dos tiros
         Player.magicAttack(janela,listaProjeteisE,listaProjeteisD,velProjetil)
-        enemy.magicAttackInimigo(janela,listaProjeteisE,listaProjeteisD,velProjetil)
+        
         if delay>0:
             delay-=1
-        if delayInimigo>0:
-            delayInimigo-=1
         
         # Desenho o personagem principal
         if vidasPlayer>0:
             player.draw()
-        else:
+        if vidasPlayer<=0:
             EndOfGame.derrota()
-        
-        # Checo se tomei dano
-        vidasPlayer = Player.hit(listaProjeteisInimigosE,listaProjeteisInimigosD,player,vidasPlayer)
         
         # Desenho as instruçoes
         if player.collided(placa) and cenario==1:
@@ -397,19 +393,32 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             if (vidasMinotauro>0):
                 minotauro.draw()
                 vidasMinotauro = enemy.hitFloresta(listaProjeteisE,listaProjeteisD,minotauro,vidasMinotauro)
+                if inv ==0:
+                    vidasPlayer,inv = enemy.enemy_attack(minotauro,player,vidasPlayer,inv)
         
         if cenario==2 and (summon==True):
             if (vidasCultista>0):
                 cultista.draw()
                 vidasCultista = enemy.hitCasteloCultista(listaProjeteisE,listaProjeteisD,cultista,vidasCultista)
+                vidasPlayer,inv = enemy.magicAttackInimigo(janela,player,vidasPlayer,listaProjeteisInimigosE,listaProjeteisInimigosD,velProjetil,inv)
+            if delayInimigo>0:
+                delayInimigo-=1
+                
             if (vidasGuardas>0):
                 guardas.draw()
                 vidasGuardas = enemy.hitCasteloGuardas(listaProjeteisE,listaProjeteisD,guardas,vidasGuardas)
+                if inv ==0:
+                    vidasPlayer,inv = enemy.enemy_attack(guardas,player,vidasPlayer,inv)
         if cenario==3 and (summon==True):
             if (vidasCaebralum>0):
                 caebralum.draw()
                 vidasCaebralum = enemy.hitDungeon(listaProjeteisE,listaProjeteisD,caebralum,vidasCaebralum)
+                if inv ==0:
+                    vidasPlayer,inv = enemy.enemy_attack(caebralum,player,vidasPlayer,inv)
         
+        if inv>0:
+            inv-=1
+            
         # Termino o jogo se mato o boss final
         if vidasCaebralum<=0:
             EndOfGame.vitoria()
