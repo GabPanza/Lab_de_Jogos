@@ -107,12 +107,7 @@ def hit(vidas,player,listaDeInimigos,listaProjeteisInimigos,listaProjeteisNavema
     for i,projetil in enumerate(listaProjeteisInimigos):
         if (projetil.collided(player)):
             listaProjeteisInimigos.pop(i)
-            vidas-=1
-    
-    for i,inimigo in enumerate(listaDeInimigos):
-        if (inimigo[0].y>=player.y):
-            ranking.fimDoJogoDerrota(score)
-    
+            vidas-=1    
     for i,tiro in enumerate(listaProjeteisNavemae):
         if (tiro.collided(player)):
             listaProjeteisNavemae.pop(i)

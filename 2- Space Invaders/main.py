@@ -156,7 +156,12 @@ def game(vidas,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,d
         if (vidas <= 0):
             mixer.music.stop()
             ranking.fimDoJogoDerrota(score) 
-            
+        for i in range(len(matrizDeInimigos)-1,-1,-1):
+            for j in matrizDeInimigos[i]:
+                if j[0].collided(player) or j[0].y>=player.y:
+                    mixer.music.stop()
+                    ranking.fimDoJogoDerrota(score)
+         
         # Desenho a pontuação
         janela.draw_text(("Score: "), janela.width-130, 0, size=20, font_name="Arial", bold=True,color=[255, 255, 255])
         janela.draw_text(str(score), janela.width-50, 0, size=20, font_name="Arial", bold=True,color=[255, 255, 255])

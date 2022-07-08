@@ -34,11 +34,11 @@ def tiroInimigo(janela,listaProjeteisInimigos,velProjetilInimigo):
 
 def delay(delay,linha):
     if linha==4:    
-        delay = 45
-    if linha==5:
         delay = 40
-    if linha>=6:
+    if linha==5:
         delay = 35
+    if linha>=6:
+        delay = 25
     return delay
 def delayInimigo(delayInimigo,linha):
     if linha==4:

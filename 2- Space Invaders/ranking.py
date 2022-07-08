@@ -15,7 +15,7 @@ def rank():
 
     # Organizo o arquivo txt em ordem decrescente
     pontuacao = sorting('Pontuacao.txt')
-    
+    pontuacao.reverse()
     # Desenho o fundo
     espaco.draw()
     
@@ -23,8 +23,10 @@ def rank():
     altura = 150
     limite=0
     for i,conteudo in enumerate(pontuacao):
+        if i==0:
+            continue
         if limite<5:
-            janela.draw_text(str(i+1), (janela.width/2)-120, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
+            janela.draw_text(str(i), (janela.width/2)-120, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
             janela.draw_text(("."), (janela.width/2)-100, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
             janela.draw_text(str(conteudo), (janela.width/2)-80, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
             altura+=45
