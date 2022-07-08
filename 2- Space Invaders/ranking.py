@@ -15,20 +15,20 @@ def rank():
 
     # Organizo o arquivo txt em ordem decrescente
     pontuacao = sorting('Pontuacao.txt')
-    pontuacao.reverse()
     
     # Desenho o fundo
     espaco.draw()
     
     # Desenho a pontuacao
     altura = 150
+    limite=0
     for i,conteudo in enumerate(pontuacao):
-        janela.draw_text(str(i+1), (janela.width/2)-120, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
-        janela.draw_text(("."), (janela.width/2)-100, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
-        janela.draw_text(str(conteudo), (janela.width/2)-80, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
-        altura+=45
-        if i>4:
-            break
+        if limite<5:
+            janela.draw_text(str(i+1), (janela.width/2)-120, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
+            janela.draw_text(("."), (janela.width/2)-100, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
+            janela.draw_text(str(conteudo), (janela.width/2)-80, altura, size=36, font_name="Arial", bold=True,color=[255, 255, 255])
+            altura+=45
+            limite+=1
         
     while (True):
         # Volto pro menu
@@ -99,5 +99,4 @@ def sorting(file):
         for i in temp:
             pontuacao.append(i)
     arquivo.close()
-    pontuacao.sort()
     return pontuacao

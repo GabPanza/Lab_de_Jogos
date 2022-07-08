@@ -20,8 +20,8 @@ def tiroPlayer(janela,listaProjeteis,velProjetil):
 def criaProjInimigo(inimigo,listaProjeteisInimigos):
     # Crio o projetil
     projetilInimigo = Sprite("projetil2.png",1)
-    projetilInimigo.x = inimigo.x + 50
-    projetilInimigo.y = inimigo.y + projetilInimigo.height + 50
+    projetilInimigo.x = inimigo[0].x + 50
+    projetilInimigo.y = inimigo[0].y + projetilInimigo.height + 50
     if (random.random() < 0.3 and len(listaProjeteisInimigos)==0):
         listaProjeteisInimigos.append(projetilInimigo)
 
