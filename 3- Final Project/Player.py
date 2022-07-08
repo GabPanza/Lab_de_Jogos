@@ -19,7 +19,7 @@ def movePlayer(janela,teclado,player,movimento,chao,checkPos):
     elif ((teclado.key_pressed("D") or teclado.key_pressed("RIGHT")) and player.x<janela.width-player.width/2):
         player.x += movimento * janela.delta_time()
         checkPos=0
-    if ((teclado.key_pressed("W") or teclado.key_pressed("UP")) and player.y-player.height>chao.height):
+    if ((teclado.key_pressed("W") or teclado.key_pressed("UP")) and player.y-(player.height/2)>chao.y-chao.height):
         player.y-= (movimento*3/4) * janela.delta_time()
     elif ((teclado.key_pressed("S") or teclado.key_pressed("DOWN")) and player.y<janela.height-player.height):
         player.y+= (movimento*3/4) * janela.delta_time()
