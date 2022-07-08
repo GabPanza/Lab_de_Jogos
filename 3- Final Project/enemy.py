@@ -52,25 +52,30 @@ def magicAttackInimigo(janela, player, vidasPlayer, listaProjeteisInimigoE, list
         projetil.draw()
         if (projetil.x>janela.width or projetil.x<0):
             listaProjeteisInimigoD.pop(i)
-        if projetil.collided(player):
-            vidasPlayer-=1
-            listaProjeteisInimigoD.pop(i)
-            delayInv= 120
     for j,projetil in enumerate(listaProjeteisInimigoE):
         projetil.x += (velProjetil*janela.delta_time())*-1
         projetil.draw()
         if (projetil.x>janela.width or projetil.x<0):
             listaProjeteisInimigoE.pop(j)
-        if projetil.collided(player):
-            vidasPlayer-=1
-            listaProjeteisInimigoE.pop(j)
-            delayInv= 120
-    return vidasPlayer, delayInv
 
-def enemy_attack(enemy,player,vidasPlayer,delayInv):
+def enemy_melee_attack(enemy,player,vidasPlayer,delayInv):
     if enemy.collided(player):
         vidasPlayer-=1
         delayInv= 120
+    return vidasPlayer, delayInv
+
+def enemy_ranged_attack(listaProjeteisInimigoE,listaProjeteisInimigoD,player,vidasPlayer,delayInv):
+    for i,projetil in enumerate(listaProjeteisInimigoE):
+        if projetil.collided(player):
+            vidasPlayer-=1
+            delayInv= 120
+            listaProjeteisInimigoE.pop(i)
+
+    for j,projetil in enumerate(listaProjeteisInimigoD):
+        if projetil.collided(player):
+            vidasPlayer-=1
+            delayInv= 120
+            listaProjeteisInimigoD.pop(j)
     return vidasPlayer, delayInv
 
 def hitFloresta(listaProjeteisE,listaProjeteisD,minotauro,vidasMinotauro):

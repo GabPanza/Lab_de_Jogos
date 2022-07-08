@@ -24,6 +24,7 @@ def vitoria():
         if (teclado.key_pressed("ESC")):
             mixer.music.stop()
             import menu
+            menu.menu()
         # Desenho os textos finais
         janela.draw_text(("Parabéns, nova Rainha. O reino está salvo desta criatura graças a você!"), (janela.width/2)-480, janela.height/2, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
 
@@ -53,6 +54,7 @@ def derrota():
         if (teclado.key_pressed("ESC")):
             mixer.music.stop()
             import menu
+            menu.menu()
         
         # Desenho os textos finais
         janela.draw_text(("Eh... parece que você nao estava pronto mesmo. O reino sentirá sua falta, princesa!"), (janela.width/2)-555, janela.height/2, size=28, font_name="Arial", bold=True,color=[255, 255, 0])

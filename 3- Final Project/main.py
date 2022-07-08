@@ -8,7 +8,6 @@ from PPlay.keyboard import*
 from PPlay.mouse import*
 from PPlay.sound import*
 import menu
-import instrucaoBoss
 import Player
 import enemy
 import shooting
@@ -20,16 +19,19 @@ from pygame import mixer
 ################################################ Inicializações / Start() ######################################################
 ################################################################################################################################
 
-def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,delayInimigo,cenario):
+def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,delayInimigo,cenario,summon):
     # Instancio o tamanho da janela
     janela = Window(1280,720)
     
     # Inicializo o teclado
     teclado = janela.get_keyboard()
-
+    
+    # Inicializo o mouse
+    mouseClick = janela.get_mouse()
+    
     # Adiciono musica
     mixer.music.load("EnvironmentMusic.wav")
-    mixer.music.set_volume(0.2)
+    mixer.music.set_volume(0.3)
     mixer.music.play(-1)
     
     # Instancio os cenários
@@ -55,6 +57,12 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     
     sangue = Sprite("sangue.png", 1)
     sangue.set_position(janela.width-sangue.width-10,janela.height-sangue.height-100)
+    
+    pop_up = Sprite("popUp.png",1)
+    pop_up.set_position(janela.width/2 - pop_up.width/2, janela.height/2 - pop_up.height/2)
+    
+    continueButton = Sprite("Continue.png",1)
+    continueButton.set_position(pop_up.x+75, pop_up.y+pop_up.height-(continueButton.height+75))
     
     # Instancio a Emih
     player_Esq_Run = Sprite("Emih_invertido.png", 8)
@@ -223,9 +231,9 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     checkPosInim=0
 
     # Crio as variaveis dos inimigos
-    summon = False
     spawn=0
     inv=0
+    delayRugido=1
     
     # Defino o frame per second
     FPS = 60
@@ -251,11 +259,6 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                 if (minotauro.x<player.x and minotauro.x>0):
                     minotauro = enemy.SetEnemy(minotauro_Dir_Run,minotauro)
                     minotauro.update()
-
-                #if (minotauro.x<= player.x and (minotauro.x-player.x)<120):
-                #    minotauro = enemy.SetEnemy(minotauro_attack,minotauro)
-                #    minotauro.update()
-
                 if minotauro.x==player.x and minotauro.y == player.y:
                     minotauro = enemy.SetEnemy(minotauro_Dir,minotauro)
             else:
@@ -268,7 +271,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             if ((player.collided(saida)) and vidasMinotauro<=0):
                 cenario+=1
                 player.set_position(0,janela.height-player.height)
-                placa.set_position(janela.width/2-200,janela.height/2-100)
+                placa.set_position(janela.width/2-300,janela.height/2-100)
                 summon=False
                 
         elif cenario==2:
@@ -308,12 +311,14 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                     cultista = enemy.SetEnemy(cultista_Esq,cultista)
             
             if ((player.collided(sangue)) and (vidasCultista<=0 and vidasGuardas<=0)):
-                cenario+=1
-                instrucaoBoss.instrucaoBoss(abs(movimentoInimigo),vidasPlayer)
+                pop_up.draw()
+                continueButton.draw()
+                if mouseClick.is_button_pressed(1) and mouseClick.is_over_object(continueButton):
+                    cenario+=1
+                    player.set_position(0,janela.height-player.height)
         elif cenario==3:
             cenarioDungeon.draw()
             chao = chaoDungeon
-            summon=True
             
             # Crio a movimentacao do Caebralum
             checkPosInim = enemy.moveEnemy(janela,player,caebralum,movimento,chao,checkPosInim)
@@ -357,30 +362,29 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         if (teclado.key_pressed("SPACE") and delay==0):
             Player.criaProjetil(player,listaProjeteisE,listaProjeteisD,checkPos)
             delay = shooting.recarga(movimentoInimigo,delay)
-        if (delayInimigo==0):
-            enemy.criaProjetilInimigo(cultista,listaProjeteisInimigosE,listaProjeteisInimigosD, checkPosInim)
-            delayInimigo = shooting.recargaCultistaInimigo(movimentoInimigo,delayInimigo)
             
         # Faço o movimento dos tiros
         Player.magicAttack(janela,listaProjeteisE,listaProjeteisD,velProjetil)
-        
         if delay>0:
             delay-=1
+        enemy.magicAttackInimigo(janela,player,vidasPlayer,listaProjeteisInimigosE,listaProjeteisInimigosD,velProjetil,inv)
+        if delayInimigo>0:
+            delayInimigo-=1
         
         # Desenho o personagem principal
         if vidasPlayer>0:
             player.draw()
-        if vidasPlayer<=0:
+        else:
             EndOfGame.derrota()
         
         # Desenho as instruçoes
-        if player.collided(placa) and cenario==1:
-            janela.draw_text(("DERROTE o MINOTAURO PARA PROSSEGUIR!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
+        if (player.collided(placa) or player.x>=placa.x) and cenario==1:
+            janela.draw_text(("DERROTE O MINOTAURO PARA PROSSEGUIR ATÉ O CASTELO!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
             summon = True
             if spawn==0:
                 minotauro.set_position(janela.width-minotauro.width,(janela.height/2)-(minotauro.height/2))
                 spawn+=1
-        elif player.collided(placa) and cenario==2:
+        elif (player.collided(placa) or player.x>=placa.x) and cenario==2:
             janela.draw_text(("SIGA O RASTRO DE SANGUE ATÉ O CALABOUÇO!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
             summon = True
             if spawn==1:
@@ -394,31 +398,42 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                 minotauro.draw()
                 vidasMinotauro = enemy.hitFloresta(listaProjeteisE,listaProjeteisD,minotauro,vidasMinotauro)
                 if inv ==0:
-                    vidasPlayer,inv = enemy.enemy_attack(minotauro,player,vidasPlayer,inv)
+                    vidasPlayer,inv = enemy.enemy_melee_attack(minotauro,player,vidasPlayer,inv)
         
         if cenario==2 and (summon==True):
             if (vidasCultista>0):
                 cultista.draw()
                 vidasCultista = enemy.hitCasteloCultista(listaProjeteisE,listaProjeteisD,cultista,vidasCultista)
-                vidasPlayer,inv = enemy.magicAttackInimigo(janela,player,vidasPlayer,listaProjeteisInimigosE,listaProjeteisInimigosD,velProjetil,inv)
-            if delayInimigo>0:
-                delayInimigo-=1
+                if (delayInimigo==0):
+                    enemy.criaProjetilInimigo(cultista,listaProjeteisInimigosE,listaProjeteisInimigosD, checkPosInim)
+                    delayInimigo = shooting.recargaCultistaInimigo(movimentoInimigo,delayInimigo)
+                if inv==0:
+                    vidasPlayer,inv = enemy.enemy_ranged_attack(listaProjeteisInimigosE,listaProjeteisInimigosD,player,vidasPlayer,inv)
                 
             if (vidasGuardas>0):
                 guardas.draw()
                 vidasGuardas = enemy.hitCasteloGuardas(listaProjeteisE,listaProjeteisD,guardas,vidasGuardas)
                 if inv ==0:
-                    vidasPlayer,inv = enemy.enemy_attack(guardas,player,vidasPlayer,inv)
+                    vidasPlayer,inv = enemy.enemy_melee_attack(guardas,player,vidasPlayer,inv)
         if cenario==3 and (summon==True):
             if (vidasCaebralum>0):
                 caebralum.draw()
                 vidasCaebralum = enemy.hitDungeon(listaProjeteisE,listaProjeteisD,caebralum,vidasCaebralum)
                 if inv ==0:
-                    vidasPlayer,inv = enemy.enemy_attack(caebralum,player,vidasPlayer,inv)
+                    vidasPlayer,inv = enemy.enemy_melee_attack(caebralum,player,vidasPlayer,inv)
+                if delayRugido>0:
+                    delayRugido-=1
         
+        # Checo o tempo de invencibilidade apos sofrer dano
         if inv>0:
             inv-=1
             
+        # Crio o latido do Boss
+        if delayRugido==0:
+            mixer.music.load("Rugido.wav")
+            mixer.music.set_volume(0.4)
+            mixer.music.play()
+            delayRugido=600
         # Termino o jogo se mato o boss final
         if vidasCaebralum<=0:
             EndOfGame.vitoria()
