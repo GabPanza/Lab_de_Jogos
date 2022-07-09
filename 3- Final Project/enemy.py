@@ -14,10 +14,10 @@ def SetEnemy(EnemyState,EnemyAtual):
 
 def moveEnemy(janela,player,enemy,movimento,chao,checkPosInimigo):
     if (enemy.x< (player.x - 140) and enemy.x>-5):
-        enemy.x += (movimento*3/5) * janela.delta_time()
+        enemy.x += (movimento/2) * janela.delta_time()
         checkPosInimigo=0
     elif (enemy.x> (player.x + 30) and enemy.x<janela.width+5):
-        enemy.x -= (movimento*3/5) * janela.delta_time()
+        enemy.x -= (movimento/2) * janela.delta_time()
         checkPosInimigo=1
     if (enemy.y>player.y - player.height/3 and enemy.y-(enemy.height/2)>chao.y-chao.height):
         enemy.y-= (movimento*2/5) * janela.delta_time()
@@ -26,9 +26,9 @@ def moveEnemy(janela,player,enemy,movimento,chao,checkPosInimigo):
     return checkPosInimigo
 
 def moveEnemyRanged(janela,player,enemy,movimento,chao,checkPosInimigo):
-    if (enemy.y>player.y - player.height/3 and enemy.y-(enemy.height/2)>chao.y-chao.height):
+    if (enemy.y>player.y - player.height/2 and enemy.y-(enemy.height/2)>chao.y-chao.height):
         enemy.y-= (movimento*2/5) * janela.delta_time()
-    elif (enemy.y<player.y - player.height/3 and enemy.y<janela.height-enemy.height):
+    elif (enemy.y<player.y - player.height/2 and enemy.y<janela.height-enemy.height):
         enemy.y+= (movimento*2/5) * janela.delta_time()
     return checkPosInimigo
 
@@ -53,7 +53,7 @@ def magicAttackInimigo(janela, player, vidasPlayer, listaProjeteisInimigoE, list
         if (projetil.x>janela.width or projetil.x<0):
             listaProjeteisInimigoD.pop(i)
     for j,projetil in enumerate(listaProjeteisInimigoE):
-        projetil.x += (velProjetil*janela.delta_time())*-1
+        projetil.x -= velProjetil*janela.delta_time()
         projetil.draw()
         if (projetil.x>janela.width or projetil.x<0):
             listaProjeteisInimigoE.pop(j)

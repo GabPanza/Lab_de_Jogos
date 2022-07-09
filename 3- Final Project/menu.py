@@ -29,13 +29,13 @@ def menu():
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(playButton)):
             instrucao.instrucao(movimentoInimigo=100)
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(diffButton)):
-            diff.diff()
+            diff.diff(janela)
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(leaveButton)):
-            sair.sair()
+            sair.sair(janela)
         
-        playButton.set_position(525, 290)
-        diffButton.set_position(525, 410)
-        leaveButton.set_position(525, 530)
+        playButton.set_position(525, 260)
+        diffButton.set_position(525, 400)
+        leaveButton.set_position(525, 540)
         
         playButton.draw()
         diffButton.draw()

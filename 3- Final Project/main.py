@@ -19,7 +19,7 @@ from pygame import mixer
 ################################################ Inicializações / Start() ######################################################
 ################################################################################################################################
 
-def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,delayInimigo,cenario,summon):
+def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilInimigo,delay,delayInimigo):
     # Instancio o tamanho da janela
     janela = Window(1280,720)
     
@@ -49,12 +49,12 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     cenarioDungeon = GameImage("Dungeon.jpg")
     chaoDungeon = Sprite("DungeonChao.png",1) 
     chaoDungeon.y = janela.height-chaoDungeon.height
-        
-    # Instancio os objetos
-    placa = Sprite("Placa.png",1)
-    placa.x = janela.width/2 - 50
-    placa.y = janela.height-placa.height-270
+    trapDungeonOff = Sprite("Dungeontrapmap.png",1)
+    trapDungeonOn = Sprite("Dungeontrapmaphit.png",1)
     
+    cenario=1
+     
+    # Instancio os objetos
     sangue = Sprite("sangue.png", 1)
     sangue.set_position(janela.width-sangue.width-10,janela.height-sangue.height-100)
     
@@ -62,7 +62,14 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     pop_up.set_position(janela.width/2 - pop_up.width/2, janela.height/2 - pop_up.height/2)
     
     continueButton = Sprite("Continue.png",1)
-    continueButton.set_position(pop_up.x+75, pop_up.y+pop_up.height-(continueButton.height+75))
+    continueButton.set_position(pop_up.x+135, pop_up.y+pop_up.height)
+    
+    objetivoFloresta = Sprite("ObjetivoFloresta.png",1)
+    objetivoFloresta.set_position(janela.width-objetivoFloresta.width,0)
+    objetivoCastelo = Sprite("ObjetivoCastelo.png",1)
+    objetivoCastelo.set_position(janela.width-objetivoCastelo.width,0)
+    objetivoDungeon = Sprite("ObjetivoDungeon.png",1)
+    objetivoDungeon.set_position(janela.width-objetivoDungeon.width,0)
     
     # Instancio a Emih
     player_Esq_Run = Sprite("Emih_invertido.png", 8)
@@ -231,9 +238,12 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     checkPosInim=0
 
     # Crio as variaveis dos inimigos
+    summon=False
     spawn=0
     inv=0
     delayRugido=1
+    trap=False
+    trapTime=1
     
     # Defino o frame per second
     FPS = 60
@@ -249,10 +259,10 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         # Desenho o cenario desejado e a placa que indica o que precisa ser feito
         if cenario==1:
             cenarioFloresta.draw()
-            placa.draw()
             chao = chaoFloresta
             saida = saidaFloresta
-
+            objetivo = objetivoFloresta
+            
             # Crio a movimentacao do minotauro
             checkPosInim = enemy.moveEnemy(janela,player,minotauro,movimento,chao,checkPosInim)
             if checkPosInim==0:
@@ -271,14 +281,13 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             if ((player.collided(saida)) and vidasMinotauro<=0):
                 cenario+=1
                 player.set_position(0,janela.height-player.height)
-                placa.set_position(janela.width/2-300,janela.height/2-100)
                 summon=False
                 
         elif cenario==2:
             cenarioCastelo.draw()
             sangue.draw()
-            placa.draw()
             chao = chaoCastelo
+            objetivo = objetivoCastelo
             
             # Crio a movimentacao do guarda
             checkPosInim = enemy.moveEnemy(janela,player,guardas,movimento,chao,checkPosInim)
@@ -319,6 +328,8 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         elif cenario==3:
             cenarioDungeon.draw()
             chao = chaoDungeon
+            objetivo = objetivoDungeon
+            objetivo.draw()
             
             # Crio a movimentacao do Caebralum
             checkPosInim = enemy.moveEnemy(janela,player,caebralum,movimento,chao,checkPosInim)
@@ -334,7 +345,17 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                     caebralum.update()
                 if caebralum.x == player.x and caebralum.y == player.y:
                     caebralum = enemy.SetEnemy(caebralum_Esq,caebralum)
-        
+            if player.collided(trapDungeonOff) and inv==0:
+                vidasPlayer-=1
+                inv=120
+                trap = True
+                trapTime=60
+            if trap and trapTime>0:
+                trapDungeonOn.draw()
+                trapTime-=1
+            if trapTime<=0:
+                trap=False
+                
         # Crio a movimentacao do personagem principal
         checkPos = Player.movePlayer(janela,teclado,player,movimento,chao,checkPos)
         if checkPos==0:
@@ -378,14 +399,14 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             EndOfGame.derrota()
         
         # Desenho as instruçoes
-        if (player.collided(placa) or player.x>=placa.x) and cenario==1:
-            janela.draw_text(("DERROTE O MINOTAURO PARA PROSSEGUIR ATÉ O CASTELO!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
+        if player.x>=50 and cenario==1:
+            objetivo.draw()
             summon = True
             if spawn==0:
                 minotauro.set_position(janela.width-minotauro.width,(janela.height/2)-(minotauro.height/2))
                 spawn+=1
-        elif (player.collided(placa) or player.x>=placa.x) and cenario==2:
-            janela.draw_text(("SIGA O RASTRO DE SANGUE ATÉ O CALABOUÇO!"), (janela.width/2)-325, 20, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
+        elif player.x>=50 and cenario==2:
+            objetivo.draw()
             summon = True
             if spawn==1:
                 cultista.set_position(janela.width-cultista.width,janela.height-cultista.height)

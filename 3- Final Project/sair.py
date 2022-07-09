@@ -3,20 +3,13 @@ from PPlay.mouse import *
 from PPlay.gameimage import *
 from PPlay.sprite import *
 
-def sair():
-    janela = Window(1280,720)
-
+def sair(janela):
     teclado = janela.get_keyboard()
 
     mouseClick = janela.get_mouse()
 
     simButton = Sprite("Sim.png", 1)
     naoButton = Sprite("Nao.png", 1)
-
-    # Instancio o fundo
-    fundo = GameImage("FundoInicial.jpg")
-    fundo.draw()
-
     while (True):
         if(teclado.key_pressed("ESC")):
             import menu
@@ -29,8 +22,8 @@ def sair():
             import menu
             menu.menu()
         
-        simButton.set_position((janela.width/2) -120, (janela.height/2))
-        naoButton.set_position((janela.width/2) -120, (janela.height/2)+120)
+        simButton.set_position((janela.width/2) -120, (janela.height/2)-50)
+        naoButton.set_position((janela.width/2) -120, (janela.height/2)+110)
         
         simButton.draw()
         naoButton.draw()
