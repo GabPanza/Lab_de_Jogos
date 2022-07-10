@@ -13,50 +13,36 @@ def SetEnemy(EnemyState,EnemyAtual):
     return Enemy
 
 def moveEnemy(janela,player,enemy,movimento,chao,checkPosInimigo):
-    if (enemy.x< (player.x - 140) and enemy.x>-5):
+    if (enemy.x<player.x and enemy.x>-5):
         enemy.x += (movimento/2) * janela.delta_time()
         checkPosInimigo=0
-    elif (enemy.x> (player.x + 30) and enemy.x<janela.width+5):
+    elif (enemy.x>player.x and enemy.x<janela.width+5):
         enemy.x -= (movimento/2) * janela.delta_time()
         checkPosInimigo=1
-    if (enemy.y>player.y - player.height/3 and enemy.y-(enemy.height/2)>chao.y-chao.height):
-        enemy.y-= (movimento*2/5) * janela.delta_time()
-    elif (enemy.y<player.y - player.height/3 and enemy.y<janela.height-enemy.height):
-        enemy.y+= (movimento*2/5) * janela.delta_time()
+    if (enemy.y>player.y - player.height/2):
+        enemy.y-= (movimento/5) * janela.delta_time()
+    elif (enemy.y<player.y - player.height/2):
+        enemy.y+= (movimento/5) * janela.delta_time()
     return checkPosInimigo
 
-def moveEnemyRanged(janela,player,enemy,movimento,chao,checkPosInimigo):
-    if (enemy.y>player.y - player.height/2 and enemy.y-(enemy.height/2)>chao.y-chao.height):
-        enemy.y-= (movimento*2/5) * janela.delta_time()
-    elif (enemy.y<player.y - player.height/2 and enemy.y<janela.height-enemy.height):
-        enemy.y+= (movimento*2/5) * janela.delta_time()
-    return checkPosInimigo
+def moveEnemyRanged(janela,player,enemy,movimento):
+    if (enemy.y>player.y - player.height/2):
+        enemy.y-= (movimento/5) * janela.delta_time()
+    elif (enemy.y<player.y - player.height/2):
+        enemy.y+= (movimento/5) * janela.delta_time()
 
-def criaProjetilInimigo(cultista,listaProjeteisInimigoE,listaProjeteisInimigoD, checkTiroInimigo):
-    # Crio o projetil
-    if (checkTiroInimigo==1):
-        projetilEsq = Sprite("MagiaCultista.png",1)
-        projetilEsq.x = cultista.x
-        projetilEsq.y = cultista.y+cultista.height/4
-        listaProjeteisInimigoE.append(projetilEsq)
+def criaProjetilInimigo(cultista,listaProjeteisInimigo):
+    projetil = Sprite("MagiaCultista.png",1)
+    projetil.x = cultista.x
+    projetil.y = cultista.y+cultista.height/3
+    listaProjeteisInimigo.append(projetil)
 
-    elif (checkTiroInimigo==0):
-        projetilDir = Sprite("MagiaCultista_invertido.png",1)
-        projetilDir.x = cultista.x
-        projetilDir.y = cultista.y+cultista.height/4
-        listaProjeteisInimigoD.append(projetilDir)
-
-def magicAttackInimigo(janela, player, vidasPlayer, listaProjeteisInimigoE, listaProjeteisInimigoD, velProjetil, delayInv):
-    for i,projetil in enumerate(listaProjeteisInimigoD):
-        projetil.x += velProjetil*janela.delta_time()
-        projetil.draw()
-        if (projetil.x>janela.width or projetil.x<0):
-            listaProjeteisInimigoD.pop(i)
-    for j,projetil in enumerate(listaProjeteisInimigoE):
+def magicAttackInimigo(janela, player, vidasPlayer, listaProjeteisInimigo, velProjetil, delayInv):
+    for i,projetil in enumerate(listaProjeteisInimigo):
         projetil.x -= velProjetil*janela.delta_time()
         projetil.draw()
-        if (projetil.x>janela.width or projetil.x<0):
-            listaProjeteisInimigoE.pop(j)
+        if (projetil.x<0):
+            listaProjeteisInimigo.pop(i)
 
 def enemy_melee_attack(enemy,player,vidasPlayer,delayInv):
     if enemy.collided(player):
@@ -64,18 +50,12 @@ def enemy_melee_attack(enemy,player,vidasPlayer,delayInv):
         delayInv= 120
     return vidasPlayer, delayInv
 
-def enemy_ranged_attack(listaProjeteisInimigoE,listaProjeteisInimigoD,player,vidasPlayer,delayInv):
-    for i,projetil in enumerate(listaProjeteisInimigoE):
+def enemy_ranged_attack(listaProjeteisInimigo,player,vidasPlayer,delayInv):
+    for i,projetil in enumerate(listaProjeteisInimigo):
         if projetil.collided(player):
             vidasPlayer-=1
             delayInv= 120
-            listaProjeteisInimigoE.pop(i)
-
-    for j,projetil in enumerate(listaProjeteisInimigoD):
-        if projetil.collided(player):
-            vidasPlayer-=1
-            delayInv= 120
-            listaProjeteisInimigoD.pop(j)
+            listaProjeteisInimigo.pop(i)
     return vidasPlayer, delayInv
 
 def hitFloresta(listaProjeteisE,listaProjeteisD,minotauro,vidasMinotauro):
