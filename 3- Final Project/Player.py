@@ -28,13 +28,13 @@ def movePlayer(janela,teclado,player,movimento,chao,checkPos):
 def criaProjetil(player,listaProjeteisE,listaProjeteisD, checkTiro):
     # Crio o projetil
     if (checkTiro==1):
-        projetilEsq = Sprite("MagiaEmih.png",1)
+        projetilEsq = Sprite("Images/MagiaEmih.png",1)
         projetilEsq.x = player.x
         projetilEsq.y = player.y+player.height/4
         listaProjeteisE.append(projetilEsq)
 
     elif (checkTiro==0):
-        projetilDir = Sprite("MagiaEmih_invertido.png",1)
+        projetilDir = Sprite("Images/MagiaEmih_invertido.png",1)
         projetilDir.x = player.x
         projetilDir.y = player.y+player.height/4
         listaProjeteisD.append(projetilDir)

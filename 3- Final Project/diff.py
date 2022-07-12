@@ -10,9 +10,9 @@ def diff(janela):
 
     mouseClick = janela.get_mouse()
 
-    facil = Sprite("facil.png", 1)
-    medio = Sprite("medio.png", 1)
-    dificil = Sprite("dificil.png", 1)
+    facil = Sprite("Images/facil.png", 1)
+    medio = Sprite("Images/medio.png", 1)
+    dificil = Sprite("Images/dificil.png", 1)
     while (True):
         if(teclado.key_pressed("ESC")):
             import menu

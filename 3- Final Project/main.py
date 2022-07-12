@@ -35,74 +35,74 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     mixer.music.play(-1)
     
     # Instancio os cenários
-    cenarioFloresta = GameImage("Floresta.jpg")
-    chaoFloresta = Sprite("FlorestaChao.png",1)
+    cenarioFloresta = GameImage("Images/Floresta.jpg")
+    chaoFloresta = Sprite("Images/FlorestaChao.png",1)
     chaoFloresta.y = janela.height-chaoFloresta.height
-    saidaFloresta = Sprite("FlorestaSaida.png",1)
+    saidaFloresta = Sprite("Images/FlorestaSaida.png",1)
     saidaFloresta.x = janela.width/2+50
     saidaFloresta.y = janela.height-saidaFloresta.height-300
     
-    cenarioCastelo = GameImage("Castelo.jpg")
-    chaoCastelo = Sprite("CasteloChao.png",1)
+    cenarioCastelo = GameImage("Images/Castelo.jpg")
+    chaoCastelo = Sprite("Images/CasteloChao.png",1)
     chaoCastelo.y = janela.height-chaoCastelo.height
     
-    cenarioDungeon = GameImage("Dungeon.jpg")
-    chaoDungeon = Sprite("DungeonChao.png",1) 
+    cenarioDungeon = GameImage("Images/Dungeon.jpg")
+    chaoDungeon = Sprite("Images/DungeonChao.png",1) 
     chaoDungeon.y = 60
-    trapDungeonOff = Sprite("Dungeontrapmap.png",1)
-    trapDungeonOn = Sprite("Dungeontrapmaphit.png",1)
+    trapDungeonOff = Sprite("Images/Dungeontrapmap.png",1)
+    trapDungeonOn = Sprite("Images/Dungeontrapmaphit.png",1)
     
     cenario=1
      
     # Instancio os objetos
-    sangue = Sprite("sangue.png", 1)
+    sangue = Sprite("Images/sangue.png", 1)
     sangue.set_position(janela.width-sangue.width-10,janela.height-sangue.height-100)
     
-    pop_up = Sprite("popUp.png",1)
+    pop_up = Sprite("Images/popUp.png",1)
     pop_up.set_position(janela.width/2 - pop_up.width/2, janela.height/2 - pop_up.height/2)
     
-    continueButton = Sprite("Continue.png",1)
+    continueButton = Sprite("Images/Continue.png",1)
     continueButton.set_position(pop_up.x+135, pop_up.y+pop_up.height)
     
-    objetivoFloresta = Sprite("ObjetivoFloresta.png",1)
+    objetivoFloresta = Sprite("Images/ObjetivoFloresta.png",1)
     objetivoFloresta.set_position(janela.width-objetivoFloresta.width,0)
-    objetivoCastelo = Sprite("ObjetivoCastelo.png",1)
+    objetivoCastelo = Sprite("Images/ObjetivoCastelo.png",1)
     objetivoCastelo.set_position(janela.width-objetivoCastelo.width,0)
-    objetivoDungeon = Sprite("ObjetivoDungeon.png",1)
+    objetivoDungeon = Sprite("Images/ObjetivoDungeon.png",1)
     objetivoDungeon.set_position(janela.width-objetivoDungeon.width,0)
     
     # Instancio a Emih
-    player_Esq_Run = Sprite("Emih_invertido.png", 8)
+    player_Esq_Run = Sprite("Images/Emih_invertido.png", 8)
     player_Esq_Run.x = 0
     player_Esq_Run.y = janela.height-player_Esq_Run.height
     player_Esq_Run.set_total_duration(1000)
     
-    player_Esq = Sprite("Emih_invertido_Idle.png", 1)
+    player_Esq = Sprite("Images/Emih_invertido_Idle.png", 1)
     player_Esq.x = 0
     player_Esq.y = janela.height-player_Esq.height
     
-    player_Clone_Esq = Sprite("Emih_Back_Esq.png", 1)
+    player_Clone_Esq = Sprite("Images/Emih_Back_Esq.png", 1)
     player_Clone_Esq.x = 0
     player_Clone_Esq.y = janela.height-player_Clone_Esq.height
 
-    player_Dash_Esq=Sprite("Emih_Dash_Esq.png", 1)
+    player_Dash_Esq=Sprite("Images/Emih_Dash_Esq.png", 1)
     player_Dash_Esq.x = 0
     player_Dash_Esq.y = janela.height-player_Dash_Esq.height
     
-    player_Dir_Run = Sprite("Emih.png", 8)
+    player_Dir_Run = Sprite("Images/Emih.png", 8)
     player_Dir_Run.x = 0
     player_Dir_Run.y = janela.height-player_Dir_Run.height
     player_Dir_Run.set_total_duration(1000)
     
-    player_Dir = Sprite("Emih_Idle.png", 1)
+    player_Dir = Sprite("Images/Emih_Idle.png", 1)
     player_Dir.x = 0
     player_Dir.y = janela.height-player_Dir.height
     
-    player_Clone_Dir = Sprite("Emih_Back_Dir.png", 1)
+    player_Clone_Dir = Sprite("Images/Emih_Back_Dir.png", 1)
     player_Clone_Dir.x = 0
     player_Clone_Dir.y = janela.height-player_Clone_Dir.height
 
-    player_Dash_Dir=Sprite("Emih_Dash.png", 1)
+    player_Dash_Dir=Sprite("Images/Emih_Dash.png", 1)
     player_Dash_Dir.x = 0
     player_Dash_Dir.y = janela.height-player_Dash_Dir.height
 
@@ -112,42 +112,42 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     vidasPlayer = vidas
 
     # Instancio o minotauro
-    minotauro_Esq_Run = Sprite("MinotauroEsq.png", 8)
+    minotauro_Esq_Run = Sprite("Images/MinotauroEsq.png", 8)
     minotauro_Esq_Run.x = janela.width-minotauro_Esq_Run.width
     minotauro_Esq_Run.y = janela.height-minotauro_Esq_Run.height
     minotauro_Esq_Run.set_total_duration(1000)
     
-    minotauro_Dir_Run = Sprite("MinotauroDir.png", 8)
+    minotauro_Dir_Run = Sprite("Images/MinotauroDir.png", 8)
     minotauro_Dir_Run.x = janela.width-minotauro_Dir_Run.width
     minotauro_Dir_Run.y = janela.height-minotauro_Dir_Run.height
     minotauro_Dir_Run.set_total_duration(1000)
     
-    minotauro_Esq = Sprite("Minotauro_Idle_Esq.png", 6)
+    minotauro_Esq = Sprite("Images/Minotauro_Idle_Esq.png", 6)
     minotauro_Esq.x = janela.width-minotauro_Esq.width
     minotauro_Esq.y = janela.height-minotauro_Esq.height
     minotauro_Esq.set_total_duration(1000)
 
-    minotauro_Dir = Sprite("Minotauro_Idle_Dir.png", 6)
+    minotauro_Dir = Sprite("Images/Minotauro_Idle_Dir.png", 6)
     minotauro_Dir.x = janela.width-minotauro_Dir.width
     minotauro_Dir.y = janela.height-minotauro_Dir.height
     minotauro_Dir.set_total_duration(1000)
 
-    minotauro_Death_Dir = Sprite("Minotauro_Death_Dir.png", 6)
+    minotauro_Death_Dir = Sprite("Images/Minotauro_Death_Dir.png", 6)
     minotauro_Death_Dir.x = janela.width - minotauro_Death_Dir.width
     minotauro_Death_Dir.y = janela.height - minotauro_Death_Dir.height
     minotauro_Death_Dir.set_total_duration(1000)
 
-    minotauro_Death_Esq = Sprite("Minotauro_Death_Esq.png", 6)
+    minotauro_Death_Esq = Sprite("Images/Minotauro_Death_Esq.png", 6)
     minotauro_Death_Esq.x = janela.width-minotauro_Death_Esq.width
     minotauro_Death_Esq.y = janela.height-minotauro_Death_Esq.height
     minotauro_Death_Esq.set_total_duration(1000)
 
-    minotauro_attack = Sprite("Minotauro_attack.png", 9) 
+    minotauro_attack = Sprite("Images/Minotauro_attack.png", 9) 
     minotauro_attack.x = janela.width - minotauro_attack.width
     minotauro_attack.y = janela.height - minotauro_attack.height
     minotauro_attack.set_total_duration(1000)
 
-    minotauro_attack_Esq = Sprite("Minotauro_attack_Esq.png", 9)
+    minotauro_attack_Esq = Sprite("Images/Minotauro_attack_Esq.png", 9)
     minotauro_attack_Esq.x = janela.width-minotauro_attack_Esq.width
     minotauro_attack_Esq.y = janela.height-minotauro_attack_Esq.height
     minotauro_attack_Esq.set_total_duration(1000)
@@ -156,32 +156,32 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     vidasMinotauro = vidasInimigo
     
     # Instancio o cultista
-    cultista_Esq_Run = Sprite("CultistaEsq.png", 10)
+    cultista_Esq_Run = Sprite("Images/CultistaEsq.png", 10)
     cultista_Esq_Run.x = janela.width-minotauro_Esq_Run.width
     cultista_Esq_Run.y = janela.height-cultista_Esq_Run.height
     cultista_Esq_Run.set_total_duration(1000)
     
-    cultista_Dir_Run = Sprite("CultistaDir.png", 10)
+    cultista_Dir_Run = Sprite("Images/CultistaDir.png", 10)
     cultista_Dir_Run.x = janela.width-minotauro_Dir_Run.width
     cultista_Dir_Run.y = janela.height-cultista_Dir_Run.height
     cultista_Dir_Run.set_total_duration(1000)
     
-    cultista_Esq = Sprite("Cultista_Idle_Esq.png", 10)
+    cultista_Esq = Sprite("Images/Cultista_Idle_Esq.png", 10)
     cultista_Esq.x = janela.width-minotauro_Esq.width
     cultista_Esq.y = janela.height-cultista_Esq.height
     cultista_Esq.set_total_duration(1000)
 
-    cultista_Morte_Esq = Sprite("Cultista_Morte_Esq.png", 10)
+    cultista_Morte_Esq = Sprite("Images/Cultista_Morte_Esq.png", 10)
     cultista_Morte_Esq.x = janela.width-cultista_Morte_Esq.width
     cultista_Morte_Esq.y = janela.height-cultista_Morte_Esq.height
     cultista_Morte_Esq.set_total_duration(1000)
     
-    cultista_Dir = Sprite("Cultista_Idle_Dir.png", 10)
+    cultista_Dir = Sprite("Images/Cultista_Idle_Dir.png", 10)
     cultista_Dir.x = janela.width-cultista_Dir.width
     cultista_Dir.y = janela.height-cultista_Dir.height
     cultista_Dir.set_total_duration(1000)
     
-    cultista_Morte_Dir = Sprite("Cultista_Morte_Dir.png", 10)
+    cultista_Morte_Dir = Sprite("Images/Cultista_Morte_Dir.png", 10)
     cultista_Morte_Dir.x = janela.width-cultista_Morte_Dir.width
     cultista_Morte_Dir.y = janela.height-cultista_Dir.height
     cultista_Morte_Dir.set_total_duration(1000)
@@ -190,32 +190,32 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     vidasCultista = vidasInimigo
     
     # Instancio os guardas
-    guardas_Esq_Run = Sprite("GuardasEsq.png", 6)
+    guardas_Esq_Run = Sprite("Images/GuardasEsq.png", 6)
     guardas_Esq_Run.x = janela.width-guardas_Esq_Run.width
     guardas_Esq_Run.y = janela.height-guardas_Esq_Run.height
     guardas_Esq_Run.set_total_duration(1000)
     
-    guardas_Dir_Run = Sprite("GuardasDir.png", 6)
+    guardas_Dir_Run = Sprite("Images/GuardasDir.png", 6)
     guardas_Dir_Run.x = janela.width-guardas_Dir_Run.width
     guardas_Dir_Run.y = janela.height-guardas_Dir_Run.height
     guardas_Dir_Run.set_total_duration(1000)
     
-    guardas_Esq = Sprite("Guardas_Idle_Esq.png", 6)
+    guardas_Esq = Sprite("Images/Guardas_Idle_Esq.png", 6)
     guardas_Esq.x = janela.width-guardas_Esq.width
     guardas_Esq.y = janela.height-guardas_Esq.height
     guardas_Esq.set_total_duration(1000)
 
-    guardas_Morte_Esq = Sprite("Guardas_Morte_Esq.png", 6)
+    guardas_Morte_Esq = Sprite("Images/Guardas_Morte_Esq.png", 6)
     guardas_Morte_Esq.x = janela.width-guardas_Morte_Esq.width
     guardas_Morte_Esq.y = janela.height-guardas_Morte_Esq.height
     guardas_Morte_Esq.set_total_duration(1000)
 
-    guardas_Dir = Sprite("Guardas_Idle_Dir.png", 6)
+    guardas_Dir = Sprite("Images/Guardas_Idle_Dir.png", 6)
     guardas_Dir.x = janela.width-guardas_Dir.width
     guardas_Dir.y = janela.height-guardas_Dir.height
     guardas_Dir.set_total_duration(1000)
     
-    guardas_Morte_Dir = Sprite("Guardas_Morte_Dir.png", 6)
+    guardas_Morte_Dir = Sprite("Images/Guardas_Morte_Dir.png", 6)
     guardas_Morte_Dir.x = janela.width-guardas_Morte_Dir.width
     guardas_Morte_Dir.y = janela.height-guardas_Morte_Dir.height
     guardas_Morte_Dir.set_total_duration(1000)
@@ -224,21 +224,21 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     vidasGuardas = vidasInimigo
     
     # Instancio o Caebralum
-    caebralum_Esq_Run = Sprite("CaebralumEsq.png", 5)
+    caebralum_Esq_Run = Sprite("Images/CaebralumEsq.png", 5)
     caebralum_Esq_Run.x = janela.width-caebralum_Esq_Run.width
     caebralum_Esq_Run.y = janela.height-caebralum_Esq_Run.height
     caebralum_Esq_Run.set_total_duration(1000)
     
-    caebralum_Dir_Run = Sprite("CaebralumDir.png", 5)
+    caebralum_Dir_Run = Sprite("Images/CaebralumDir.png", 5)
     caebralum_Dir_Run.x = janela.width-caebralum_Dir_Run.width
     caebralum_Dir_Run.y = janela.height-caebralum_Dir_Run.height
     caebralum_Dir_Run.set_total_duration(1000)
     
-    caebralum_Esq = Sprite("Caebralum_Idle_Esq.png", 1)
+    caebralum_Esq = Sprite("Images/Caebralum_Idle_Esq.png", 1)
     caebralum_Esq.x = janela.width-caebralum_Esq.width
     caebralum_Esq.y = janela.height-caebralum_Esq.height
     
-    caebralum_Dir = Sprite("Caebralum_Idle_Dir.png", 1)
+    caebralum_Dir = Sprite("Images/Caebralum_Idle_Dir.png", 1)
     caebralum_Dir.x = janela.width-caebralum_Dir.width
     caebralum_Dir.y = janela.height-caebralum_Dir.height
     
@@ -565,19 +565,19 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
 
 def life(vidas,dificuldade):
     # Instancio as barras de vida
-    healthBarFull = Sprite("HealthBarFull.png", 1)
+    healthBarFull = Sprite("Images/HealthBarFull.png", 1)
     healthBarFull.set_position(0,0)
     
-    healthBarMedium1 = Sprite("HealthBarMedium1.png", 1)
+    healthBarMedium1 = Sprite("Images/HealthBarMedium1.png", 1)
     healthBarMedium1.set_position(0,0)
     
-    healthBarMedium2 = Sprite("HealthBarMedium2.png", 1)
+    healthBarMedium2 = Sprite("Images/HealthBarMedium2.png", 1)
     healthBarMedium2.set_position(0,0)
 
-    healthBarMedium3 = Sprite("HealthBarMedium3.png", 1)
+    healthBarMedium3 = Sprite("Images/HealthBarMedium3.png", 1)
     healthBarMedium3.set_position(0,0)
 
-    healthBarLow = Sprite("HealthBarLow.png", 1)
+    healthBarLow = Sprite("Images/HealthBarLow.png", 1)
     healthBarLow.set_position(0,0)
         
     # Desenho a barra de vida desejada

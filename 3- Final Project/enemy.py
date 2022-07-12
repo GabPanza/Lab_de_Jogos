@@ -14,10 +14,10 @@ def SetEnemy(EnemyState,EnemyAtual):
 
 def moveEnemy(janela,player,enemy,movimento,checkPosInimigo):
     if (enemy.x<player.x and enemy.x>-5):
-        enemy.x += (movimento/3) * janela.delta_time()
+        enemy.x += (movimento*2/5) * janela.delta_time()
         checkPosInimigo=0
     elif (enemy.x>player.x and enemy.x<janela.width+5):
-        enemy.x -= (movimento/3) * janela.delta_time()
+        enemy.x -= (movimento*2/5) * janela.delta_time()
         checkPosInimigo=1
     if (enemy.y>player.y - player.height/2):
         enemy.y-= (movimento/5) * janela.delta_time()
@@ -32,7 +32,7 @@ def moveEnemyRanged(janela,player,enemy,movimento):
         enemy.y+= (movimento/5) * janela.delta_time()
 
 def criaProjetilInimigo(cultista,listaProjeteisInimigo):
-    projetil = Sprite("MagiaCultista.png",1)
+    projetil = Sprite("Images/MagiaCultista.png",1)
     projetil.x = cultista.x
     projetil.y = cultista.y+cultista.height/3
     listaProjeteisInimigo.append(projetil)

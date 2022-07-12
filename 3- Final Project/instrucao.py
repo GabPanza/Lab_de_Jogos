@@ -15,7 +15,7 @@ def instrucao(movimentoInimigo):
     mouseClick = janela.get_mouse()
     
     # Instancio as imagens dos botões
-    playButton=Sprite("Play.png",1)
+    playButton=Sprite("Images/Play.png",1)
     playButton.set_position(janela.width/2 - playButton.width/2, janela.height - 200)
 
     while True:

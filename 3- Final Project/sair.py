@@ -8,8 +8,8 @@ def sair(janela):
 
     mouseClick = janela.get_mouse()
 
-    simButton = Sprite("Sim.png", 1)
-    naoButton = Sprite("Nao.png", 1)
+    simButton = Sprite("Images/Sim.png", 1)
+    naoButton = Sprite("Images/Nao.png", 1)
     while (True):
         if(teclado.key_pressed("ESC")):
             import menu

@@ -15,12 +15,12 @@ def menu():
     mouseClick = janela.get_mouse()
     
     # Instancio as imagens dos botões
-    playButton=Sprite("Play.png",1)
-    diffButton=Sprite("Dificuldade.png",1)
-    leaveButton=Sprite("Sair.png",1)
+    playButton=Sprite("Images/Play.png",1)
+    diffButton=Sprite("Images/Dificuldade.png",1)
+    leaveButton=Sprite("Images/Sair.png",1)
 
     # Instancio o fundo
-    fundo = GameImage("FundoInicial.jpg")
+    fundo = GameImage("Images/FundoInicial.jpg")
     
     while (True):
         # Desenho  o fundo
