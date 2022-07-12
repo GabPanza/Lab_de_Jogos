@@ -12,12 +12,12 @@ def SetEnemy(EnemyState,EnemyAtual):
     Enemy.y = EnemyAtual.y
     return Enemy
 
-def moveEnemy(janela,player,enemy,movimento,chao,checkPosInimigo):
+def moveEnemy(janela,player,enemy,movimento,checkPosInimigo):
     if (enemy.x<player.x and enemy.x>-5):
-        enemy.x += (movimento/2) * janela.delta_time()
+        enemy.x += (movimento/3) * janela.delta_time()
         checkPosInimigo=0
     elif (enemy.x>player.x and enemy.x<janela.width+5):
-        enemy.x -= (movimento/2) * janela.delta_time()
+        enemy.x -= (movimento/3) * janela.delta_time()
         checkPosInimigo=1
     if (enemy.y>player.y - player.height/2):
         enemy.y-= (movimento/5) * janela.delta_time()
@@ -58,46 +58,13 @@ def enemy_ranged_attack(listaProjeteisInimigo,player,vidasPlayer,delayInv):
             listaProjeteisInimigo.pop(i)
     return vidasPlayer, delayInv
 
-def hitFloresta(listaProjeteisE,listaProjeteisD,minotauro,vidasMinotauro):
+def hit(listaProjeteisE,listaProjeteisD,enemy,vidas):
     for i,projetil in enumerate(listaProjeteisE):
-        if projetil.collided(minotauro):
-            vidasMinotauro-=1
+        if projetil.collided(enemy):
+            vidas-=1
             listaProjeteisE.pop(i)
     for i,projetil in enumerate(listaProjeteisD):
-        if projetil.collided(minotauro):
-            vidasMinotauro-=1
+        if projetil.collided(enemy):
+            vidas-=1
             listaProjeteisD.pop(i)
-    return vidasMinotauro
-
-def hitCasteloCultista(listaProjeteisE,listaProjeteisD,cultista,vidasCultista):
-    for i,projetil in enumerate(listaProjeteisE):
-        if projetil.collided(cultista):
-            vidasCultista-=1
-            listaProjeteisE.pop(i)
-    for i,projetil in enumerate(listaProjeteisD):
-        if projetil.collided(cultista):
-            vidasCultista-=1
-            listaProjeteisD.pop(i)
-    return vidasCultista
-
-def hitCasteloGuardas(listaProjeteisE,listaProjeteisD,guardas,vidasGuardas):
-    for i,projetil in enumerate(listaProjeteisE):
-        if projetil.collided(guardas):
-            vidasGuardas-=1
-            listaProjeteisE.pop(i)
-    for i,projetil in enumerate(listaProjeteisD):
-        if projetil.collided(guardas):
-            vidasGuardas-=1
-            listaProjeteisD.pop(i)
-    return vidasGuardas
-
-def hitDungeon(listaProjeteisE,listaProjeteisD,caebralum,vidasCaebralum):
-    for i,projetil in enumerate(listaProjeteisE):
-        if projetil.collided(caebralum):
-            vidasCaebralum-=1
-            listaProjeteisE.pop(i)
-    for i,projetil in enumerate(listaProjeteisD):
-        if projetil.collided(caebralum):
-            vidasCaebralum-=1
-            listaProjeteisD.pop(i)
-    return vidasCaebralum
+    return vidas
