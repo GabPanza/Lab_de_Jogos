@@ -19,16 +19,16 @@ def moveEnemy(janela,player,enemy,movimento,checkPosInimigo):
     elif (enemy.x>player.x and enemy.x<janela.width+5):
         enemy.x -= (movimento*2/5) * janela.delta_time()
         checkPosInimigo=1
-    if (enemy.y>player.y - player.height/2):
+    if (enemy.y>player.y - player.height/3):
         enemy.y-= (movimento/5) * janela.delta_time()
-    elif (enemy.y<player.y - player.height/2):
+    elif (enemy.y<player.y - player.height/3):
         enemy.y+= (movimento/5) * janela.delta_time()
     return checkPosInimigo
 
 def moveEnemyRanged(janela,player,enemy,movimento):
-    if (enemy.y>player.y - player.height/2):
+    if (enemy.y>player.y - player.height/3):
         enemy.y-= (movimento/5) * janela.delta_time()
-    elif (enemy.y<player.y - player.height/2):
+    elif (enemy.y<player.y - player.height/3):
         enemy.y+= (movimento/5) * janela.delta_time()
 
 def criaProjetilInimigo(cultista,listaProjeteisInimigo):
@@ -68,3 +68,118 @@ def hit(listaProjeteisE,listaProjeteisD,enemy,vidas):
             vidas-=1
             listaProjeteisD.pop(i)
     return vidas
+
+def lifeMobs(enemy,vidas,dificuldade):
+    # Instancio as barras de vida
+    healthBarFull = Sprite("Images/MobsLifeFull.png", 1)
+    healthBarFull.set_position(enemy.x+enemy.width/2, enemy.y-20)
+    
+    healthBarMedium1 = Sprite("Images/MobsLifeMedium1.png", 1)
+    healthBarMedium1.set_position(enemy.x+enemy.width/2, enemy.y-20)
+    
+    healthBarMedium2 = Sprite("Images/MobsLifeMedium2.png", 1)
+    healthBarMedium2.set_position(enemy.x+enemy.width/2, enemy.y-20)
+
+    healthBarMedium3 = Sprite("Images/MobsLifeMedium3.png", 1)
+    healthBarMedium3.set_position(enemy.x+enemy.width/2, enemy.y-20)
+
+    healthBarLow = Sprite("Images/MobsLifeLow.png", 1)
+    healthBarLow.set_position(enemy.x+enemy.width/2, enemy.y-20)
+    
+    healthBarEmpty = Sprite("Images/MobsLifeEmpty.png", 1)
+    healthBarEmpty.set_position(enemy.x+enemy.width/2, enemy.y-20)
+    
+    # Desenho a barra de vida desejada
+    if dificuldade=="facil":
+        if (vidas==3):
+            healthBarFull.draw()
+        if (vidas==2):
+            healthBarMedium2.draw()        
+        if (vidas==1):
+            healthBarLow.draw()
+    else:
+        if (vidas==5):
+            healthBarFull.draw()
+        if (vidas==4):
+            healthBarMedium1.draw()
+        if (vidas==3):
+            healthBarMedium2.draw()
+        if (vidas==2):
+            healthBarMedium3.draw()
+        if (vidas==1):
+            healthBarLow.draw()
+
+def lifeBoss(janela,vidas,dificuldade):
+    # Instancio as barras de vida
+    healthBarFull = Sprite("Images/CaebralumLifeFull.png", 1)
+    healthBarFull.set_position(janela.width/2 - healthBarFull.width/2, janela.height-150)
+    
+    healthBarMedium1 = Sprite("Images/CaebralumLifeMedium1.png", 1)
+    healthBarMedium1.set_position(janela.width/2 - healthBarMedium1.width/2, janela.height-150)
+    
+    healthBarMedium2 = Sprite("Images/CaebralumLifeMedium2.png", 1)
+    healthBarMedium2.set_position(janela.width/2 - healthBarMedium2.width/2, janela.height-150)
+
+    healthBarMedium3 = Sprite("Images/CaebralumLifeMedium3.png", 1)
+    healthBarMedium3.set_position(janela.width/2 - healthBarMedium3.width/2, janela.height-150)
+
+    healthBarMedium4 = Sprite("Images/CaebralumLifeMedium4.png", 1)
+    healthBarMedium4.set_position(janela.width/2 - healthBarMedium4.width/2, janela.height-150)
+    
+    healthBarMedium5 = Sprite("Images/CaebralumLifeMedium5.png", 1)
+    healthBarMedium5.set_position(janela.width/2 - healthBarMedium5.width/2, janela.height-150)
+
+    healthBarMedium6 = Sprite("Images/CaebralumLifeMedium6.png", 1)
+    healthBarMedium6.set_position(janela.width/2 - healthBarMedium6.width/2, janela.height-150)
+    
+    healthBarMedium7 = Sprite("Images/CaebralumLifeMedium7.png", 1)
+    healthBarMedium7.set_position(janela.width/2 - healthBarMedium7.width/2, janela.height-150)
+
+    healthBarMedium8 = Sprite("Images/CaebralumLifeMedium8.png", 1)
+    healthBarMedium8.set_position(janela.width/2 - healthBarMedium8.width/2, janela.height-150)
+
+    healthBarLow = Sprite("Images/CaebralumLifeLow.png", 1)
+    healthBarLow.set_position(janela.width/2 - healthBarLow.width/2, janela.height-150)
+    
+    healthBarEmpty = Sprite("Images/CaebralumLifeEmpty.png", 1)
+    healthBarEmpty.set_position(janela.width/2 - healthBarEmpty.width/2, janela.height-150)
+    
+    # Desenho a barra de vida desejada
+    if dificuldade=="facil":
+        if (vidas==6):
+            healthBarFull.draw()
+        if (vidas==5):
+            healthBarMedium2.draw()
+        if (vidas==4):
+            healthBarMedium4.draw()  
+        if (vidas==3):
+            healthBarMedium6.draw()      
+        if (vidas==2):
+            healthBarMedium8.draw()        
+        if (vidas==1):
+            healthBarLow.draw()
+        if (vidas==0):
+            healthBarEmpty.draw()
+    else:
+        if (vidas==10):
+            healthBarFull.draw()
+        if (vidas==9):
+            healthBarMedium1.draw()
+        if (vidas==8):
+            healthBarMedium2.draw()
+        if (vidas==7):
+            healthBarMedium3.draw()
+        if (vidas==6):
+            healthBarMedium4.draw()
+        if (vidas==5):
+            healthBarMedium5.draw()
+        if (vidas==4):
+            healthBarMedium6.draw()
+        if (vidas==3):
+            healthBarMedium7.draw()
+        if (vidas==2):
+            healthBarMedium8.draw()
+        if (vidas==1):
+            healthBarLow.draw()
+        if (vidas==0):
+            healthBarEmpty.draw()

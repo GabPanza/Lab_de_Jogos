@@ -12,7 +12,7 @@ def vitoria():
     teclado = janela.get_keyboard()
     
     # Adiciono musica
-    mixer.music.load("VictoryThemeSoundtrack.wav")
+    mixer.music.load("Music/VictoryThemeSoundtrack.wav")
     mixer.music.set_volume(0.3)
     mixer.music.play(-1)
     
@@ -42,7 +42,7 @@ def derrota():
     teclado = janela.get_keyboard()
     
     # Adiciono musica
-    mixer.music.load("DefeatThemeSoundtrack.wav")
+    mixer.music.load("Music/DefeatThemeSoundtrack.wav")
     mixer.music.set_volume(0.3)
     mixer.music.play(-1)
     
