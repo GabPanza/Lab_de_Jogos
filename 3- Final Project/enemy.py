@@ -119,16 +119,28 @@ def lifeMobs(enemy,enemyatual,vidas,dificuldade):
     healthBarEmpty.set_position(enemy.x+enemy.width/2, enemy.y+(enemy.height-enemyatual.height)/2-20)
     
     # Desenho a barra de vida desejada
-    if (vidas==5):
-        healthBarFull.draw()
-    if (vidas==4):
-        healthBarMedium1.draw()
-    if (vidas==3):
-        healthBarMedium2.draw()
-    if (vidas==2):
-        healthBarMedium3.draw()
-    if (vidas==1):
-        healthBarLow.draw()
+    if dificuldade=="facil":
+        if (vidas==3):
+            healthBarFull.draw()
+        if (vidas==2):
+            healthBarMedium2.draw()
+        if (vidas==1):
+            healthBarLow.draw()
+        if (vidas==0):
+            healthBarEmpty.draw()
+    else:
+        if (vidas==5):
+            healthBarFull.draw()
+        if (vidas==4):
+            healthBarMedium1.draw()
+        if (vidas==3):
+            healthBarMedium2.draw()
+        if (vidas==2):
+            healthBarMedium3.draw()
+        if (vidas==1):
+            healthBarLow.draw()
+        if (vidas==0):
+            healthBarEmpty.draw()
 
 def lifeBoss(janela,vidas,dificuldade):
     # Instancio as barras de vida
@@ -166,25 +178,41 @@ def lifeBoss(janela,vidas,dificuldade):
     healthBarEmpty.set_position(janela.width/2 - healthBarEmpty.width/2+50, 0)
     
     # Desenho a barra de vida desejada
-    if (vidas==10):
-        healthBarFull.draw()
-    if (vidas==9):
-        healthBarMedium1.draw()
-    if (vidas==8):
-        healthBarMedium2.draw()
-    if (vidas==7):
-        healthBarMedium3.draw()
-    if (vidas==6):
-        healthBarMedium4.draw()
-    if (vidas==5):
-        healthBarMedium5.draw()
-    if (vidas==4):
-        healthBarMedium6.draw()
-    if (vidas==3):
-        healthBarMedium7.draw()
-    if (vidas==2):
-        healthBarMedium8.draw()
-    if (vidas==1):
-        healthBarLow.draw()
-    if (vidas==0):
-        healthBarEmpty.draw()
+    if dificuldade=="facil":
+        if (vidas==6):
+            healthBarFull.draw()
+        if (vidas==5):
+            healthBarMedium2.draw()
+        if (vidas==4):
+            healthBarMedium4.draw()
+        if (vidas==3):
+            healthBarMedium6.draw()
+        if (vidas==2):
+            healthBarMedium8.draw()
+        if (vidas==1):
+            healthBarLow.draw()
+        if (vidas==0):
+            healthBarEmpty.draw()
+    else:
+        if (vidas==10):
+            healthBarFull.draw()
+        if (vidas==9):
+            healthBarMedium1.draw()
+        if (vidas==8):
+            healthBarMedium2.draw()
+        if (vidas==7):
+            healthBarMedium3.draw()
+        if (vidas==6):
+            healthBarMedium4.draw()
+        if (vidas==5):
+            healthBarMedium5.draw()
+        if (vidas==4):
+            healthBarMedium6.draw()
+        if (vidas==3):
+            healthBarMedium7.draw()
+        if (vidas==2):
+            healthBarMedium8.draw()
+        if (vidas==1):
+            healthBarLow.draw()
+        if (vidas==0):
+            healthBarEmpty.draw()
