@@ -16,7 +16,7 @@ def instrucao(movimentoInimigo):
     
     # Instancio as imagens dos botões
     playButton=Sprite("Images/Play.png",1)
-    playButton.set_position(janela.width/2 - playButton.width/2, janela.height - 200)
+    playButton.set_position(janela.width/2 - playButton.width/2, janela.height - 150)
 
     while True:
         # Volto pro menu
@@ -39,12 +39,14 @@ def instrucao(movimentoInimigo):
         
         # Desenho as instrucoes
         janela.draw_text(("Instruçoes"), (janela.width / 2)-128, 100, size=48, font_name="Arial", bold=True,color=[200, 0, 255])
-        janela.draw_text(("Alguns eventos no jogo dependem que certas condiçoes aconteçam."), 200, 150, size=28, font_name="Arial", bold=True,color=[255, 255, 255])
-        janela.draw_text(("Portanto, um pop-up com um objetivo irá aparecer, após caminhar um pouco."), 200, 200, size=28, font_name="Arial", bold=True,color=[255, 255, 255])
-        janela.draw_text(("Siga os objetivos e salve o reino."), 200, 250, size=28, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(("Alguns eventos no jogo dependem que certas condiçoes aconteçam."), 100, 150, size=28, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(("Portanto, um pop-up com um objetivo irá aparecer, após caminhar um pouco."), 100, 200, size=28, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(("Siga os objetivos e salve o reino."), 100, 250, size=28, font_name="Arial", bold=True,color=[255, 255, 255])
         janela.draw_text(("Controles"), (janela.width / 2)-128, 300, size=48, font_name="Arial", bold=True,color=[200, 0, 255])
-        janela.draw_text(("Pressione 'W,A,S,D' ou as setas do teclado para andar."), 200, 350, size=32, font_name="Arial", bold=True,color=[255, 255, 255])
-        janela.draw_text(("Pressione 'Space' para atirar."), 200, 400, size=32, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(("Pressione 'W,A,S,D' ou as setas do teclado para andar."), 100, 350, size=28, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(("Pressione 'Space' para atirar."), 100, 400, size=28, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(("Pressione 'Left_Shift' para dar um dash para frente. Você pode juntar até 3 cargas."), 100, 450, size=28, font_name="Arial", bold=True,color=[255, 255, 255])
+        janela.draw_text(("Pressione 'Left_Control' para criar um clone e desviar de seus inimigos."), 100, 500, size=28, font_name="Arial", bold=True,color=[255, 255, 255])
 
         # Desenho o botao
         playButton.draw()

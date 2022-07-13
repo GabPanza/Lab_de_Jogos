@@ -263,7 +263,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     invencibility=0
     trapTime=1
     
-    # Crio as variaveis de estado da movimentaçao
+    # Crio as variaveis de estado das habilidades
     clone=0
     delayClone=0
     checkDash=0
@@ -272,12 +272,18 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     tempoDeRecargaTiro=0
     cargaDeDash=1
     tempoDeRecargaClone=0
+    
+    # Crios os diferentes movimentos para cada dificuldade
+    movimentoNormal=movimentoInimigo
     if movimentoInimigo==100:
         dificuldade="facil"
+        movimentoRage=150
     if movimentoInimigo==120:
         dificuldade="medio"
+        movimentoRage=180
     if movimentoInimigo==150:
         dificuldade="dificil"
+        movimentoRage=225
     
     # Defino o frame per second
     FPS = 60
@@ -491,15 +497,25 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         # Desenho os monstros
         if cenario==1 and (summon==True):
             if (vidasMinotauro>0):
-                minotauro.draw()
+                if (vidasMinotauro>round(vidasInimigo/2)):
+                    minotauro.draw()
+                else:
+                    minotauro.draw()
+                    movimentoInimigo=movimentoRage
                 vidasMinotauro = enemy.hit(listaProjeteisE,listaProjeteisD,minotauro,vidasMinotauro)
                 enemy.lifeMobs(minotauro,vidasMinotauro,dificuldade)
                 if invencibility ==0:
                     vidasPlayer,invencibility = enemy.enemy_melee_attack(minotauro,player,vidasPlayer,invencibility)
-        
+            else:
+                movimentoInimigo=movimentoNormal
         if cenario==2 and (summon==True):
+            # Desenho o cultista
             if (vidasCultista>0):
-                cultista.draw()
+                if (vidasCultista>round(vidasInimigo/2)):
+                    cultista.draw()
+                else:
+                    cultista.draw()
+                    movimentoInimigo=movimentoRage
                 vidasCultista = enemy.hit(listaProjeteisE,listaProjeteisD,cultista,vidasCultista)
                 enemy.lifeMobs(cultista,vidasCultista,dificuldade)
                 if invencibility==0:
@@ -507,14 +523,24 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                 if (delayInimigo==0):
                     enemy.criaProjetilInimigo(cultista,listaProjeteisInimigos)
                     delayInimigo = shooting.recargaCultistaInimigo(movimentoInimigo,delayInimigo)
+            else:
+                movimentoInimigo=movimentoNormal
             
+            # Desenho o guarda
             if (vidasGuarda>0):
-                guarda.draw()
+                if (vidasGuarda>round(vidasInimigo/2)):
+                    guarda.draw()
+                else:
+                    guarda.draw()
+                    movimentoInimigo=movimentoRage
                 vidasGuarda = enemy.hit(listaProjeteisE,listaProjeteisD,guarda,vidasGuarda)
                 enemy.lifeMobs(guarda,vidasGuarda,dificuldade)
                 if invencibility ==0:
                     vidasPlayer,invencibility = enemy.enemy_melee_attack(guarda,player,vidasPlayer,invencibility)
+            else:
+                movimentoInimigo=movimentoNormal
         if cenario==3 and (summon==True):
+            # Desenho o Caebralum
             if (vidasCaebralum>0):
                 caebralum.draw()
                 vidasCaebralum = enemy.hit(listaProjeteisE,listaProjeteisD,caebralum,vidasCaebralum)
