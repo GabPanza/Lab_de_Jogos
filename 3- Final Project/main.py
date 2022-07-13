@@ -29,10 +29,11 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     # Inicializo o mouse
     mouseClick = janela.get_mouse()
     
-    # Adiciono musica
-    mixer.music.load("Music/EnvironmentMusic.wav")
-    mixer.music.set_volume(0.3)
+    # Adiciono musica e crio minha variavel q trocará de musica
+    mixer.music.load("Music/ForestBattle.wav")
+    mixer.music.set_volume(0.4)
     mixer.music.play(-1)
+    musica=0
     
     # Instancio os cenários
     cenarioFloresta = GameImage("Images/Floresta.jpg")
@@ -186,6 +187,11 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     cultista_Morte_Dir.y = janela.height-cultista_Dir.height
     cultista_Morte_Dir.set_total_duration(1000)
 
+    cultista_Attack_Esq = Sprite("Images/cultista_Attack_Esq.png", 10)
+    cultista_Attack_Esq.x = janela.width-cultista_Attack_Esq.width
+    cultista_Attack_Esq.y = janela.height-cultista_Attack_Esq.height
+    cultista_Attack_Esq.set_total_duration(1000)
+
     cultista = cultista_Esq
     vidasCultista = vidasInimigo
     
@@ -219,6 +225,16 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     guardas_Morte_Dir.x = janela.width-guardas_Morte_Dir.width
     guardas_Morte_Dir.y = janela.height-guardas_Morte_Dir.height
     guardas_Morte_Dir.set_total_duration(1000)
+
+    guardas_Attack_Dir = Sprite("Images/Guardas_Attack_Direita.png", 6)
+    guardas_Attack_Dir.x = janela.width-guardas_Attack_Dir.width
+    guardas_Attack_Dir.y = janela.height-guardas_Attack_Dir.height
+    guardas_Attack_Dir.set_total_duration(1000)
+
+    guardas_Attack_Esq = Sprite("Images/Guardas_Attack_Esquerda.png", 6)
+    guardas_Attack_Esq.x = janela.width-guardas_Attack_Esq.width
+    guardas_Attack_Esq.y = janela.height-guardas_Attack_Esq.height
+    guardas_Attack_Esq.set_total_duration(1000)
     
     guarda = guardas_Esq
     vidasGuarda = vidasInimigo
@@ -254,7 +270,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     listaProjeteisInimigos = []
     checkPosInim=0
     velProjetilInimigoNormal=velProjetilInimigo
-    velProjetilInimigoRage=velProjetil
+    velProjetilInimigoRage=velProjetil*1.5
     
     # Crio as variaveis de estado dos mobs
     summon=False
@@ -271,26 +287,29 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     checkDash=0
     dashTime=0
     delayDash=0
+    delayDash2=0
     tempoDeRecargaTiro=0
     cargaDeDash=1
     tempoDeRecargaClone=0
     
     # Crios os diferentes movimentos para cada dificuldade
     movimentoNormal=movimentoInimigo
-    if movimentoInimigo==100:
+    if movimentoInimigo==200:
         dificuldade="facil"
-        movimentoRage=150
-    if movimentoInimigo==120:
+        movimentoRage=400
+    if movimentoInimigo==250:
         dificuldade="medio"
-        movimentoRage=180
-    if movimentoInimigo==150:
+        movimentoRage=500
+    if movimentoInimigo==300:
         dificuldade="dificil"
-        movimentoRage=225
+        movimentoRage=600
+    movimentoInimigoBoss=movimentoInimigo/2
+    movimentoRageBoss=movimentoRage/2
     
     # Defino o frame per second
     FPS = 60
     clock = pygame.time.Clock()
-    
+
     ################################################################################################################################
     ##################################################### Game Loop / Update() #####################################################
     ################################################################################################################################
@@ -311,53 +330,120 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             objetivo = objetivoFloresta
             
             # Crio a movimentacao do minotauro
-            checkPosInim = enemy.moveEnemy(janela,player,minotauro,movimento,checkPosInim)
+            checkPosInim = enemy.moveEnemy(janela,player,minotauro,movimentoInimigo,checkPosInim)
             if checkPosInim==0:
                 if (minotauro.x<player.x and minotauro.x>0):
                     minotauro = enemy.SetEnemy(minotauro_Dir_Run,minotauro)
                     minotauro.update()
                 if minotauro.x==player.x and minotauro.y == player.y:
                     minotauro = enemy.SetEnemy(minotauro_Dir,minotauro)
+                if (invencibility>80):
+                    minotauro = enemy.SetEnemyAttack(minotauro_attack,minotauro,cenario,invencibility)
+                    minotauro.update()
             else:
                 if (minotauro.x>player.x and minotauro.x<janela.width):
                     minotauro = enemy.SetEnemy(minotauro_Esq_Run,minotauro)
                     minotauro.update()
                 if minotauro.x==player.x and minotauro.y==player.y:
                     minotauro = enemy.SetEnemy(minotauro_Esq,minotauro)
+                if (invencibility>80):
+                    minotauro = enemy.SetEnemyAttack(minotauro_attack_Esq,minotauro,cenario,invencibility)
+                    minotauro.update()
+            
+            if summon:
+                if (vidasMinotauro>0):
+                    minotauro.draw()
+                    if (vidasMinotauro<=(vidasInimigo/2 + 0.5)):
+                        #auraMinotauro.draw()
+                        movimentoInimigo=movimentoRage
+                    vidasMinotauro = enemy.hit(listaProjeteisE,listaProjeteisD,minotauro,vidasMinotauro)
+                    enemy.lifeMobs(minotauro,minotauro_Dir,vidasMinotauro,dificuldade)
+                    if invencibility ==0:
+                        vidasPlayer,invencibility = enemy.enemy_melee_attack(minotauro,player,vidasPlayer,invencibility)
+                else:
+                    movimentoInimigo=movimentoNormal
             
             if ((player.collided(saida)) and vidasMinotauro<=0):
                 cenario+=1
                 player.set_position(0,janela.height-player.height)
                 summon=False
-            
+                mixer.music.stop()
+        
         elif cenario==2:
             cenarioCastelo.draw()
             sangue.draw()
             chao = chaoCastelo
             objetivo = objetivoCastelo
             
+            # Inicio a musica de batalha
+            if musica==0:
+                mixer.music.load("Music/CastleBattle.wav")
+                mixer.music.set_volume(0.4)
+                mixer.music.play(-1)
+                musica+=1
+            
             # Crio a movimentacao do guarda
-            checkPosInim = enemy.moveEnemy(janela,player,guarda,movimento,checkPosInim)
+            checkPosInim = enemy.moveEnemy(janela,player,guarda,movimentoInimigo,checkPosInim)
             if checkPosInim==0:
                 if (guarda.x<player.x and guarda.x>0):
                     guarda = enemy.SetEnemy(guardas_Dir_Run,guarda)
                     guarda.update()
                 if guarda.x == player.x and guarda.y==player.y:
                     guarda = enemy.SetEnemy(guardas_Dir,guarda)
+                if (invencibility>80):
+                    guarda = enemy.SetEnemyAttack(guardas_Attack_Dir,guarda,cenario,invencibility)
+                    guarda.update()
             else:
                 if (guarda.x>player.x and minotauro.x<janela.width):
                     guarda = enemy.SetEnemy(guardas_Esq_Run,guarda)
                     guarda.update()
                 if guarda.x == player.x and guarda.y==player.y:
                     guarda = enemy.SetEnemy(guardas_Esq,guarda)
-        
+                if (invencibility>80):
+                    guarda = enemy.SetEnemyAttack(guardas_Attack_Esq,guarda,cenario,invencibility)
+                    guarda.update()
             # Crio a movimentacao do cultista
-            enemy.moveEnemyRanged(janela,player,cultista,movimento)
-            if (cultista.x>player.x and cultista.x<janela.width):
-                cultista = enemy.SetEnemy(cultista_Esq_Run,cultista)
+            enemy.moveEnemyRanged(janela,player,cultista,movimentoInimigo)
+            if (delayInimigo<30) or (delayInimigo>115):
+                cultista = enemy.SetEnemy(cultista_Attack_Esq,cultista)
                 cultista.update()
-            if cultista.x == player.x and cultista.y == player.y:
-                cultista = enemy.SetEnemy(cultista_Esq,cultista)
+            else:
+                if (cultista.x>player.x and cultista.x<janela.width and delayInimigo>10):
+                    cultista = enemy.SetEnemy(cultista_Esq_Run,cultista)
+                    cultista.update()
+                if cultista.x == player.x and cultista.y == player.y and delayInimigo>10:
+                    cultista = enemy.SetEnemy(cultista_Esq,cultista)
+            
+            if summon:
+                # Desenho o cultista
+                if (vidasCultista>0):
+                    cultista.draw()
+                    if (vidasCultista<=round(vidasInimigo/2)):
+                        #auraCultista.draw()
+                        velProjetilInimigo=velProjetilInimigoRage
+                    vidasCultista = enemy.hit(listaProjeteisE,listaProjeteisD,cultista,vidasCultista)
+                    enemy.lifeMobs(cultista,cultista,vidasCultista,dificuldade)
+                    if invencibility==0:
+                        vidasPlayer,invencibility = enemy.enemy_ranged_attack(listaProjeteisInimigos,player,vidasPlayer,invencibility)
+                    if (delayInimigo==0):
+                        enemy.criaProjetilInimigo(cultista,listaProjeteisInimigos)
+                        delayInimigo = shooting.recargaCultistaInimigo(dificuldade,delayInimigo)
+                    
+                else:
+                    velProjetilInimigo=velProjetilInimigoNormal
+
+                # Desenho o guarda
+                if (vidasGuarda>0):
+                    guarda.draw()
+                    if (vidasGuarda<=round(vidasInimigo/2)):                    
+                        #auraGuarda.draw()
+                        movimentoInimigo=movimentoRage
+                    vidasGuarda = enemy.hit(listaProjeteisE,listaProjeteisD,guarda,vidasGuarda)
+                    enemy.lifeMobs(guarda,guarda,vidasGuarda,dificuldade)
+                    if invencibility ==0:
+                        vidasPlayer,invencibility = enemy.enemy_melee_attack(guarda,player,vidasPlayer,invencibility)
+                else:
+                    movimentoInimigo=movimentoNormal
             
             if ((player.collided(sangue)) and (vidasCultista<=0 and vidasGuarda<=0)):
                 pop_up.draw()
@@ -365,7 +451,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                 if mouseClick.is_button_pressed(1) and mouseClick.is_over_object(continueButton):
                     cenario+=1
                     player.set_position(0,janela.height/2)
-                    
+                    mixer.music.stop()      
         
         elif cenario==3:
             hitBoxPlayer.draw()
@@ -374,8 +460,15 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             objetivo = objetivoDungeon
             objetivo.draw()
             
+            # Inicio a musica de batalha
+            if musica==1:
+                mixer.music.load("Music/FinalBattle.wav")
+                mixer.music.set_volume(0.4)
+                mixer.music.play(-1)
+                musica+=1
+            
             # Crio a movimentacao do Caebralum
-            checkPosInim = enemy.moveEnemy(janela,player,caebralum,movimento,checkPosInim)
+            checkPosInim = enemy.moveEnemy(janela,player,caebralum,movimentoInimigoBoss,checkPosInim)
             if checkPosInim==0:
                 if (caebralum.x<player.x and caebralum.x>0):
                     caebralum = enemy.SetEnemy(caebralum_Dir_Run,caebralum)
@@ -389,10 +482,28 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                 if caebralum.x == player.x and caebralum.y == player.y:
                     caebralum = enemy.SetEnemy(caebralum_Esq,caebralum)
             
+            if summon:
+                # Desenho o Caebralum
+                if (vidasCaebralum>0):
+                    caebralum.draw()
+                    if (vidasCaebralum>round(vidasInimigo)):
+                        #auraCaebralum.draw()
+                        #if player.collided_perfect(auraCaebralum):
+                        #    vidasPlayer-=1
+                        movimentoInimigoBoss=movimentoRageBoss
+                    vidasCaebralum = enemy.hit(listaProjeteisE,listaProjeteisD,caebralum,vidasCaebralum)
+                    enemy.lifeBoss(janela,vidasCaebralum,dificuldade)
+                    if invencibility ==0:
+                        vidasPlayer,invencibility = enemy.enemy_melee_Boss_attack(caebralum,player,vidasPlayer,invencibility)
+                    if delayRugido>0:
+                        delayRugido-=1
+                else:
+                    movimentoInimigo=movimentoNormal
+            
             # Crio o latido do Boss
             if delayRugido==0:
                 rugido = mixer.Sound("Music/Rugido.wav")
-                rugido.set_volume(0.3)
+                rugido.set_volume(0.2)
                 mixer.find_channel().play(rugido)
                 delayRugido=600
             
@@ -435,7 +546,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         Player.BarraDeClone(tempoDeRecargaClone)
         
         # Ativo e desativo a habilidade "Dash"
-        dashTime,delayDash,cargaDeDash,checkDash = Player.dash(teclado,dashTime,delayDash,cargaDeDash,checkPos,checkDash)
+        dashTime,delayDash,cargaDeDash,checkDash,delayDash2 = Player.dash(teclado,dashTime,delayDash,cargaDeDash,checkPos,checkDash,delayDash2)
         if checkDash==1:
             player = Player.SetPlayer(player_Dash_Esq,player)
             if dashTime>0:
@@ -451,6 +562,8 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             else:
                 checkDash=0
         
+        if delayDash2>0:
+            delayDash2-=1
         if delayDash<=0 and cargaDeDash<3:
             cargaDeDash+=1
             delayDash=180
@@ -463,9 +576,10 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             
         # Chamo a funçao que irá lidar com a criaçao dos tiros
         if (teclado.key_pressed("SPACE") and delay==0):
-            Player.criaProjetil(player,listaProjeteisE,listaProjeteisD,checkPos)
-            delay = shooting.recarga(movimentoInimigo,delay)
-            tempoDeRecargaTiro= round(delay/60)
+            if (clone==0):
+                Player.criaProjetil(player,listaProjeteisE,listaProjeteisD,checkPos)
+                delay = shooting.recarga(dificuldade,delay)
+                tempoDeRecargaTiro= round(delay/60)
         Player.BarraDeTiro(tempoDeRecargaTiro)
 
         # Faço o movimento dos tiros aliados
@@ -482,13 +596,13 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             EndOfGame.derrota()
         
         # Desenho as instruçoes
-        if player.x>=50 and cenario==1:
+        if player.x>=80 and cenario==1:
             objetivo.draw()
             summon = True
             if spawn==0:
-                minotauro.set_position(janela.width-minotauro.width,(janela.height/2)-(minotauro.height/2))
+                minotauro.set_position(janela.width-minotauro.width,janela.height/2)
                 spawn+=1
-        elif player.x>=50 and cenario==2:
+        elif player.x>=80 and cenario==2:
             objetivo.draw()
             summon = True
             if spawn==1:
@@ -496,63 +610,6 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                 guarda.set_position(janela.width-guarda.width,janela.height/2+guarda.height)
                 spawn+=1
         
-        # Desenho os monstros
-        if cenario==1 and (summon==True):
-            if (vidasMinotauro>0):
-                minotauro.draw()
-                if (vidasMinotauro<=(vidasInimigo/2 + 0.5)):
-                    #auraMinotauro.draw()
-                    movimentoInimigo=movimentoRage
-                vidasMinotauro = enemy.hit(listaProjeteisE,listaProjeteisD,minotauro,vidasMinotauro)
-                enemy.lifeMobs(minotauro,vidasMinotauro,dificuldade)
-                if invencibility ==0:
-                    vidasPlayer,invencibility = enemy.enemy_melee_attack(minotauro,player,vidasPlayer,invencibility)
-            else:
-                movimentoInimigo=movimentoNormal
-        if cenario==2 and (summon==True):
-            # Desenho o cultista
-            if (vidasCultista>0):
-                cultista.draw()
-                if (vidasCultista<=round(vidasInimigo/2)):
-                    #auraCultista.draw()
-                    velProjetilInimigo=velProjetilInimigoRage
-                vidasCultista = enemy.hit(listaProjeteisE,listaProjeteisD,cultista,vidasCultista)
-                enemy.lifeMobs(cultista,vidasCultista,dificuldade)
-                if invencibility==0:
-                    vidasPlayer,invencibility = enemy.enemy_ranged_attack(listaProjeteisInimigos,player,vidasPlayer,invencibility)
-                if (delayInimigo==0):
-                    enemy.criaProjetilInimigo(cultista,listaProjeteisInimigos)
-                    delayInimigo = shooting.recargaCultistaInimigo(movimentoInimigo,delayInimigo)
-            else:
-                velProjetilInimigo=velProjetilInimigoNormal
-
-            # Desenho o guarda
-            if (vidasGuarda>0):
-                guarda.draw()
-                if (vidasGuarda<=round(vidasInimigo/2)):                    
-                    #auraGuarda.draw()
-                    movimentoInimigo=movimentoRage
-                vidasGuarda = enemy.hit(listaProjeteisE,listaProjeteisD,guarda,vidasGuarda)
-                enemy.lifeMobs(guarda,vidasGuarda,dificuldade)
-                if invencibility ==0:
-                    vidasPlayer,invencibility = enemy.enemy_melee_attack(guarda,player,vidasPlayer,invencibility)
-            else:
-                movimentoInimigo=movimentoNormal
-        if cenario==3 and (summon==True):
-            # Desenho o Caebralum
-            if (vidasCaebralum>0):
-                caebralum.draw()
-                if (vidasCaebralum>round(vidasInimigo)):
-                    #auraCaebralum.draw()
-                    movimentoInimigo=movimentoRage
-                vidasCaebralum = enemy.hit(listaProjeteisE,listaProjeteisD,caebralum,vidasCaebralum)
-                enemy.lifeBoss(janela,vidasCaebralum,dificuldade)
-                if invencibility ==0:
-                    vidasPlayer,invencibility = enemy.enemy_melee_Boss_attack(caebralum,player,vidasPlayer,invencibility)
-                if delayRugido>0:
-                    delayRugido-=1
-            else:
-                movimentoInimigo=movimentoNormal
         # Faço o movimento dos tiros inimigos
         enemy.magicAttackInimigo(janela,player,vidasPlayer,listaProjeteisInimigos,velProjetil,invencibility)
         if delayInimigo>0:

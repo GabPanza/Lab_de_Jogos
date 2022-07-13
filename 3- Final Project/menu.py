@@ -27,7 +27,7 @@ def menu():
         fundo.draw()
         
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(playButton)):
-            instrucao.instrucao(movimentoInimigo=100)
+            instrucao.instrucao(movimentoInimigo=200)
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(diffButton)):
             diff.diff(janela)
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(leaveButton)):

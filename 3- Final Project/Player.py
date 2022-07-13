@@ -1,3 +1,4 @@
+from turtle import delay
 from PPlay.window import*
 from PPlay.animation import*
 from PPlay.sprite import*
@@ -75,16 +76,17 @@ def clone(teclado,player,player_Clone,player_Clone_Esq,player_Clone_Dir,clone,de
         tempoDeRecargaClone=3
     return player,clone,delayClone,tempoDeRecargaClone
 
-def dash(teclado,dashTime,delayDash,cargaDeDash,checkPos,checkDash):
-    if (teclado.key_pressed("LEFT_SHIFT") and cargaDeDash>0):
+def dash(teclado,dashTime,delayDash,cargaDeDash,checkPos,checkDash,delayDash2):
+    if (teclado.key_pressed("LEFT_SHIFT") and cargaDeDash>0 and delayDash2<=0):
         dashTime=15
-        delayDash=180
         cargaDeDash-=1
+        delayDash=180
+        delayDash2=16
         if checkPos==1:
             checkDash=1
         if checkPos==0:
             checkDash=2
-    return dashTime,delayDash,cargaDeDash,checkDash
+    return dashTime,delayDash,cargaDeDash,checkDash,delayDash2
 
 def BarraDeTiro(tempoDeRecarga):
     if tempoDeRecarga==3:

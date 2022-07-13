@@ -13,7 +13,7 @@ def vitoria():
     
     # Adiciono musica
     mixer.music.load("Music/VictoryThemeSoundtrack.wav")
-    mixer.music.set_volume(0.3)
+    mixer.music.set_volume(0.4)
     mixer.music.play(-1)
     
     while True:
@@ -43,7 +43,7 @@ def derrota():
     
     # Adiciono musica
     mixer.music.load("Music/DefeatThemeSoundtrack.wav")
-    mixer.music.set_volume(0.3)
+    mixer.music.set_volume(0.4)
     mixer.music.play(-1)
     
     while True:

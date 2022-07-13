@@ -1,18 +1,18 @@
 import pygame
 
-def recarga(movimentoInimigo,delay):
-    if (movimentoInimigo==100 or movimentoInimigo==-100):
+def recarga(dificuldade,delay):
+    if dificuldade=="facil":
         delay = 180
-    if (movimentoInimigo==120 or movimentoInimigo==-120):
+    if dificuldade=="medio":
         delay = 150
-    if (movimentoInimigo==150 or movimentoInimigo==-150):
+    if dificuldade=="dificil":
         delay = 120
     return delay
-def recargaCultistaInimigo(movimentoInimigo,delayInimigo):
-    if (movimentoInimigo==100 or movimentoInimigo==-100):
+def recargaCultistaInimigo(dificuldade,delayInimigo):
+    if dificuldade=="facil":
         delayInimigo = 150
-    if (movimentoInimigo==120 or movimentoInimigo==-120):
+    if dificuldade=="medio":
         delayInimigo = 125
-    if (movimentoInimigo==150 or movimentoInimigo==-150):
+    if dificuldade=="dificil":
         delayInimigo = 100
     return delayInimigo

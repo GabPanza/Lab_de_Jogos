@@ -19,11 +19,11 @@ def diff(janela):
             menu.menu()
         
         if(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(facil)):
-            instrucao.instrucao(movimentoInimigo=100)
+            instrucao.instrucao(movimentoInimigo=200)
         elif(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(medio)):
-            instrucao.instrucao(movimentoInimigo=120)
+            instrucao.instrucao(movimentoInimigo=250)
         elif(mouseClick.is_button_pressed(1) and mouseClick.is_over_object(dificil)):
-            instrucao.instrucao(movimentoInimigo=150)
+            instrucao.instrucao(movimentoInimigo=300)
         
         facil.set_position(520, 250)
         medio.set_position(520, 300)
