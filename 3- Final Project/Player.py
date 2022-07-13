@@ -75,69 +75,69 @@ def clone(teclado,player,player_Clone,player_Clone_Esq,player_Clone_Dir,clone,de
         tempoDeRecargaClone=3
     return player,clone,delayClone,tempoDeRecargaClone
 
-def dash(teclado,dashTime,delayDash,tempoDeRecargaDash,checkPos,checkDash):
-    if (teclado.key_pressed("LEFT_SHIFT") and delayDash==0):
+def dash(teclado,dashTime,delayDash,cargaDeDash,checkPos,checkDash):
+    if (teclado.key_pressed("LEFT_SHIFT") and cargaDeDash>0):
         dashTime=15
         delayDash=180
-        tempoDeRecargaDash=3
+        cargaDeDash-=1
         if checkPos==1:
             checkDash=1
         if checkPos==0:
             checkDash=2
-    return dashTime,delayDash,tempoDeRecargaDash,checkDash
+    return dashTime,delayDash,cargaDeDash,checkDash
 
 def BarraDeTiro(tempoDeRecarga):
     if tempoDeRecarga==3:
         barraDeRecargaEmpty = Sprite("Images/Emptybar.png",1)
-        barraDeRecargaEmpty.set_position(150,77)
+        barraDeRecargaEmpty.set_position(150,79)
         barraDeRecargaEmpty.draw()
     if tempoDeRecarga==2:
         barraDeRecargaLow = Sprite("Images/ShootBarLow.png",1)
-        barraDeRecargaLow.set_position(150,77)
+        barraDeRecargaLow.set_position(150,79)
         barraDeRecargaLow.draw()
     if tempoDeRecarga==1:
         barraDeRecargaMedium = Sprite("Images/ShootBarMedium.png",1)
-        barraDeRecargaMedium.set_position(150,77)
+        barraDeRecargaMedium.set_position(150,79)
         barraDeRecargaMedium.draw()
     if tempoDeRecarga==0:
         barraDeRecargaFull = Sprite("Images/ShootBarFull.png",1)
-        barraDeRecargaFull.set_position(150,77)
+        barraDeRecargaFull.set_position(150,79)
         barraDeRecargaFull.draw()
 
 def BarraDeClone(tempoDeRecarga):
     if tempoDeRecarga==3:
         barraDeRecargaEmpty = Sprite("Images/Emptybar.png",1)
-        barraDeRecargaEmpty.set_position(75,127)
+        barraDeRecargaEmpty.set_position(75,129)
         barraDeRecargaEmpty.draw()
     if tempoDeRecarga==2:
         barraDeRecargaLow = Sprite("Images/CloneBarLow.png",1)
-        barraDeRecargaLow.set_position(75,127)
+        barraDeRecargaLow.set_position(75,129)
         barraDeRecargaLow.draw()
     if tempoDeRecarga==1:
         barraDeRecargaMedium = Sprite("Images/CloneBarMedium.png",1)
-        barraDeRecargaMedium.set_position(75,127)
+        barraDeRecargaMedium.set_position(75,129)
         barraDeRecargaMedium.draw()
     if tempoDeRecarga==0:
         barraDeRecargaFull = Sprite("Images/CloneBarFull.png",1)
-        barraDeRecargaFull.set_position(75,127)
+        barraDeRecargaFull.set_position(75,129)
         barraDeRecargaFull.draw()
 
-def BarraDeDash(tempoDeRecarga):
-    if tempoDeRecarga==3:
-        barraDeRecargaEmpty = Sprite("Images/Emptybar.png",1)
-        barraDeRecargaEmpty.set_position(100,102)
+def BarraDeDash(cargaDeDash):
+    if cargaDeDash==0:
+        barraDeRecargaEmpty = Sprite("Images/DashBarEmpty.png",1)
+        barraDeRecargaEmpty.set_position(75,102)
         barraDeRecargaEmpty.draw()
-    if tempoDeRecarga==2:
+    if cargaDeDash==1:
         barraDeRecargaLow = Sprite("Images/DashBarLow.png",1)
-        barraDeRecargaLow.set_position(100,102)
+        barraDeRecargaLow.set_position(75,105)
         barraDeRecargaLow.draw()
-    if tempoDeRecarga==1:
+    if cargaDeDash==2:
         barraDeRecargaMedium = Sprite("Images/DashBarMedium.png",1)
-        barraDeRecargaMedium.set_position(100,102)
+        barraDeRecargaMedium.set_position(75,105)
         barraDeRecargaMedium.draw()
-    if tempoDeRecarga==0:
+    if cargaDeDash==3:
         barraDeRecargaFull = Sprite("Images/DashBarFull.png",1)
-        barraDeRecargaFull.set_position(100,102)
+        barraDeRecargaFull.set_position(75,105)
         barraDeRecargaFull.draw()
     
 def life(vidas,dificuldade):

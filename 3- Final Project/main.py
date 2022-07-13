@@ -265,7 +265,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     dashTime=0
     delayDash=0
     tempoDeRecargaTiro=0
-    tempoDeRecargaDash=0
+    cargaDeDash=1
     tempoDeRecargaClone=0
     if movimentoInimigo==100:
         dificuldade="facil"
@@ -420,7 +420,6 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         
         # Ativo e desativo a habilidade "Clone"
         player,clone,delayClone,tempoDeRecargaClone = Player.clone(teclado,player,player_Clone,player_Clone_Esq,player_Clone_Dir,clone,delayClone,tempoDeRecargaClone,checkPos)
-        
         if delayClone>0:
             delayClone-=1
         if delayClone%60==0 and tempoDeRecargaClone>0:
@@ -428,7 +427,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         Player.BarraDeClone(tempoDeRecargaClone)
         
         # Ativo e desativo a habilidade "Dash"
-        dashTime,delayDash,tempoDeRecargaDash,checkDash = Player.dash(teclado,dashTime,delayDash,tempoDeRecargaDash,checkPos,checkDash)
+        dashTime,delayDash,cargaDeDash,checkDash = Player.dash(teclado,dashTime,delayDash,cargaDeDash,checkPos,checkDash)
         if checkDash==1:
             player = Player.SetPlayer(player_Dash_Esq,player)
             if dashTime>0:
@@ -444,11 +443,12 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             else:
                 checkDash=0
         
+        if delayDash<=0 and cargaDeDash<3:
+            cargaDeDash+=1
+            delayDash=180
         if delayDash>0:
             delayDash-=1
-        if delayDash%60==0 and tempoDeRecargaDash>0:
-            tempoDeRecargaDash-=1
-        Player.BarraDeDash(tempoDeRecargaDash)
+        Player.BarraDeDash(cargaDeDash)
 
         # Chamo a funçao que lidará com o desenho da barra de vida do player
         Player.life(vidasPlayer,dificuldade)
