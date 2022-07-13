@@ -576,10 +576,9 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             
         # Chamo a funçao que irá lidar com a criaçao dos tiros
         if (teclado.key_pressed("SPACE") and delay==0):
-            if (clone==0):
-                Player.criaProjetil(player,listaProjeteisE,listaProjeteisD,checkPos)
-                delay = shooting.recarga(dificuldade,delay)
-                tempoDeRecargaTiro= round(delay/60)
+            Player.criaProjetil(player,listaProjeteisE,listaProjeteisD,checkPos)
+            delay = shooting.recarga(dificuldade,delay)
+            tempoDeRecargaTiro= round(delay/60)
         Player.BarraDeTiro(tempoDeRecargaTiro)
 
         # Faço o movimento dos tiros aliados
