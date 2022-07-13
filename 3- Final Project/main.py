@@ -501,7 +501,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             if (vidasMinotauro>0):
                 minotauro.draw()
                 if (vidasMinotauro<=(vidasInimigo/2 + 0.5)):
-                    auraMinotauro.draw()
+                    #auraMinotauro.draw()
                     movimentoInimigo=movimentoRage
                 vidasMinotauro = enemy.hit(listaProjeteisE,listaProjeteisD,minotauro,vidasMinotauro)
                 enemy.lifeMobs(minotauro,vidasMinotauro,dificuldade)
@@ -514,7 +514,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             if (vidasCultista>0):
                 cultista.draw()
                 if (vidasCultista<=round(vidasInimigo/2)):
-                    auraCultista.draw()
+                    #auraCultista.draw()
                     velProjetilInimigo=velProjetilInimigoRage
                 vidasCultista = enemy.hit(listaProjeteisE,listaProjeteisD,cultista,vidasCultista)
                 enemy.lifeMobs(cultista,vidasCultista,dificuldade)
@@ -530,7 +530,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             if (vidasGuarda>0):
                 guarda.draw()
                 if (vidasGuarda<=round(vidasInimigo/2)):                    
-                    auraGuarda.draw()
+                    #auraGuarda.draw()
                     movimentoInimigo=movimentoRage
                 vidasGuarda = enemy.hit(listaProjeteisE,listaProjeteisD,guarda,vidasGuarda)
                 enemy.lifeMobs(guarda,vidasGuarda,dificuldade)
@@ -543,7 +543,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             if (vidasCaebralum>0):
                 caebralum.draw()
                 if (vidasCaebralum>round(vidasInimigo)):
-                    auraCaebralum.draw()
+                    #auraCaebralum.draw()
                     movimentoInimigo=movimentoRage
                 vidasCaebralum = enemy.hit(listaProjeteisE,listaProjeteisD,caebralum,vidasCaebralum)
                 enemy.lifeBoss(janela,vidasCaebralum,dificuldade)
