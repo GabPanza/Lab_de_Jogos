@@ -29,6 +29,11 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     # Inicializo o mouse
     mouseClick = janela.get_mouse()
     
+    # Adiciono musica
+    mixer.music.load("Music/EnvironmentMusic.wav")
+    mixer.music.set_volume(0.3)
+    mixer.music.play(-1)
+    
     # Instancio os cenários
     cenarioFloresta = GameImage("Images/Floresta.jpg")
     chaoFloresta = Sprite("Images/FlorestaChao.png",1)
@@ -297,11 +302,6 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             saida = saidaFloresta
             objetivo = objetivoFloresta
             
-            # Adiciono musica
-            mixer.music.load("Music/EnvironmentMusic.wav")
-            mixer.music.set_volume(0.3)
-            mixer.music.play(-1)
-            
             # Crio a movimentacao do minotauro
             checkPosInim = enemy.moveEnemy(janela,player,minotauro,movimento,checkPosInim)
             if checkPosInim==0:
@@ -518,9 +518,9 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             if (vidasCaebralum>0):
                 caebralum.draw()
                 vidasCaebralum = enemy.hit(listaProjeteisE,listaProjeteisD,caebralum,vidasCaebralum)
-                enemy.lifeBoss(janela,caebralum,vidasCaebralum,dificuldade)
+                enemy.lifeBoss(janela,vidasCaebralum,dificuldade)
                 if invencibility ==0:
-                    vidasPlayer,invencibility = enemy.enemy_melee_attack(caebralum,player,vidasPlayer,invencibility)
+                    vidasPlayer,invencibility = enemy.enemy_melee_Boss_attack(caebralum,player,vidasPlayer,invencibility)
                 if delayRugido>0:
                     delayRugido-=1
         

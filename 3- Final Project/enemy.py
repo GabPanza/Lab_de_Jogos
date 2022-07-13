@@ -58,6 +58,12 @@ def enemy_ranged_attack(listaProjeteisInimigo,player,vidasPlayer,delayInv):
             listaProjeteisInimigo.pop(i)
     return vidasPlayer, delayInv
 
+def enemy_melee_Boss_attack(enemy,player,vidasPlayer,delayInv):
+    if enemy.collided(player):
+        vidasPlayer-=2
+        delayInv= 120
+    return vidasPlayer, delayInv
+
 def hit(listaProjeteisE,listaProjeteisD,enemy,vidas):
     for i,projetil in enumerate(listaProjeteisE):
         if projetil.collided(enemy):
@@ -112,37 +118,37 @@ def lifeMobs(enemy,vidas,dificuldade):
 def lifeBoss(janela,vidas,dificuldade):
     # Instancio as barras de vida
     healthBarFull = Sprite("Images/CaebralumLifeFull.png", 1)
-    healthBarFull.set_position(janela.width/2 - healthBarFull.width/2, janela.height-150)
+    healthBarFull.set_position(janela.width/2 - healthBarFull.width/2+50, 0)
     
     healthBarMedium1 = Sprite("Images/CaebralumLifeMedium1.png", 1)
-    healthBarMedium1.set_position(janela.width/2 - healthBarMedium1.width/2, janela.height-150)
+    healthBarMedium1.set_position(janela.width/2 - healthBarMedium1.width/2+50, 0)
     
     healthBarMedium2 = Sprite("Images/CaebralumLifeMedium2.png", 1)
-    healthBarMedium2.set_position(janela.width/2 - healthBarMedium2.width/2, janela.height-150)
+    healthBarMedium2.set_position(janela.width/2 - healthBarMedium2.width/2+50, 0)
 
     healthBarMedium3 = Sprite("Images/CaebralumLifeMedium3.png", 1)
-    healthBarMedium3.set_position(janela.width/2 - healthBarMedium3.width/2, janela.height-150)
+    healthBarMedium3.set_position(janela.width/2 - healthBarMedium3.width/2+50, 0)
 
     healthBarMedium4 = Sprite("Images/CaebralumLifeMedium4.png", 1)
-    healthBarMedium4.set_position(janela.width/2 - healthBarMedium4.width/2, janela.height-150)
+    healthBarMedium4.set_position(janela.width/2 - healthBarMedium4.width/2+50, 0)
     
     healthBarMedium5 = Sprite("Images/CaebralumLifeMedium5.png", 1)
-    healthBarMedium5.set_position(janela.width/2 - healthBarMedium5.width/2, janela.height-150)
+    healthBarMedium5.set_position(janela.width/2 - healthBarMedium5.width/2+50, 0)
 
     healthBarMedium6 = Sprite("Images/CaebralumLifeMedium6.png", 1)
-    healthBarMedium6.set_position(janela.width/2 - healthBarMedium6.width/2, janela.height-150)
+    healthBarMedium6.set_position(janela.width/2 - healthBarMedium6.width/2+50, 0)
     
     healthBarMedium7 = Sprite("Images/CaebralumLifeMedium7.png", 1)
-    healthBarMedium7.set_position(janela.width/2 - healthBarMedium7.width/2, janela.height-150)
+    healthBarMedium7.set_position(janela.width/2 - healthBarMedium7.width/2+50, 0)
 
     healthBarMedium8 = Sprite("Images/CaebralumLifeMedium8.png", 1)
-    healthBarMedium8.set_position(janela.width/2 - healthBarMedium8.width/2, janela.height-150)
+    healthBarMedium8.set_position(janela.width/2 - healthBarMedium8.width/2+50, 0)
 
     healthBarLow = Sprite("Images/CaebralumLifeLow.png", 1)
-    healthBarLow.set_position(janela.width/2 - healthBarLow.width/2, janela.height-150)
+    healthBarLow.set_position(janela.width/2 - healthBarLow.width/2+50, 0)
     
     healthBarEmpty = Sprite("Images/CaebralumLifeEmpty.png", 1)
-    healthBarEmpty.set_position(janela.width/2 - healthBarEmpty.width/2, janela.height-150)
+    healthBarEmpty.set_position(janela.width/2 - healthBarEmpty.width/2+50, 0)
     
     # Desenho a barra de vida desejada
     if dificuldade=="facil":
