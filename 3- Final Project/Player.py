@@ -15,10 +15,10 @@ def SetPlayer(PlayerState,playerAtual):
     return player
 
 def movePlayer(janela,teclado,player,movimento,chao,checkPos):
-    if ((teclado.key_pressed("A") or teclado.key_pressed("LEFT")) and player.x>-5):
+    if ((teclado.key_pressed("A") or teclado.key_pressed("LEFT")) and player.x>0):
         player.x -= movimento * janela.delta_time()
         checkPos=1
-    elif ((teclado.key_pressed("D") or teclado.key_pressed("RIGHT")) and player.x<janela.width-player.width/2):
+    elif ((teclado.key_pressed("D") or teclado.key_pressed("RIGHT")) and player.x<janela.width-player.width):
         player.x += movimento * janela.delta_time()
         checkPos=0
     if ((teclado.key_pressed("W") or teclado.key_pressed("UP")) and player.y+player.height>=chao.y):
@@ -76,8 +76,8 @@ def clone(teclado,player,player_Clone,player_Clone_Esq,player_Clone_Dir,clone,de
         tempoDeRecargaClone=3
     return player,clone,delayClone,tempoDeRecargaClone
 
-def dash(teclado,dashTime,delayDash,cargaDeDash,checkPos,checkDash,delayDash2):
-    if (teclado.key_pressed("LEFT_SHIFT") and cargaDeDash>0 and delayDash2<=0):
+def dash(player,janela,teclado,dashTime,delayDash,cargaDeDash,checkPos,checkDash,delayDash2):
+    if (teclado.key_pressed("LEFT_SHIFT") and (cargaDeDash>0 and delayDash2<=0) and (player.x<janela.width-player.width or player.x>0)):
         dashTime=15
         cargaDeDash-=1
         delayDash=180

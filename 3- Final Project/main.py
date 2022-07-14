@@ -258,6 +258,10 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     caebralum_Dir.x = janela.width-caebralum_Dir.width
     caebralum_Dir.y = janela.height-caebralum_Dir.height
     
+    caebralumFireCircle = Sprite("Images/CaebralumCircleFire.png", 2)
+    caebralumFireCircle.x = janela.width-caebralumFireCircle.width
+    caebralumFireCircle.y = janela.height-caebralumFireCircle.height
+    
     caebralum = caebralum_Esq
     vidasCaebralum = vidasInimigo * 2
     
@@ -419,7 +423,6 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                 if (vidasCultista>0):
                     cultista.draw()
                     if (vidasCultista<=round(vidasInimigo/2)):
-                        #auraCultista.draw()
                         velProjetilInimigo=velProjetilInimigoRage
                     vidasCultista = enemy.hit(listaProjeteisE,listaProjeteisD,cultista,vidasCultista)
                     enemy.lifeMobs(cultista,cultista,vidasCultista,dificuldade)
@@ -436,7 +439,6 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                 if (vidasGuarda>0):
                     guarda.draw()
                     if (vidasGuarda<=round(vidasInimigo/2)):                    
-                        #auraGuarda.draw()
                         movimentoInimigo=movimentoRage
                     vidasGuarda = enemy.hit(listaProjeteisE,listaProjeteisD,guarda,vidasGuarda)
                     enemy.lifeMobs(guarda,guarda,vidasGuarda,dificuldade)
@@ -482,14 +484,27 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                 if caebralum.x == player.x and caebralum.y == player.y:
                     caebralum = enemy.SetEnemy(caebralum_Esq,caebralum)
             
+            # Ativamos e desativamos as armadilhas
+            hitBoxPlayer.x=player.x
+            hitBoxPlayer.y=player.y
+            if hitBoxPlayer.collided_perfect(trapDungeonOff) and invencibility==0:
+                vidasPlayer-=1
+                invencibility=120
+                trapTime=60
+            if trapTime>0:
+                trapDungeonOn.draw()
+                trapTime-=1
+            
             if summon:
                 # Desenho o Caebralum
                 if (vidasCaebralum>0):
                     caebralum.draw()
-                    if (vidasCaebralum>round(vidasInimigo)):
-                        #auraCaebralum.draw()
-                        #if player.collided_perfect(auraCaebralum):
-                        #    vidasPlayer-=1
+                    if (vidasCaebralum<round(vidasInimigo)):
+                        caebralumFireCircle.set_position(caebralum.x-50,caebralum.y-50)
+                        caebralumFireCircle.draw()
+                        if hitBoxPlayer.collided_perfect(caebralumFireCircle) and invencibility<=0:
+                            vidasPlayer-=1
+                            invencibility=120
                         movimentoInimigoBoss=movimentoRageBoss
                     vidasCaebralum = enemy.hit(listaProjeteisE,listaProjeteisD,caebralum,vidasCaebralum)
                     enemy.lifeBoss(janela,vidasCaebralum,dificuldade)
@@ -506,17 +521,6 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                 rugido.set_volume(0.2)
                 mixer.find_channel().play(rugido)
                 delayRugido=600
-            
-            # Ativamos e desativamos as armadilhas
-            hitBoxPlayer.x=player.x
-            hitBoxPlayer.y=player.y
-            if hitBoxPlayer.collided_perfect(trapDungeonOff) and invencibility==0:
-                vidasPlayer-=1
-                invencibility=120
-                trapTime=60
-            if trapTime>0:
-                trapDungeonOn.draw()
-                trapTime-=1
         
         # Checo o tempo de invencibilidade apos sofrer dano
         if invencibility>0:
@@ -546,10 +550,10 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
         Player.BarraDeClone(tempoDeRecargaClone)
         
         # Ativo e desativo a habilidade "Dash"
-        dashTime,delayDash,cargaDeDash,checkDash,delayDash2 = Player.dash(teclado,dashTime,delayDash,cargaDeDash,checkPos,checkDash,delayDash2)
+        dashTime,delayDash,cargaDeDash,checkDash,delayDash2 = Player.dash(player,janela,teclado,dashTime,delayDash,cargaDeDash,checkPos,checkDash,delayDash2)
         if checkDash==1:
             player = Player.SetPlayer(player_Dash_Esq,player)
-            if dashTime>0:
+            if dashTime>0 and player.x>5:
                 player.x -= movimento* 4 * janela.delta_time()
                 dashTime-=1
             else:
