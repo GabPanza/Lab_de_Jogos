@@ -64,10 +64,10 @@ def clone(teclado,player,player_Clone,player_Clone_Esq,player_Clone_Dir,clone,de
             player_Clone.x=player.x
             player_Clone.y=player.y
     if clone==1:
-            if delayClone<=0:
-                clone+=1
-            else:
-                player_Clone.draw()
+        if delayClone<=0:
+            clone+=1
+        else:
+            player_Clone.draw()
     if clone==2 and delayClone==0:
         player.x=player_Clone.x
         player.y=player_Clone.y
@@ -91,19 +91,19 @@ def dash(player,janela,teclado,dashTime,delayDash,cargaDeDash,checkPos,checkDash
 def BarraDeTiro(tempoDeRecarga):
     if tempoDeRecarga==3:
         barraDeRecargaEmpty = Sprite("Images/Emptybar.png",1)
-        barraDeRecargaEmpty.set_position(150,79)
+        barraDeRecargaEmpty.set_position(140,79)
         barraDeRecargaEmpty.draw()
     if tempoDeRecarga==2:
         barraDeRecargaLow = Sprite("Images/ShootBarLow.png",1)
-        barraDeRecargaLow.set_position(150,79)
+        barraDeRecargaLow.set_position(140,79)
         barraDeRecargaLow.draw()
     if tempoDeRecarga==1:
         barraDeRecargaMedium = Sprite("Images/ShootBarMedium.png",1)
-        barraDeRecargaMedium.set_position(150,79)
+        barraDeRecargaMedium.set_position(140,79)
         barraDeRecargaMedium.draw()
     if tempoDeRecarga==0:
         barraDeRecargaFull = Sprite("Images/ShootBarFull.png",1)
-        barraDeRecargaFull.set_position(150,79)
+        barraDeRecargaFull.set_position(140,79)
         barraDeRecargaFull.draw()
 
 def BarraDeClone(tempoDeRecarga):
