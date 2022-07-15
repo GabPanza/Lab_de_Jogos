@@ -27,7 +27,7 @@ def vitoria():
         janela.draw_text(("Parabéns, nova Rainha. O reino está salvo desta criatura graças a você!"), (janela.width/2)-480, janela.height/2-100, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
         janela.draw_text(("Créditos:"), janela.width/2-100, janela.height-160, size=36, font_name="Arial", bold=True,color=[255, 255, 0])
         janela.draw_text(("Criadores: Gabriel Panza, João Vitor de Santana"), (janela.width/2)-360, janela.height-110, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
-        janela.draw_text(("Colaboradores: Joao Vitor Moraes"), (janela.width/2)-360, janela.height-60, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
+        janela.draw_text(("Colaboradores: Joao Vitor Moraes, Gustavo Medeiros"), (janela.width/2)-360, janela.height-60, size=28, font_name="Arial", bold=True,color=[255, 255, 0])
 
         # Define um titulo pra janela
         janela.set_title("A Ascensão da Feiticeira")

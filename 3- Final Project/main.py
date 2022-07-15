@@ -1,3 +1,11 @@
+import os,sys
+
+dirpath = os.getcwd()
+sys.path.append(dirpath)
+
+if getattr(sys, "frozen", False):
+    os.chdir(sys._MEIPASS)
+
 from PPlay.window import*
 from PPlay.animation import*
 from PPlay.sprite import*
@@ -158,8 +166,6 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     minotauro_Rage_Esq.x = janela.width-minotauro_Rage_Esq.width
     minotauro_Rage_Esq.y = janela.height-minotauro_Rage_Esq.height
 
-
-
     minotauro = minotauro_Esq
     vidasMinotauro = vidasInimigo
     
@@ -268,8 +274,9 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     caebralumFireCircle = Sprite("Images/CaebralumCircleFire.png", 2)
     caebralumFireCircle.x = janela.width-caebralumFireCircle.width
     caebralumFireCircle.y = janela.height-caebralumFireCircle.height
+    caebralumFireCircle.set_total_duration(500)
     
-    caebralumFireCircle_Idle = Sprite("Images/CaebralumCircleFire_Idle.png", 2)
+    caebralumFireCircle_Idle = Sprite("Images/CaebralumCircleFire_Idle.png", 1)
     caebralumFireCircle_Idle.x = janela.width-caebralumFireCircle.width
     caebralumFireCircle_Idle.y = janela.height-caebralumFireCircle.height
     
@@ -319,8 +326,8 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
     if movimentoInimigo==300:
         dificuldade="dificil"
         movimentoRage=600
-    movimentoInimigoBoss=movimentoInimigo/2
-    movimentoRageBoss=movimentoRage/2
+    movimentoInimigoBoss=movimentoInimigo/2 + 50
+    movimentoRageBoss=movimentoRage/2 + 50
     
     # Defino o frame per second
     FPS = 60
@@ -348,7 +355,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             # Inicio a musica de batalha
             if musica==0:
                 mixer.music.load("Music/ForestBattle.wav")
-                mixer.music.set_volume(0.4)
+                mixer.music.set_volume(0.3)
                 mixer.music.play(-1)
                 musica+=1
             
@@ -395,6 +402,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                     movimentoInimigo=movimentoNormal
             
             if ((player.collided(saida)) and vidasMinotauro<=0):
+                clone=0
                 cenario+=1
                 player.set_position(0,janela.height-player.height)
                 summon=False
@@ -409,7 +417,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             # Inicio a musica de batalha
             if musica==1:
                 mixer.music.load("Music/CastleBattle.wav")
-                mixer.music.set_volume(0.4)
+                mixer.music.set_volume(0.3)
                 mixer.music.play(-1)
                 musica+=1
             
@@ -478,6 +486,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                 pop_up.draw()
                 continueButton.draw()
                 if mouseClick.is_button_pressed(1) and mouseClick.is_over_object(continueButton):
+                    clone=0
                     cenario+=1
                     player.set_position(0,janela.height/2)
                     mixer.music.stop()     
@@ -494,7 +503,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             # Inicio a musica de batalha
             if musica==2:
                 mixer.music.load("Music/FinalBattle.wav")
-                mixer.music.set_volume(0.4)
+                mixer.music.set_volume(0.3)
                 mixer.music.play(-1)
                 musica+=1
             
@@ -530,6 +539,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
                     caebralum.draw()
                     if (vidasCaebralum<=vidasInimigo):
                         caebralumFireCircle.set_position(caebralum.x-50,caebralum.y-50)
+                        caebralumFireCircle.update()
                         caebralumFireCircle.draw()
                         hitBoxFireCircle.x = caebralumFireCircle.x
                         hitBoxFireCircle.y = caebralumFireCircle.y
@@ -549,7 +559,7 @@ def game(vidas,vidasInimigo,movimento,movimentoInimigo,velProjetil,velProjetilIn
             # Crio o latido do Boss
             if delayRugido==0:
                 rugido = mixer.Sound("Music/Rugido.wav")
-                rugido.set_volume(0.2)
+                rugido.set_volume(0.1)
                 mixer.find_channel().play(rugido)
                 delayRugido=600
         
